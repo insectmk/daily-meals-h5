@@ -4,7 +4,7 @@
 
 <h1 align="center">vue3-vant-mobile</h1>
 
-English / [简体中文](./README.zh-CN.md)
+[English](./README.en) / 简体中文
 
 An mobile web apps template based on the Vue 3 ecosystem.
 
@@ -20,7 +20,7 @@ An mobile web apps template based on the Vue 3 ecosystem.
 
 [文档](https://easy-temps.github.io/easy-docs/vue3-vant-mobile/) / [交流](https://github.com/easy-temps/vue3-vant-mobile/issues/56) / [反馈](https://github.com/easy-temps/vue3-vant-mobile/issues)
 
-🖥 <a href="https://vue3-vant-mobile.netlify.app">Online Preview</a>
+🖥 <a href="https://vue3-vant-mobile.netlify.app">在线预览</a>
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/e6828bd2-2904-4c3e-a67c-b97d32aa1275/deploy-status)](https://app.netlify.com/sites/vue3-vant-mobile/deploys)
 
@@ -30,165 +30,165 @@ An mobile web apps template based on the Vue 3 ecosystem.
 
 ## Features
 
-- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite 6](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - born with fastness
+- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite 6](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - 就是快！
 
-- 🗂 [File based routing](./src/router)
+- 🗂 [基于文件的路由](./src/router)
 
-- 📦 [Components auto importing](./src/components)
+- 📦 [组件自动化加载](./src/components)
 
-- 🍍 [State Management via Pinia](https://pinia.vuejs.org)
+- 🍍 [使用 Pinia 的状态管理](https://pinia.vuejs.org)
 
 - 📲 [PWA](https://github.com/antfu/vite-plugin-pwa)
 
-- 🎨 [UnoCSS](https://github.com/antfu/unocss) - the instant on-demand atomic CSS engine
+- 🎨 [UnoCSS](https://github.com/antfu/unocss) - 高性能且极具灵活性的即时原子化 CSS 引擎
 
-- 🌍 [I18n ready](./src/locales)
+- 🌍 [I18n 国际化开箱即用](./src/locales)
 
-- 🔥 Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
+- 🔥 使用 [新的 `<script setup>` 语法](https://github.com/vuejs/rfcs/pull/227)
 
-- 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
+- 📥 [API 自动加载](https://github.com/antfu/unplugin-auto-import) - 直接使用 Composition API 无需引入
 
-- 💪 TypeScript, of course
+- 💪 TypeScript, 当然
 
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest)
+- ⚙️ 使用 [Vitest](https://github.com/vitest-dev/vitest) 进行单元测试
 
-- 💾 [Mock](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) server Support
+- 💾 [本地数据模拟](https://github.com/pengzhanbo/vite-plugin-mock-dev-server)的支持
 
-- 🌈 Git hooks - lint and commit
+- 🌈 Git hooks - 提交代码 eslint 检测 和 提交规范检测
 
-- 🪶 [Vant](https://github.com/youzan/vant) - Vue UI library for mobile web apps
+- 🪶 [Vant](https://github.com/youzan/vant) - 移动端 Vue 组件库
 
-- 🔭 [vConsole](https://github.com/vadxq/vite-plugin-vconsole) - the developer tool for mobile web page
+- 🔭 [vConsole](https://github.com/vadxq/vite-plugin-vconsole) - 移动端网页开发工具
 
-- 📱 Browser adaptation - use viewport vw/vh units
+- 📱 浏览器适配 - 使用 viewport vw/vh 单位布局
 
-- 💻 [Desktop optimization](https://github.com/wswmsword/postcss-mobile-forever) - the mobile area
+- 💻 [桌面端优化](https://github.com/wswmsword/postcss-mobile-forever) - 处理为移动端视图
 
-- 🌓 Dark Mode Support
+- 🌓 支持深色模式
 
-- 🛡️ Configure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) as default
+- 🛡️ 将 [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) 设为默认
 
-- ☁️ Deploy on [Netlify](https://www.netlify.com), zero-config
+- ☁️ 零配置部署 [Netlify](https://www.netlify.com)
 
 <br>
 
-## Pre-packed
+## 预配置
 
-### UI Frameworks
+### UI 框架
 
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine
-  - [`@unocss/preset-rem-to-px`](https://github.com/unocss/unocss/tree/main/packages/preset-rem-to-px) - Converts rem to px for all utilities
-  - [`eslint-plugin-unocss`](https://github.com/devunt/eslint-plugin-unocss) - ESLint plugin for UnoCSS
-- [Vant](https://github.com/youzan/vant) - Vue UI library for mobile web apps
-  - [`vant-touch-emulator`](https://github.com/youzan/vant/tree/main/packages/vant-touch-emulator) - Simulate mobile touch events on the desktop
-  - [`vant-use`](https://github.com/youzan/vant/tree/main/packages/vant-use) - Built-in composition APIs of Vant
+- [UnoCSS](https://github.com/antfu/unocss) - 高性能且极具灵活性的即时原子化 CSS 引擎
+  - [`@unocss/preset-rem-to-px`](https://github.com/unocss/unocss/tree/main/packages/preset-rem-to-px) - 将所有实用程序的 rem 转换为 px
+  - [`eslint-plugin-unocss`](https://github.com/devunt/eslint-plugin-unocss) - Unocss 的 ESLint 插件
+- [Vant](https://github.com/youzan/vant) - 移动端 Vue 组件库
+  - [`vant-touch-emulator`](https://github.com/youzan/vant/tree/main/packages/vant-touch-emulator) - 在桌面端上模拟移动端 touch 事件
+  - [`vant-use`](https://github.com/youzan/vant/tree/main/packages/vant-use) - Vant 内置的组合式 API
 
-### Plugins
+### 插件
 
 - [Vue Router](https://github.com/vuejs/router)
-  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - file system based routing
-- [Pinia](https://pinia.vuejs.org) - Intuitive, type safe, light and flexible Store for Vue using the composition api
-  - [`pinia-plugin-persistedstate`](https://github.com/prazdevs/pinia-plugin-persistedstate) -  Configurable persistence and rehydration of Pinia stores
-- [Vue I18n](https://github.com/intlify/vue-i18n-next) - Internationalization
-  - [`unplugin-vue-i18n`](https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n) - unplugin for Vue I18n
-- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - components auto import
-- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Directly use Vue Composition API and others without importing
-- [vite-plugin-vconsole](https://github.com/vadxq/vite-plugin-vconsole) - A lightweight, extendable front-end developer tool for mobile web page
-- [vite-plugin-mock-dev-server](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) - Vite Plugin for API mock dev server
-- [postcss-mobile-forever](https://github.com/wswmsword/postcss-mobile-forever) - To adapt different displays by one mobile viewport
-- [vite-plugin-vue-devtools](https://github.com/vuejs/devtools-next) - Designed to enhance the Vue developer experience
-- [vueuse](https://github.com/antfu/vueuse) - collection of useful composition APIs
-- [@unhead/vue](https://github.com/unjs/unhead) - manipulate document head reactively
+  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - 以文件系统为基础的路由
+- [Pinia](https://pinia.vuejs.org) - 直接的, 类型安全的, 使用 Composition API 的轻便灵活的 Vue 状态管理库
+  - [`pinia-plugin-persistedstate`](https://github.com/prazdevs/pinia-plugin-persistedstate) -  适用于 Pinia 的持久化存储插件
+- [Vue I18n](https://github.com/intlify/vue-i18n-next) - 国际化
+  - [`unplugin-vue-i18n`](https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n) - Vue I18n 的 Vite 插件
+- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - 自动加载组件
+- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - 直接使用 Composition API 等，无需导入
+- [vite-plugin-vconsole](https://github.com/vadxq/vite-plugin-vconsole) - vConsole 的 vite 插件
+- [vite-plugin-mock-dev-server](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) - vite mock 开发服务（mock-dev-server）插件
+- [postcss-mobile-forever](https://github.com/wswmsword/postcss-mobile-forever) - 一款 PostCSS 插件，将固定尺寸的移动端视图转为具有最大宽度的可伸缩的移动端视图
+- [vite-plugin-vue-devtools](https://github.com/vuejs/devtools-next) - 旨在增强Vue开发者体验的Vite插件
+- [vueuse](https://github.com/antfu/vueuse) - 实用的 Composition API 工具合集
+- [@unhead/vue](https://github.com/unjs/unhead) - 响应式地操作文档头信息
 - [vite-plugin-pwa](https://github.com/antfu/vite-plugin-pwa) - PWA
-- [vite-plugin-sitemap](https://github.com/jbaubree/vite-plugin-sitemap) - sitemap and robots generator
+- [vite-plugin-sitemap](https://github.com/jbaubree/vite-plugin-sitemap) - sitemap 和 robots 生成器
 
-### Coding Style
+### 编码风格
 
-- Use Composition API with [`<script setup>` SFC syntax](https://github.com/vuejs/rfcs/pull/227)
-- [ESLint](https://eslint.org/) with [@antfu/eslint-config](https://github.com/antfu/eslint-config), single quotes, no semi
+- 使用 Composition API 地 [`<script setup>` SFC 语法](https://github.com/vuejs/rfcs/pull/227)
+- [ESLint](https://eslint.org/) 配置为 [@antfu/eslint-config](https://github.com/antfu/eslint-config), 单引号, 无分号
 
-### Dev tools
+### 开发工具
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://github.com/vitest-dev/vitest) - Unit testing powered by Vite
-- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager
-- [Netlify](https://www.netlify.com/) - zero-config deployment
+- [Vitest](https://github.com/vitest-dev/vitest) - 基于 Vite 的单元测试框架
+- [pnpm](https://pnpm.js.org/) - 快, 节省磁盘空间的包管理器
+- [Netlify](https://www.netlify.com/) - 零配置的部署
 - [VS Code Extensions](./.vscode/extensions.json)
-  - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 `<script setup>` IDE support
-  - [Unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss) - UnoCSS for VS Code
-  - [Goto Alias](https://marketplace.visualstudio.com/items?itemName=antfu.goto-alias) - Go to Definition following alias redirections
-  - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Icon inline display and autocomplete
-  - [File Nesting](https://marketplace.visualstudio.com/items?itemName=antfu.file-nesting) - Config of File Nesting for VS Code
-  - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) - All in one i18n support
-  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Eslint support
-  - [Better JSON5](https://marketplace.visualstudio.com/items?itemName=blueglassblock.better-json5) - JSON5 support
+  - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 `<script setup>` IDE 支持
+  - [Unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss) - Unocss 智能提示
+  - [Goto Alias](https://marketplace.visualstudio.com/items?itemName=antfu.goto-alias) - 跳转到定义
+  - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - 图标内联显示和自动补全
+  - [File Nesting](https://marketplace.visualstudio.com/items?itemName=antfu.file-nesting) - 文件嵌套
+  - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) - 多合一的 I18n 支持
+  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - ESLint 支持
+  - [Better JSON5](https://marketplace.visualstudio.com/items?itemName=blueglassblock.better-json5) - JSON5 支持
 
-## Try it now
+## 现在可以试试
 
-> vue3-vant-mobile requires Node 18+
+> vue3-vant-mobile 需要 Node 版本 18+
 
-### GitHub Template
+### GitHub 模板
 
-[Create a repo from this template on GitHub](https://github.com/easy-temps/vue3-vant-mobile/generate)
+[使用这个模板创建仓库](https://github.com/easy-temps/vue3-vant-mobile/generate)
 
-### Clone to local
+### 克隆到本地
 
-If you prefer to do it manually with the cleaner git history
+如果您更喜欢使用更干净的 git 历史记录手动执行此操作
 
 ```bash
 npx tiged easy-temps/vue3-vant-mobile my-mobile-app
 cd my-mobile-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
+pnpm i # 如果你没装过 pnpm, 可以先运行: npm install -g pnpm
 ```
 
-## Checklist
+## 清单
 
-When you use this template, try follow the checklist to update your info properly
+使用此模板时，请尝试按照清单正确更新您自己的信息
 
-- [ ] Change the author name in `LICENSE`
-- [ ] Change the title in `index.html`
-- [ ] Change the hostname in `vite.config.ts`
-- [ ] Change the favicon in `public`
-- [ ] Clean up the READMEs and remove routes
+- [ ] 在 `LICENSE` 中改变作者名
+- [ ] 在 `index.html` 中改变标题
+- [ ] 在 `vite.config.ts` 更改主机名
+- [ ] 在 `public` 目录下改变favicon
+- [ ] 整理 README 并删除路由
 
-And, enjoy :)
+紧接着, 享受吧 :)
 
-## Usage
+## 使用
 
-### Development
+### 开发
 
-Just run and visit <http://localhost:3000>
+只需要执行以下命令就可以在 <http://localhost:3000> 中看到
 
 ```bash
 pnpm dev
 ```
 
-### Build
+### 构建
 
-To build the App, run
+构建该应用只需要执行以下命令
 
 ```bash
 pnpm build
 ```
 
-And you will see the generated file in `dist` that ready to be served.
+然后你会看到用于发布的 `dist` 文件夹被生成。
 
-### Deploy on Netlify
+### 部署到 Netlify
 
-Go to [Netlify](https://app.netlify.com/start) and select your clone, `OK` along the way, and your App will be live in a minute.
+前往 [Netlify](https://app.netlify.com/start) 并选择你的仓库, 一路 `OK` 下去，稍等一下后，你的应用将被创建。
 
-## Community 👏
+## 社区 👏
 
-We recommend that [issue](https://github.com/easy-temps/vue3-vant-mobile/issues) be used for problem feedback, or [Wechat group](https://github.com/easy-temps/vue3-vant-mobile/issues/56).
+我们推荐使用 [议题](https://github.com/easy-temps/vue3-vant-mobile/issues) 来反馈问题, 或者您也可以通过 [微信交流群](https://github.com/easy-temps/vue3-vant-mobile/issues/56) 联系我们。
 
-## Donation ☕
+## 捐赠 ☕
 
-[Buy Me a Coffee](https://github.com/CharleeWa/sponsor)
+[请我喝一杯咖啡](https://github.com/CharleeWa/sponsor)
 
-<h2 align="center">💝 Our Sponsors 💝</h2>
+<h2 align="center">💝 我们的赞助者 💝</h2>
 
 <p align="center">
-Your sponsorship will help us continue to iterate on this exciting project! 🚀
+您的赞助将帮助我们继续迭代这个令人兴奋的项目! 🚀
 </p>
 
 <p align="center">
@@ -202,11 +202,11 @@ Your sponsorship will help us continue to iterate on this exciting project! 🚀
 </p>
 
 <h2 align="center">
-💪 Contributors 💪
+💪 贡献者 💪
 </h2>
 
 <p align="center">
-Our contributors have made this project better. Thank you! 🙏
+我们的贡献者使这个项目变得更好。谢谢你！ 🙏
 </p>
 
 <p align="center">
@@ -238,5 +238,5 @@ Our contributors have made this project better. Thank you! 🙏
 [MIT](./LICENSE) License
 
 <p align="right">
-  <a href="#top">⬆️ Back to Top</a>
+  <a href="#top">⬆️ 回到顶部</a>
 </p>
