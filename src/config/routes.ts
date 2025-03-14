@@ -2,4 +2,6 @@
 export const routeWhiteList: readonly string[] = [
   'home', // 首页
   'profile', // 个人中心
+  'plan', // 日程
+  'recipe', // 菜谱
 ]
