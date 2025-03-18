@@ -16,7 +16,7 @@ export interface UserState {
 }
 
 export function login(data: LoginData): Promise<any> {
-  return request.post<LoginRes>('/auth/login', data)
+  return request.post<LoginRes>('/member/auth/login', data)
 }
 
 export function logout() {

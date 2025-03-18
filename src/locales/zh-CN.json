@@ -53,6 +53,7 @@
     "login": "登录",
     "logout": "退出",
     "email": "邮箱",
+    "mobile": "手机号",
     "password": "密码",
     "pleaseEnterEmail": "请输入邮箱",
     "pleaseEnterPassword": "请输入密码",

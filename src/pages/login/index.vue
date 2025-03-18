@@ -22,12 +22,12 @@ watch(
 )
 
 const postData = reactive({
-  email: '',
+  mobile: '',
   password: '',
 })
 
 const rules = reactive({
-  email: [
+  mobile: [
     { required: true, message: t('login.pleaseEnterEmail') },
   ],
   password: [
@@ -62,10 +62,10 @@ async function login(values: any) {
     <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="login">
       <div class="overflow-hidden rounded-3xl">
         <van-field
-          v-model="postData.email"
-          :rules="rules.email"
-          name="email"
-          :placeholder="t('login.email')"
+          v-model="postData.mobile"
+          :rules="rules.mobile"
+          name="mobile"
+          :placeholder="t('login.mobile')"
         />
       </div>
 

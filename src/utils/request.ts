@@ -53,7 +53,8 @@ function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosReques
   // 让每个请求携带自定义 token, 请根据实际情况修改
   if (savedToken)
     config.headers[REQUEST_TOKEN_KEY] = savedToken
-
+  // 租户ID
+  config.headers['tenant-id'] = import.meta.env.VITE_APP_TENANT_ID
   return config
 }
 
