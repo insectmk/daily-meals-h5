@@ -1,40 +1,10 @@
+import type { LoginData, LoginRes } from '@/api/member/type'
 import request from '@/utils/request'
 
-export interface LoginData {
-  mobile: string
-  password: string
-}
-
-export interface LoginRes {
-  token: string
-}
-
-export interface UserState {
-  uid?: number
-  name?: string
-  avatar?: string
-}
-
-export function login(data: LoginData): Promise<any> {
-  return request.post<LoginRes>('/member/auth/login', data)
-}
-
-export function logout() {
-  return request.post('/user/logout')
-}
-
-export function getUserInfo() {
-  return request<UserState>('/user/me')
-}
-
-export function getEmailCode(): Promise<any> {
-  return request.get('/user/email-code')
-}
-
-export function resetPassword(): Promise<any> {
-  return request.post('/user/reset-password')
-}
-
-export function register(): Promise<any> {
-  return request.post('/user/register')
+/**
+ * 登录请求
+ * @param data 登录信息
+ */
+export function login(data: LoginData) {
+  return request.post<LoginRes | null>('/member/auth/login', data)
 }

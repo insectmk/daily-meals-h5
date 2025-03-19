@@ -6,13 +6,10 @@ import {
   getEmailCode,
   getUserInfo,
   resetPassword,
+  login as userLogin,
   logout as userLogout,
   register as userRegister,
 } from '@/api/user'
-
-import {
-  login as memberLogin,
-} from '@/api/member'
 
 const InitUserInfo = {
   uid: 0,
@@ -28,20 +25,9 @@ export const useUserStore = defineStore('user', () => {
     userInfo.value = { ...partial }
   }
 
-  /* const login = async (loginForm: LoginData) => {
-    try {
-      const { data } = await userLogin(loginForm)
-      setToken(data.token)
-    }
-    catch (error) {
-      clearToken()
-      throw error
-    }
-  } */
-  // 会员登录
   const login = async (loginForm: LoginData) => {
     try {
-      const { data } = await memberLogin(loginForm)
+      const { data } = await userLogin(loginForm)
       setToken(data.token)
     }
     catch (error) {
@@ -103,7 +89,6 @@ export const useUserStore = defineStore('user', () => {
     getCode,
     reset,
     register,
-    memberLogin,
   }
 }, {
   persist: true,

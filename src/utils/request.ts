@@ -2,6 +2,7 @@ import type { AxiosError, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { showNotify } from 'vant'
 import { STORAGE_TOKEN_KEY } from '@/stores/mutation-type'
+import type { CommonResult } from '@/api/type'
 
 // 这里是用于设定请求后端时，所用的 Token KEY
 // 可以根据自己的需要修改，常见的如 Access-Token，Authorization
@@ -58,15 +59,37 @@ function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosReques
   return config
 }
 
-// Add a request interceptor
+// 添加请求拦截器
 request.interceptors.request.use(requestHandler, errorHandler)
 
 // 响应拦截器
 function responseHandler(response: { data: any }) {
+  // 直接返回Data
   return response.data
 }
 
-// Add a response interceptor
+// 添加响应拦截器
 request.interceptors.response.use(responseHandler, errorHandler)
 
-export default request
+// ********自定义封装请求方法********
+/**
+ * POST请求
+ * @param url 请求路径
+ * @param data 请求参数
+ */
+export function post<T>(url: string, data?: any) {
+  return request.post<any, CommonResult<T>>(url, data)
+}
+/**
+ * GET请求
+ * @param url 请求路径
+ * @param data 请求参数
+ */
+export function get<T>(url: string, data?: any) {
+  return request.get<any, CommonResult<T>>(url, data)
+}
+
+export default {
+  post, // POST请求
+  get, // GET请求
+}

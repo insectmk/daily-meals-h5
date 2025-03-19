@@ -24,7 +24,7 @@ export function logout() {
 }
 
 export function getUserInfo() {
-  return request<UserState>('/user/me')
+  return request.get<UserState>('/user/me')
 }
 
 export function getEmailCode(): Promise<any> {

@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import type { RouteMap } from 'vue-router'
-import { useUserStore } from '@/stores'
 
 import logo from '~/images/logo.svg'
 import logoDark from '~/images/logo-dark.svg'
 import vw from '@/utils/inline-px-to-vw'
+import { useMemberStore } from '@/stores'
 
 const { t } = useI18n()
 const router = useRouter()
-const userStore = useUserStore()
+const memberStore = useMemberStore()
 const loading = ref(false)
 
 const dark = ref<boolean>(isDark.value)
@@ -25,7 +25,9 @@ const postData = reactive({
   mobile: '',
   password: '',
 })
-
+/**
+ * 表单校验规则
+ */
 const rules = reactive({
   mobile: [
     { required: true, message: t('login.pleaseEnterEmail') },
@@ -35,12 +37,16 @@ const rules = reactive({
   ],
 })
 
+/**
+ * 登录
+ * @param values
+ */
 async function login(values: any) {
   try {
     loading.value = true
-    await userStore.login({ ...postData, ...values })
+    await memberStore.login({ ...postData, ...values })
     const { redirect, ...othersQuery } = router.currentRoute.value.query
-    router.push({
+    await router.push({
       name: (redirect as keyof RouteMap) || 'home',
       query: {
         ...othersQuery,
