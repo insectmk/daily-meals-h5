@@ -15,6 +15,13 @@ function login() {
     return
   router.push({ name: 'login', query: { redirect: 'profile' } })
 }
+
+/**
+ * 退出登录
+ */
+function logout() {
+  console.error('退出登录-logout')
+}
 </script>
 
 <template>
@@ -36,6 +43,15 @@ function login() {
       <van-cell :title="$t('profile.settings')" icon="setting-o" is-link to="/settings" />
       <van-cell :title="$t('profile.docs')" icon="flower-o" is-link url="https://easy-temps.github.io/easy-docs/vue3-vant-mobile/" />
     </VanCellGroup>
+    <van-cell-group :inset="true" class="!mt-16">
+      <van-cell :title="$t('profile.logout')" icon="delete-o">
+        <template #right-icon>
+          <van-button type="danger" size="mini" @click="logout">
+            {{ $t('profile.logout') }}
+          </van-button>
+        </template>
+      </van-cell>
+    </van-cell-group>
   </div>
 </template>
 

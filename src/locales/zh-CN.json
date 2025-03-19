@@ -41,7 +41,8 @@
   "profile": {
     "login": "登录",
     "settings": "设置",
-    "docs": "文档"
+    "docs": "文档",
+    "logout": "退出登录"
   },
   "keepAlive": {
     "label": "当前组件将会被缓存"
