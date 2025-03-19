@@ -2,12 +2,14 @@ import { defineStore } from 'pinia'
 import type { LoginData, Member } from '@/api/member/type'
 import { clearToken, setToken } from '@/utils/auth'
 import {
+  getInfo as getMemberInfo,
   login as memberLogin,
 } from '@/api/member'
 
 // 会员初始化信息
 const InitMemberInfo = {
-  userId: 0,
+  id: 0, // 用户ID
+  avatar: 'http://localhost:62401/src/assets/imgs/logo.svg', // 头像
 }
 
 export const useMemberStore = defineStore('member', () => {
@@ -31,7 +33,8 @@ export const useMemberStore = defineStore('member', () => {
   // 获取会员信息
   const info = async () => {
     try {
-      setMemberInfo(InitMemberInfo)
+      const { data: memberInfo } = await getMemberInfo()
+      setMemberInfo(memberInfo)
     }
     catch (error) {
       clearToken()

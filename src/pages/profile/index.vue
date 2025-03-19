@@ -1,16 +1,18 @@
 <script setup lang="ts">
 import router from '@/router'
-import { useUserStore } from '@/stores'
+import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
 
-const userStore = useUserStore()
-const userInfo = computed(() => userStore.userInfo)
-const isLogin = computed(() => !!userInfo.value.uid)
+const memberStore = useMemberStore()
+const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
+const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
 
+/**
+ * 登录
+ */
 function login() {
   if (isLogin.value)
     return
-
   router.push({ name: 'login', query: { redirect: 'profile' } })
 }
 </script>
@@ -20,11 +22,11 @@ function login() {
     <VanCellGroup :inset="true">
       <van-cell center :is-link="!isLogin" @click="login">
         <template #title>
-          <van-image :src="userInfo.avatar || defaultAvatar" round class="h-56 w-56" />
+          <van-image :src="memberInfo.avatar || defaultAvatar" round class="h-56 w-56" />
         </template>
 
         <template #value>
-          <span v-if="isLogin">{{ userInfo.name }}</span>
+          <span v-if="isLogin">{{ memberInfo.nickname }}</span>
           <span v-else>{{ $t('profile.login') }}</span>
         </template>
       </van-cell>

@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'
 
 import type { EnhancedRouteLocation } from './types'
 import useRouteCacheStore from '@/stores/modules/routeCache'
-import { useUserStore } from '@/stores'
+import { useMemberStore } from '@/stores'
 
 import { isLogin } from '@/utils/auth'
 import setPageTitle from '@/utils/set-page-title'
@@ -18,24 +18,26 @@ const router = createRouter({
   routes,
 })
 
-// This will update routes at runtime without reloading the page
+// 这将在运行时更新路由，而无需重新加载页面
 if (import.meta.hot)
   handleHotUpdate(router)
-
+/**
+ * 路由拦截
+ */
 router.beforeEach(async (to: EnhancedRouteLocation) => {
   NProgress.start()
 
   const routeCacheStore = useRouteCacheStore()
-  const userStore = useUserStore()
+  const memberStore = useMemberStore()
 
-  // Route cache
+  // 路由缓存
   routeCacheStore.addRoute(to)
 
-  // Set page title
+  // 设置页面标题
   setPageTitle(to.meta.title)
-
-  if (isLogin() && !userStore.userInfo?.uid)
-    await userStore.info()
+  // 查询用户信息
+  if (isLogin() && !memberStore.memberInfo?.id)
+    await memberStore.info()
 })
 
 router.afterEach(() => {
