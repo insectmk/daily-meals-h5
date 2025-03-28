@@ -1,0 +1,11 @@
+import type { RecipeInfo } from '@/api/recipe/type'
+import request from '@/utils/request'
+import type { PageParam, PageResult } from '@/api/type'
+
+/**
+ * 分页查询菜谱信息
+ * @param pageReqVO
+ */
+export function page(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeInfo>>('/meals/recipe/page', pageReqVO)
+}
