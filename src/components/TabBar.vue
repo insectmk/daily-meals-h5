@@ -18,7 +18,7 @@ const show = computed(() => route.name && routeWhiteList.includes(route.name))
       </template>
     </van-tabbar-item>
     <!-- 菜谱 -->
-    <van-tabbar-item replace to="/recipe">
+    <van-tabbar-item replace to="/recipe-catch">
       {{ t('layouts.recipe') }}
       <template #icon>
         <div class="i-carbon:home" />

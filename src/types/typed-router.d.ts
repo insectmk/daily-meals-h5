@@ -29,7 +29,7 @@ declare module 'vue-router/auto-routes' {
     'mock': RouteRecordInfo<'mock', '/mock', Record<never, never>, Record<never, never>>,
     'plan': RouteRecordInfo<'plan', '/plan', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,
-    'recipe': RouteRecordInfo<'recipe', '/recipe', Record<never, never>, Record<never, never>>,
+    'RecipeCatch': RouteRecordInfo<'RecipeCatch', '/recipe-catch', Record<never, never>, Record<never, never>>,
     'register': RouteRecordInfo<'register', '/register', Record<never, never>, Record<never, never>>,
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
