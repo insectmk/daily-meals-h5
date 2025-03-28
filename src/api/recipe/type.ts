@@ -1,4 +1,19 @@
 /**
+ * ------------参数规范说明--------------
+ * ReqVO XxxParams / XxxRequest前端更倾向于强调「参数」或「请求体」
+ * RespVO XxxResponse / XxxDTO 前端可能区分原始响应和加工后的数据
+ * DTO XxxDTO 前后端一致的字段结构
+ */
+/**
+ * 获取菜谱信息的请求参数
+ */
+export interface GetRecipeParam {
+  /**
+   * 菜谱ID
+   */
+  id: number
+}
+/**
  * 菜谱信息
  */
 export interface RecipeInfo {
