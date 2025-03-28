@@ -2,6 +2,9 @@ import { defineStore } from 'pinia'
 import type { RouteRecordName } from 'vue-router'
 import type { EnhancedRouteLocation } from '@/router/types'
 
+/**
+ * 路由页面缓存
+ */
 const useRouteCacheStore = defineStore('route-cache', () => {
   const routeCaches = ref<RouteRecordName[]>([])
 
