@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { page as getRecipesPage } from '@/api/recipe'
+import { useRouter } from 'vue-router'
 
 defineOptions({
-  name: 'RecipeCatch',
+  name: 'RecipeCache',
 })
+
+const router = useRouter()
 
 let pageNo = 0 // 当前页
 const pageSize = 10 // 每页行数
@@ -63,6 +66,7 @@ onBeforeRouteLeave(() => {
       :border="false"
       class="mb-8 rounded-12"
       is-link
+      @click="router.push(`/recipe-cache/${recipe.id}`)"
     >
       <template #title>
         {{ recipe.name }}
@@ -76,7 +80,7 @@ onBeforeRouteLeave(() => {
 
 <route lang="json5">
 {
-  name: 'RecipeCatch',
+  name: 'RecipeCache',
   meta: {
     i18n: 'layouts.recipe',
     keepAlive: true
