@@ -75,18 +75,18 @@ request.interceptors.response.use(responseHandler, errorHandler)
 /**
  * POST请求
  * @param url 请求路径
- * @param data 请求参数
+ * @param params 请求参数
  */
-export function post<T>(url: string, data?: any) {
-  return request.post<any, CommonResult<T>>(url, data)
+export function post<T>(url: string, params?: any) {
+  return request.post<any, CommonResult<T>>(url, params)
 }
 /**
  * GET请求
  * @param url 请求路径
- * @param data 请求参数
+ * @param params 请求参数
  */
-export function get<T>(url: string, data?: any) {
-  return request.get<any, CommonResult<T>>(url, data)
+export function get<T>(url: string, params?: any) {
+  return request.get<any, CommonResult<T>>(url, { params })
 }
 
 export default {
