@@ -71,8 +71,8 @@ onBeforeRouteLeave(() => {
       <template #title>
         {{ recipe.name }}
       </template>
-      <template #value>
-        {{ recipe.name }}
+      <template #label>
+        {{ recipe.recipeDesc }}
       </template>
     </van-cell>
   </van-list>

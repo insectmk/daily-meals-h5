@@ -24,13 +24,7 @@ getRecipeInfo({ id }).then((res) => {
     </van-loading>
   </div>
   <div v-else>
-    <h1 class="text-6xl color-pink font-semibold">
-      {{ recipe.name }}
-    </h1>
-
-    <p class="mt-4 text-gray-700 dark:text-white">
-      {{ recipe.recipeDesc }}
-    </p>
+    <div v-html="recipe.recipeStep" />
   </div>
 </template>
 
@@ -44,6 +38,7 @@ getRecipeInfo({ id }).then((res) => {
   meta: {
     title: '菜谱信息',
     i18n: 'recipe.title.info',
+    keepAlive: true
   },
 }
 </route>
