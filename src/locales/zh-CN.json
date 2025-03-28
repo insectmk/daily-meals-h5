@@ -103,5 +103,10 @@
     "logout": "退出登录",
     "currentVersion": "当前版本",
     "comfirmTitle": "确认退出？"
+  },
+  "recipe": {
+    "title": {
+      "info": "菜谱详细信息"
+    }
   }
 }
