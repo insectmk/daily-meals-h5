@@ -21,14 +21,14 @@ const show = computed(() => route.name && routeWhiteList.includes(route.name))
     <van-tabbar-item replace to="/recipe-cache">
       {{ t('layouts.recipe') }}
       <template #icon>
-        <div class="i-carbon:home" />
+        <div class="i-carbon:fruit-bowl" />
       </template>
     </van-tabbar-item>
     <!-- 日程 -->
     <van-tabbar-item replace to="/plan">
       {{ t('layouts.plan') }}
       <template #icon>
-        <div class="i-carbon:plan" />
+        <div class="i-carbon:calendar-heat-map" />
       </template>
     </van-tabbar-item>
     <!-- 我的 -->
