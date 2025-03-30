@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import type { LoginData, Member } from '@/api/member/type'
-import { clearToken, setToken } from '@/utils/auth'
+import { clearToken, setRefreshToken, setToken } from '@/utils/auth'
 import {
   getInfo as getMemberInfo,
   login as memberLogin,
 } from '@/api/member'
+import ResponseCode from '@/constants/response-code'
 
 // 会员初始化信息
 const InitMemberInfo = {
@@ -23,7 +24,12 @@ export const useMemberStore = defineStore('member', () => {
   const login = async (loginForm: LoginData) => {
     try {
       const result = await memberLogin(loginForm)
-      setToken(result.data?.accessToken)
+      // 判断是否登录成功
+      if (result.code === ResponseCode.SUCCESS.code) {
+        setToken(result.data?.accessToken) // 设置令牌
+        setRefreshToken(result.data?.refreshToken) // 设置刷新令牌
+      }
+      return result
     }
     catch (error) {
       clearToken()

@@ -6,6 +6,8 @@ import logo from '~/images/logo.svg'
 import logoDark from '~/images/logo-dark.svg'
 import vw from '@/utils/inline-px-to-vw'
 import { useMemberStore } from '@/stores'
+import type { LoginData } from '@/api/user'
+import ResponseCode from '@/constants/response-code'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -21,7 +23,7 @@ watch(
   },
 )
 
-const postData = reactive({
+const postData = reactive<LoginData>({
   mobile: '',
   password: '',
 })
@@ -41,17 +43,27 @@ const rules = reactive({
  * 登录
  * @param values
  */
-async function login(values: any) {
+async function login(values: LoginData) {
   try {
     loading.value = true
-    await memberStore.login({ ...postData, ...values })
-    const { redirect, ...othersQuery } = router.currentRoute.value.query
-    await router.push({
-      name: (redirect as keyof RouteMap) || 'home',
-      query: {
-        ...othersQuery,
-      },
-    })
+    const result = await memberStore.login({ ...postData, ...values })
+    if (result.code === ResponseCode.SUCCESS.code) {
+      const { redirect, ...othersQuery } = router.currentRoute.value.query
+      // 跳转到未登陆前的页面
+      await router.push({
+        name: (redirect as keyof RouteMap) || 'home',
+        query: {
+          ...othersQuery,
+        },
+      })
+    }
+    else {
+      // 提示消息
+      showNotify({
+        type: 'danger',
+        message: result.msg,
+      })
+    }
   }
   finally {
     loading.value = false

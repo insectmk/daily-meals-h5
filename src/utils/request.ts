@@ -1,8 +1,15 @@
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios'
+import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { showNotify } from 'vant'
-import { STORAGE_TOKEN_KEY } from '@/stores/mutation-type'
+import { HEADER_ACCESS_TOKEN, HEADER_TENANT, STORAGE_TOKEN_KEY } from '@/stores/mutation-type'
 import type { CommonResult } from '@/api/type'
+import ResponseCode from '@/constants/response-code'
+import { getRefreshToken, getToken, setRefreshToken } from '@/utils/auth'
+
+// 请求队列
+let requestList: any[] = []
+// 是否正在刷新中
+let isRefreshToken = false
 
 // 这里是用于设定请求后端时，所用的 Token KEY
 // 可以根据自己的需要修改，常见的如 Access-Token，Authorization
@@ -11,9 +18,10 @@ import type { CommonResult } from '@/api/type'
 export const REQUEST_TOKEN_KEY = 'Authorization'
 
 // 创建 axios 实例
+const baseURL = import.meta.env.VITE_APP_API_BASE_URL
 const request = axios.create({
   // API 请求的默认前缀
-  baseURL: import.meta.env.VITE_APP_API_BASE_URL,
+  baseURL,
   timeout: 6000, // 请求超时时间
 })
 
@@ -53,9 +61,9 @@ function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosReques
   // 如果 token 存在
   // 让每个请求携带自定义 token, 请根据实际情况修改
   if (savedToken)
-    config.headers[REQUEST_TOKEN_KEY] = savedToken
+    config.headers[HEADER_ACCESS_TOKEN] = savedToken
   // 租户ID
-  config.headers['tenant-id'] = import.meta.env.VITE_APP_TENANT_ID
+  config.headers[HEADER_TENANT] = import.meta.env.VITE_APP_TENANT_ID
   return config
 }
 
@@ -63,13 +71,62 @@ function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosReques
 request.interceptors.request.use(requestHandler, errorHandler)
 
 // 响应拦截器
-function responseHandler(response: { data: any }) {
+async function responseHandler(response: AxiosResponse<any, any>) {
+  // 判断是否未登录
+  if (response.data.code === ResponseCode.UNAUTHORIZED.code) {
+    // 提示消息
+    showNotify({
+      type: 'danger',
+      message: ResponseCode.UNAUTHORIZED.message,
+    })
+    const refreshToken = getRefreshToken() // 刷新令牌
+    // 如果未认证，并且未进行刷新令牌，说明可能是访问令牌过期了
+    if (!isRefreshToken) { // 没有正在刷新
+      isRefreshToken = true
+      // 1. 如果获取不到刷新令牌，则只能执行登出操作
+      if (!refreshToken) {
+        // 跳转到登录页面
+        return location.replace('login')
+      }
+      // 2. 进行刷新访问令牌
+      try {
+        const refreshTokenRes = await doRefreshToken()
+        // 2.1 刷新成功，则回放队列的请求 + 当前请求
+        setRefreshToken(refreshTokenRes.data.data)
+        response.headers![HEADER_ACCESS_TOKEN] = `Bearer ${getToken()}`
+        requestList.forEach((cb: any) => {
+          cb()
+        })
+        requestList = []
+        return request(response)
+      }
+      finally {
+        requestList = []
+        isRefreshToken = false
+      }
+    }
+    else {
+      // 添加到队列，等待刷新获取到新的令牌
+      return new Promise((resolve) => {
+        requestList.push(() => {
+          response.headers![HEADER_ACCESS_TOKEN] = `Bearer ${getToken()}` // 让每个请求携带自定义token 请根据实际情况自行修改
+          resolve(request(response))
+        })
+      })
+    }
+  }
   // 直接返回Data
   return response.data
 }
 
 // 添加响应拦截器
 request.interceptors.response.use(responseHandler, errorHandler)
+
+// *********工具方法***********
+async function doRefreshToken() {
+  axios.defaults.headers.common['tenant-id'] = import.meta.env.VITE_APP_TENANT_ID
+  return await axios.post(`${baseURL}/system/auth/refresh-token?refreshToken=${getRefreshToken()}`)
+}
 
 // ********自定义封装请求方法********
 /**
