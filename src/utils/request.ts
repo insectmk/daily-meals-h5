@@ -18,10 +18,16 @@ let isRefreshToken = false
 export const REQUEST_TOKEN_KEY = 'Authorization'
 
 // 创建 axios 实例
-const baseURL = import.meta.env.VITE_APP_API_BASE_URL
+const baseAppURL = import.meta.env.VITE_APP_API_BASE_APP_URL
 const request = axios.create({
   // API 请求的默认前缀
-  baseURL,
+  baseURL: baseAppURL,
+  timeout: 6000, // 请求超时时间
+})
+const baseAdminURL = import.meta.env.VITE_APP_API_BASE_ADMIN_URL
+const requestAdmin = axios.create({
+  // API 请求的默认前缀
+  baseURL: baseAdminURL,
   timeout: 6000, // 请求超时时间
 })
 
@@ -69,6 +75,7 @@ function requestHandler(config: InternalAxiosRequestConfig): InternalAxiosReques
 
 // 添加请求拦截器
 request.interceptors.request.use(requestHandler, errorHandler)
+requestAdmin.interceptors.request.use(requestHandler, errorHandler)
 
 // 响应拦截器
 async function responseHandler(response: AxiosResponse<any, any>) {
@@ -121,11 +128,12 @@ async function responseHandler(response: AxiosResponse<any, any>) {
 
 // 添加响应拦截器
 request.interceptors.response.use(responseHandler, errorHandler)
+requestAdmin.interceptors.response.use(responseHandler, errorHandler)
 
 // *********工具方法***********
 async function doRefreshToken() {
   axios.defaults.headers.common['tenant-id'] = import.meta.env.VITE_APP_TENANT_ID
-  return await axios.post(`${baseURL}/system/auth/refresh-token?refreshToken=${getRefreshToken()}`)
+  return await axios.post(`${baseAdminURL}/system/auth/refresh-token?refreshToken=${getRefreshToken()}`)
 }
 
 // ********自定义封装请求方法********
@@ -146,7 +154,26 @@ export function get<T>(url: string, params?: any) {
   return request.get<any, CommonResult<T>>(url, { params })
 }
 
+/**
+ * POST请求 admin
+ * @param url 请求路径
+ * @param params 请求参数
+ */
+export function postAdmin<T>(url: string, params?: any) {
+  return requestAdmin.post<any, CommonResult<T>>(url, params)
+}
+/**
+ * GET请求 admin
+ * @param url 请求路径
+ * @param params 请求参数
+ */
+export function getAdmin<T>(url: string, params?: any) {
+  return requestAdmin.get<any, CommonResult<T>>(url, { params })
+}
+
 export default {
   post, // POST请求
   get, // GET请求
+  getAdmin, // GET请求 admin
+  postAdmin, // POST请求 admin
 }

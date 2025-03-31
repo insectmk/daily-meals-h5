@@ -6,6 +6,7 @@ import {
   login as memberLogin,
 } from '@/api/member'
 import ResponseCode from '@/constants/response-code'
+import { loginOut } from '@/api/system'
 
 // 会员初始化信息
 const InitMemberInfo = {
@@ -50,7 +51,7 @@ export const useMemberStore = defineStore('member', () => {
   // 退出登录
   const logout = async () => {
     try {
-      console.warn('退出登录')
+      return await loginOut()
     }
     finally {
       clearToken()

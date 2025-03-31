@@ -26,7 +26,6 @@ function setRefreshToken(newRefreshToken: string) {
 // 清除令牌
 function clearToken() {
   token.value = null
-  refreshToken.value = null
 }
 
 export { isLogin, getToken, setToken, clearToken, getRefreshToken, setRefreshToken }

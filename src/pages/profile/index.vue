@@ -2,10 +2,12 @@
 import router from '@/router'
 import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
+import ResponseCode from '@/constants/response-code'
 
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
 const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
+const { t } = useI18n() // 国际化
 
 /**
  * 登录
@@ -19,8 +21,16 @@ function login() {
 /**
  * 退出登录
  */
-function logout() {
-  console.error('退出登录-logout')
+async function logout() {
+  const result = await memberStore.logout()
+  if (result.code === ResponseCode.SUCCESS.code && result.data) {
+    // 退出登录成功
+    showNotify({ type: 'success', message: t('settings.logoutSuccess') })
+  }
+  else {
+    // 退出登录失败
+    showNotify({ type: 'danger', message: result.msg })
+  }
 }
 </script>
 
