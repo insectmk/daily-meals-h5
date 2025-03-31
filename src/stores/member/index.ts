@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import type { LoginData, Member } from '@/api/member/type'
-import { clearToken, setRefreshToken, setToken } from '@/utils/auth'
+import { clearAllToken, setRefreshToken, setToken } from '@/utils/auth'
 import {
   getInfo as getMemberInfo,
   login as memberLogin,
@@ -33,7 +33,7 @@ export const useMemberStore = defineStore('member', () => {
       return result
     }
     catch (error) {
-      clearToken()
+      clearAllToken()
       throw error
     }
   }
@@ -44,7 +44,7 @@ export const useMemberStore = defineStore('member', () => {
       setMemberInfo(memberInfo)
     }
     catch (error) {
-      clearToken()
+      clearAllToken()
       throw error
     }
   }
@@ -54,7 +54,8 @@ export const useMemberStore = defineStore('member', () => {
       return await loginOut()
     }
     finally {
-      clearToken()
+      // 清除令牌
+      clearAllToken()
       setMemberInfo({ ...InitMemberInfo })
     }
   }

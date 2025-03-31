@@ -4,7 +4,7 @@ import { showNotify } from 'vant'
 import { HEADER_ACCESS_TOKEN, HEADER_TENANT, STORAGE_TOKEN_KEY } from '@/stores/mutation-type'
 import type { CommonResult } from '@/api/type'
 import ResponseCode from '@/constants/response-code'
-import { getRefreshToken, getToken, setRefreshToken } from '@/utils/auth'
+import { getRefreshToken, getToken, setRefreshToken, setToken } from '@/utils/auth'
 
 // 请求队列
 let requestList: any[] = []
@@ -92,7 +92,8 @@ async function responseHandler(response: AxiosResponse<any, any>) {
       try {
         const refreshTokenRes = await doRefreshToken()
         // 2.1 刷新成功，则回放队列的请求 + 当前请求
-        setRefreshToken(refreshTokenRes.data.data)
+        setToken(refreshTokenRes.data.data.accessToken)
+        setRefreshToken(refreshTokenRes.data.data.refreshToken)
         response.headers![HEADER_ACCESS_TOKEN] = `Bearer ${getToken()}`
         requestList.forEach((cb: any) => {
           cb()

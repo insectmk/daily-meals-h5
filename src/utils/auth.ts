@@ -23,9 +23,15 @@ function setToken(newToken: string) {
 function setRefreshToken(newRefreshToken: string) {
   refreshToken.value = newRefreshToken
 }
+// 清除所有令牌
+function clearAllToken() {
+  token.value = null
+  refreshToken.value = null
+}
 // 清除令牌
 function clearToken() {
   token.value = null
+  refreshToken.value = null
 }
 
-export { isLogin, getToken, setToken, clearToken, getRefreshToken, setRefreshToken }
+export { isLogin, getToken, setToken, clearAllToken, clearToken, getRefreshToken, setRefreshToken }
