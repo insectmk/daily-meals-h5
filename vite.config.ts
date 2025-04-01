@@ -23,6 +23,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
           changeOrigin: true,
         },
       },
+      allowedHosts: [
+        'mealsapp.frp.insectmk.cn', // 测试域名
+      ],
     },
 
     resolve: {

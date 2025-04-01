@@ -22,6 +22,32 @@ export function createVitePlugins(mode: string) {
   const env = loadEnv(mode, process.cwd())
 
   return [
+    // https://github.com/vite-pwa/vite-plugin-pwa
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: false,
+      },
+      manifest: {
+        name: '每日饭菜',
+        short_name: 'APP',
+        theme_color: '#2196f3', // 这里也要同步设置
+        background_color: '#ffffff',
+        icons: [
+          {
+            src: '/pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: '/pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
+
     // https://github.com/posva/unplugin-vue-router
     VueRouter({
       extensions: ['.vue'],
