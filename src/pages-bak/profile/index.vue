@@ -5,7 +5,7 @@ import defaultAvatar from '@/assets/images/default-avatar.svg'
 
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo)
-const isLogin = computed(() => !!memberInfo.value.userId)
+const isLogin = computed(() => !!memberInfo.value.id)
 
 function login() {
   if (isLogin.value)
@@ -24,7 +24,7 @@ function login() {
         </template>
 
         <template #value>
-          <span v-if="isLogin">{{ memberInfo.name }}</span>
+          <span v-if="isLogin">{{ memberInfo.nickname }}</span>
           <span v-else>{{ $t('profile.login') }}</span>
         </template>
       </van-cell>
