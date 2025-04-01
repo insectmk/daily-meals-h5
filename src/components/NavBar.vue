@@ -32,7 +32,7 @@ function onBack() {
     v-show="!isShow"
     :title="title"
     :left-text="t('navbar.back')"
-    left-arrow
+    left-arrow placeholder fixed
     @click-left="onBack"
   >
     <template #right>
