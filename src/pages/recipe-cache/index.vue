@@ -13,6 +13,7 @@ const pageSize = 10 // 每页行数
 const recipeList = ref([]) // 菜谱列表
 const loading = ref(false) // 加载
 const finished = ref(false) // 结束
+const recipeTabActive = ref('self') // 当前所在tab
 // const { t } = useI18n() // 多语言支持
 
 /**
@@ -53,29 +54,42 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
-  <van-list
-    v-model:loading="loading"
-    :finished="finished"
-    finished-text="已经到底啦 ~"
-    loading-text="加载中..."
-    @load="onLoad"
-  >
-    <van-cell
-      v-for="(recipe, index) in recipeList"
-      :key="index"
-      :border="false"
-      class="mb-8 rounded-12"
-      is-link
-      @click="router.push(`/recipe-cache/${recipe.id}`)"
-    >
+  <van-tabs v-model:active="recipeTabActive" swipeable sticky>
+    <van-tab name="self">
       <template #title>
-        {{ recipe.name }}
+        <van-icon name="more-o" />我的菜谱
       </template>
-      <template #label>
-        {{ recipe.recipeDesc }}
+      <van-list
+        v-model:loading="loading"
+        :finished="finished"
+        finished-text="已经到底啦 ~"
+        loading-text="加载中..."
+        @load="onLoad"
+      >
+        <van-cell
+          v-for="(recipe, index) in recipeList"
+          :key="index"
+          :border="false"
+          class="mb-8 rounded-12"
+          is-link
+          @click="router.push(`/recipe-cache/${recipe.id}`)"
+        >
+          <template #title>
+            {{ recipe.name }}
+          </template>
+          <template #label>
+            {{ recipe.recipeDesc }}
+          </template>
+        </van-cell>
+      </van-list>
+    </van-tab>
+    <van-tab name="public">
+      <template #title>
+        <van-icon name="more-o" />公共菜谱
       </template>
-    </van-cell>
-  </van-list>
+      公共菜谱
+    </van-tab>
+  </van-tabs>
 </template>
 
 <route lang="json5">
