@@ -93,12 +93,10 @@ async function responseHandler(response: AxiosResponse) {
       // 有刷新令牌
       try {
         // 刷新令牌
-        const { data } = await request.post('/member/auth/refresh-token', {
-          refreshToken,
-        })
+        const { data } = await request.post(`/member/auth/refresh-token?refreshToken=${refreshToken}`)
         // 设置刷新令牌与认证令牌
-        setToken(data.data.accessToken)
-        setRefreshToken(data.data.refreshToken)
+        setToken(data.accessToken)
+        setRefreshToken(data.refreshToken)
         // 重试队列中的请求
         retryRequests.forEach(({ config, resolve }) => {
           resolve(request(config))
