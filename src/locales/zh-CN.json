@@ -112,6 +112,11 @@
       "addTodayPlan": "加入今日计划"
     }
   },
+  "plan": {
+    "info": {
+      "title": "计划详细信息"
+    }
+  },
   "navbar": {
     "back": "返回"
   }
