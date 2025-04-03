@@ -106,8 +106,10 @@
     "logoutSuccess": "退出登录成功！"
   },
   "recipe": {
-    "title": {
-      "info": "菜谱详细信息"
+    "info": {
+      "title": "菜谱详细信息",
+      "addPlan": "加入计划",
+      "addTodayPlan": "加入今日计划"
     }
   },
   "navbar": {
