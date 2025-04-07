@@ -51,7 +51,7 @@ getDailyPlanInfo({ id }).then((res) => {
 
 <route lang="json5">
 {
-  name: 'RecipeInfo',
+  name: 'PlanInfo',
   meta: {
     title: '计划信息',
     i18n: 'plan.info.title',
