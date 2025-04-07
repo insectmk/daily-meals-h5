@@ -5,6 +5,7 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import type { CreatePlanReq } from '@/api/dailyplan/type'
 import { addRecipesTodayPlan } from '@/api/dailyplan'
 import ResponseCode from '@/constants/response-code'
+import useRouteCacheStore from '@/stores/modules/routeCache'
 
 const route = useRoute()
 const { t } = useI18n() // 国际化
@@ -33,6 +34,10 @@ function addToTodayPlan() {
   addRecipesTodayPlan(dailyPlanForm).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
       showNotify({ type: 'success', message: '成功加入今日计划！' })
+      // TODO 清除菜谱计划的缓存
+      const routeCacheStore = useRouteCacheStore()
+      routeCacheStore.removeCache('PlanCache') // 菜谱计划
+      routeCacheStore.removeCache('PlanInfo') // 计划详细信息
     }
   })
   return false
