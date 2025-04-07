@@ -3,12 +3,12 @@ import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
 /**
- * 将菜谱加入到今日计划
+ * 将菜谱加入到计划
  * @param data 请求内容
  * @return 新增计划的id集合
  */
-export function addRecipesTodayPlan(data: CreatePlanReq) {
-  return request.post<number[]>('/meals/daily-plan/create/today', data)
+export function addRecipesPlan(data: CreatePlanReq) {
+  return request.post<number[]>('/meals/daily-plan/create', data)
 }
 
 /**
