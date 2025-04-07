@@ -70,6 +70,8 @@ An mobile web apps template based on the Vue 3 ecosystem.
 
 - ☁️ 零配置部署 [Netlify](https://www.netlify.com)
 
+- ☁️ 日期处理 [DayJS](https://dayjs.fenxianglu.cn/)
+
 <br>
 
 ## 预配置

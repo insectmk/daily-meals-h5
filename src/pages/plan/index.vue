@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { page as getDailyPlansPage } from '@/api/dailyplan'
+import { formatDate } from '@/utils/date-utils'
 
 defineOptions({
   name: 'PlanCache',
@@ -70,7 +71,7 @@ onBeforeRouteLeave(() => {
       @click="router.push(`/plan/${dailyPlan.id}`)"
     >
       <template #title>
-        {{ new Date(dailyPlan.planDate) }}
+        {{ formatDate(new Date(dailyPlan.planDate), 'YYYY年MM月DD日') }}
       </template>
       <template #label>
         {{ dailyPlan.memo }}
