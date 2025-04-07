@@ -14,6 +14,10 @@ export interface CreatePlanReq {
    */
   recipeIds: number[]
   /**
+   * 计划时间，毫秒时间戳
+   */
+  planDate: number
+  /**
    * 餐次类型
    */
   mealType: number

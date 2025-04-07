@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { page as getDailyPlansPage } from '@/api/dailyplan'
-import { formatDate } from '@/utils/date-utils'
+import { formatDate } from '@vueuse/core'
 
 defineOptions({
   name: 'PlanCache',
