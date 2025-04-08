@@ -10,6 +10,9 @@ declare module 'vue' {
   export interface GlobalComponents {
     Chart: typeof import('./../components/Chart/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
+    MkFormCalendar: typeof import('./../components/form/mk-form-calendar/index.vue')['default']
+    MkFormPicker: typeof import('./../components/form/mk-form-picker/index.vue')['default']
+    MkPicker: typeof import('./../components/form/mk-picker/index.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
