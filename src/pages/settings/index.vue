@@ -32,6 +32,7 @@ const language = computed(() => languageColumns.find(l => l.value === locale.val
 /**
  * 选择语言后
  * @param event
+ * @param event.selectedOptions
  */
 function onLanguageConfirm(event: { selectedOptions: PickerColumn }) {
   locale.value = event.selectedOptions[0].value as string

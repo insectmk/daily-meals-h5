@@ -11,6 +11,14 @@ export function page(pageReqVO: PageParam) {
 }
 
 /**
+ * 分页查询公共菜谱信息
+ * @param pageReqVO
+ */
+export function publicRecipePage(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeInfo>>('/meals/recipe/page/public', pageReqVO)
+}
+
+/**
  * 查询菜谱详细信息
  * @param param
  */

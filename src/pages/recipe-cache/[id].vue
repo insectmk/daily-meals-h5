@@ -70,7 +70,7 @@ function onCalendarConfirm(date: Date) {
   </div>
   <div v-else>
     <div v-html="recipe.recipeStep" />
-    <van-action-bar safe-area-inset-bottom placeholder>
+    <van-action-bar placeholder safe-area-inset-bottom>
       <van-action-bar-button
         type="warning" color="#be99ff" :text="t('recipe.info.addPlan')"
         @click="() => {
@@ -89,7 +89,7 @@ function onCalendarConfirm(date: Date) {
     <!-- 加入指定日期 -->
     <van-dialog
       v-model:show="addToPlanDialogShow"
-      title="标题"
+      title="加入计划"
       show-cancel-button
       @confirm="addToPlan"
     >
@@ -103,7 +103,12 @@ function onCalendarConfirm(date: Date) {
         placeholder="点击选择日期"
         @click="showCalendar = true"
       />
-      <van-calendar v-model:show="showCalendar" :show-confirm="false" @confirm="onCalendarConfirm" />
+      <van-calendar
+        v-model:show="showCalendar"
+        :show-confirm="false"
+        :style="{ height: '500px' }"
+        @confirm="onCalendarConfirm"
+      />
       <van-field
         v-model="dailyPlanForm.mealType" label="计划类型"
         label-align="top" placeholder="请输入计划类型"
