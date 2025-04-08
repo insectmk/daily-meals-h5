@@ -91,16 +91,11 @@ function addToPlan() {
         :dict-type="DICT_TYPE.MEALS_MEAL_TYPE"
         label="计划类型" placeholder="点击选择类型"
       />
-      <van-field
+      <mk-form-text
         v-model="dailyPlanForm.memo"
-        rows="2"
-        autosize
+        :maxlength="255"
         label="备注"
-        label-align="top"
-        type="textarea"
-        maxlength="50"
         placeholder="请输入备注"
-        show-word-limit
       />
     </van-dialog>
   </div>
