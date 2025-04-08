@@ -6,7 +6,6 @@ import type { CreatePlanReq } from '@/api/dailyplan/type'
 import { addRecipesPlan } from '@/api/dailyplan'
 import ResponseCode from '@/constants/response-code'
 import useRouteCacheStore from '@/stores/modules/routeCache'
-import { formatDate } from '@vueuse/core'
 import { DICT_TYPE } from '@/constants/dict'
 
 const route = useRoute()
@@ -16,14 +15,12 @@ const id = (route.params as { id: number }).id // 路由参数：菜谱ID
 const recipe = ref<RecipeInfo>()
 const loading = ref<boolean>(true) // 加载中
 const addToPlanDialogShow = ref<boolean>(false) // 加入到日期计划弹窗
-const showCalendar = ref<boolean>(false) // 显示日历选择器
 const dailyPlanForm = reactive<CreatePlanReq>({
   recipeIds: [], // 菜谱ID
   planDate: Date.now(), // 计划日期
   mealType: 0, // 计划类型
   memo: '', // 备注
 })
-const calendarResult = ref<string>(formatDate(new Date(dailyPlanForm.planDate), 'YYYY-MM-DD')) // 日历显示
 const isToday = ref<boolean>(false) // 是否今日
 /**
  * 获取菜谱信息
@@ -50,16 +47,6 @@ function addToPlan() {
     }
   })
   return false
-}
-
-/**
- * 日期选择后
- * @param date
- */
-function onCalendarConfirm(date: Date) {
-  dailyPlanForm.planDate = date.getTime()
-  calendarResult.value = formatDate(date, 'YYYY-MM-DD') // 表单显示的日期
-  showCalendar.value = false
 }
 </script>
 
@@ -94,21 +81,10 @@ function onCalendarConfirm(date: Date) {
       show-cancel-button
       @confirm="addToPlan"
     >
-      <van-field
-        v-show="!isToday"
-        v-model="calendarResult"
-        is-link
-        readonly
-        name="calendar"
-        label="计划日"
+      <mk-form-calendar
+        v-model="dailyPlanForm.planDate"
+        label="计划日期"
         placeholder="点击选择日期"
-        @click="showCalendar = true"
-      />
-      <van-calendar
-        v-model:show="showCalendar"
-        :show-confirm="false"
-        :style="{ height: '500px' }"
-        @confirm="onCalendarConfirm"
       />
       <mk-form-picker
         v-model="dailyPlanForm.mealType"

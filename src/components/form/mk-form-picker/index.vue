@@ -11,12 +11,12 @@ const prop = defineProps({
   dictType: {
     type: String,
     required: true,
-    default: '选择器',
   },
   // label
   label: {
     type: String,
     required: false,
+    default: '选择器',
   },
   // 提示文字
   placeholder: {
