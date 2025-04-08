@@ -7,23 +7,41 @@ import { addRecipesPlan } from '@/api/dailyplan'
 import ResponseCode from '@/constants/response-code'
 import useRouteCacheStore from '@/stores/modules/routeCache'
 import { formatDate } from '@vueuse/core'
+import { useDictStore } from '@/stores'
+import { DICT_TYPE } from '@/constants/dict'
+import type { DictInfo } from '@/api/system/type'
 
 const route = useRoute()
 const { t } = useI18n() // 国际化
+const dictStore = useDictStore() // 字典
 
 const id = (route.params as { id: number }).id // 路由参数：菜谱ID
 const recipe = ref<RecipeInfo>()
 const loading = ref<boolean>(true) // 加载中
 const addToPlanDialogShow = ref<boolean>(false) // 加入到日期计划弹窗
 const showCalendar = ref<boolean>(false) // 显示日历选择器
+const showPicker = ref<boolean>(false) // 显示日期类型选择器
 const dailyPlanForm = reactive<CreatePlanReq>({
   recipeIds: [], // 菜谱ID
   planDate: Date.now(), // 计划日期
-  mealType: null, // 计划类型
+  mealType: 0, // 计划类型
   memo: '', // 备注
 })
+const mealTypes = ref<DictInfo[]>([]) // 计划类型列表
 const calendarResult = ref<string>(formatDate(new Date(dailyPlanForm.planDate), 'YYYY-MM-DD')) // 日历显示
+const mealTypeResult = ref<string>() // 计划类型显示
 const isToday = ref<boolean>(false) // 是否今日
+const customFieldName = {
+  text: 'label',
+  value: 'value',
+}
+/**
+ * 获取计划类型列表
+ */
+dictStore.getDictByType(DICT_TYPE.MEALS_MEAL_TYPE).then((res) => {
+  mealTypes.value = res
+  mealTypeResult.value = dictStore.getDictLabelByValue(DICT_TYPE.MEALS_MEAL_TYPE, String(dailyPlanForm.mealType))
+})
 /**
  * 获取菜谱信息
  */
@@ -60,6 +78,16 @@ function onCalendarConfirm(date: Date) {
   calendarResult.value = formatDate(date, 'YYYY-MM-DD') // 表单显示的日期
   showCalendar.value = false
 }
+
+/**
+ * 计划类型选择后
+ * @param selectedValues
+ */
+function onMealsTypeConfirm({ selectedValues }) {
+  dailyPlanForm.mealType = selectedValues[0]
+  mealTypeResult.value = dictStore.getDictLabelByValue(DICT_TYPE.MEALS_MEAL_TYPE, String(dailyPlanForm.mealType)) // 表单显示的类型
+  showPicker.value = false
+}
 </script>
 
 <template>
@@ -70,7 +98,7 @@ function onCalendarConfirm(date: Date) {
   </div>
   <div v-else>
     <div v-html="recipe.recipeStep" />
-    <van-action-bar placeholder safe-area-inset-bottom>
+    <van-action-bar safe-area-inset-bottom placeholder>
       <van-action-bar-button
         type="warning" color="#be99ff" :text="t('recipe.info.addPlan')"
         @click="() => {
@@ -110,9 +138,23 @@ function onCalendarConfirm(date: Date) {
         @confirm="onCalendarConfirm"
       />
       <van-field
-        v-model="dailyPlanForm.mealType" label="计划类型"
-        label-align="top" placeholder="请输入计划类型"
+        v-model="mealTypeResult"
+        is-link
+        readonly
+        name="picker"
+        label="计划类型"
+        placeholder="点击选择类型"
+        @click="showPicker = true"
       />
+      <van-popup v-model:show="showPicker" destroy-on-close position="bottom">
+        <van-picker
+          :columns-field-names="customFieldName"
+          :columns="mealTypes"
+          :model-value="[dailyPlanForm.mealType]"
+          @confirm="onMealsTypeConfirm"
+          @cancel="showPicker = false"
+        />
+      </van-popup>
       <van-field
         v-model="dailyPlanForm.memo"
         rows="2"
