@@ -64,7 +64,6 @@ export const useMemberStore = defineStore('member', () => {
     info,
     login,
     logout,
-    memberLogin,
   }
 }, {
   persist: true,
