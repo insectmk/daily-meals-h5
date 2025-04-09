@@ -8,15 +8,17 @@ defineProps({
     type: Array as () => RecipeInfo[],
     required: true,
   },
-  // 菜谱列表
+  // 加载
   loading: {
     type: Boolean,
-    required: true,
+    required: false,
+    default: false,
   },
   // 是否结束
   finished: {
     type: Boolean,
-    required: true,
+    required: false,
+    default: true,
   },
 })
 

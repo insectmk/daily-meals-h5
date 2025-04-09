@@ -1,3 +1,5 @@
+import type { RecipeInfo } from '@/api/recipe/type'
+
 /**
  * 获取菜谱计划详细信息请求参数
  */
@@ -73,4 +75,8 @@ export interface DailyPlanItemInfo {
    * 菜谱名称
    */
   recipeName: string
+  /**
+   * 菜谱详细信息
+   */
+  recipeInfo: RecipeInfo
 }

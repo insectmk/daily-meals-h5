@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router'
-import type { DailyPlanInfo } from '@/api/dailyplan/type'
+import { useRoute } from 'vue-router'
+import type { DailyPlanInfo, DailyPlanItemInfo } from '@/api/dailyplan/type'
 import { getDailyPlanInfo } from '@/api/dailyplan'
+import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
 
 const route = useRoute()
-const router = useRouter()
 // const { t } = useI18n() // 国际化
 
 const id = (route.params as { id: number }).id // 路由参数：计划ID
@@ -17,6 +17,13 @@ getDailyPlanInfo({ id }).then((res) => {
   dailyPlan.value = res.data
   loading.value = false // 加载完毕
 })
+
+/**
+ * 菜谱列表
+ */
+const recipeList = computed(() => {
+  return dailyPlan.value.items.map((item: DailyPlanItemInfo) => item.recipeInfo)
+})
 </script>
 
 <template>
@@ -26,22 +33,9 @@ getDailyPlanInfo({ id }).then((res) => {
     </van-loading>
   </div>
   <div v-else>
-    <p>{{}}</p>
-    <van-cell
-      v-for="(item, index) in dailyPlan.items"
-      :key="index"
-      :border="false"
-      class="mb-8 rounded-12"
-      is-link
-      @click="router.push(`/recipe-cache/${item.recipeId}`)"
-    >
-      <template #title>
-        {{ item.recipeName }}
-      </template>
-      <template #label>
-        {{ item.mealType }}
-      </template>
-    </van-cell>
+    <RecipeCardList
+      :recipe-list="recipeList"
+    />
   </div>
 </template>
 
