@@ -57,6 +57,16 @@ function addToPlan() {
     </van-loading>
   </div>
   <div v-else>
+    <van-swipe :autoplay="3000" indicator-color="white">
+      <van-swipe-item v-for="sliderPicUrl in recipe.sliderPicUrls" :key="sliderPicUrl">
+        <van-image
+          height="200"
+          width="100%"
+          fit="fill"
+          :src="sliderPicUrl"
+        />
+      </van-swipe-item>
+    </van-swipe>
     <div v-html="recipe.recipeStep" />
     <van-action-bar safe-area-inset-bottom placeholder>
       <van-action-bar-button
@@ -102,7 +112,6 @@ function addToPlan() {
 </template>
 
 <style scoped>
-
 </style>
 
 <route lang="json5">
