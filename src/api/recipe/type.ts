@@ -28,6 +28,14 @@ export interface RecipeInfo {
   memo: string
   status: number
   createTime: number
+  /**
+   * 菜谱封面图
+   */
+  picUrl: string
+  /**
+   * 菜谱轮播图
+   */
+  sliderPicUrls: string[]
   foods: RecipeFoodInfo[]
 }
 
