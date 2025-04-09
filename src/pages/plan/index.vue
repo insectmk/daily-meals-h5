@@ -20,6 +20,8 @@ const finished = ref(false) // 结束
 
 // 计划最小时间
 const minDate = computed(() => {
+  if (dailyPlanList.value.length === 0)
+    return new Date()
   return new Date(dailyPlanList.value.reduce((minPlanDate, dailyPlan) =>
     dailyPlan.planDate < minPlanDate
       ? dailyPlan.planDate
@@ -27,6 +29,8 @@ const minDate = computed(() => {
 })
 // 计划最大时间
 const maxDate = computed(() => {
+  if (dailyPlanList.value.length === 0)
+    return new Date()
   return new Date(dailyPlanList.value.reduce((maxPlanDate, dailyPlan) =>
     dailyPlan.planDate > maxPlanDate
       ? dailyPlan.planDate
@@ -44,9 +48,7 @@ function onLoad() {
     pageSize,
   }).then((res) => {
     // 将菜谱添加到列表中
-    res.data.list.forEach((recipe) => {
-      dailyPlanList.value.push(recipe)
-    })
+    dailyPlanList.value = [...dailyPlanList.value, ...res.data.list]
     // 关闭加载
     loading.value = false
     if (res.data.list.length < pageSize) {
