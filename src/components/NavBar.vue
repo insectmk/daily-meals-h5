@@ -29,7 +29,7 @@ function onBack() {
 
 <template>
   <van-nav-bar
-    v-show="!isShow"
+    v-if="!isShow"
     :title="title"
     :left-text="t('navbar.back')"
     left-arrow placeholder fixed
