@@ -14,7 +14,10 @@ const title = computed(() => {
 })
 
 // 判断是否为主页，为主页则不显示头部导航
-const isShow = computed(() => route.name && routeWhiteList.includes(route.name))
+const isShow = computed(() => route.name
+  && (routeWhiteList.includes(route.name)
+    // 自定义头部导航
+    || !route.meta?.customNav))
 
 /**
  * 返回操作
