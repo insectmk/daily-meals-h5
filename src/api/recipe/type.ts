@@ -51,3 +51,17 @@ export interface RecipeFoodInfo {
   foodUnit: number
   memo: string
 }
+
+/**
+ * 最热门菜谱请求参数
+ */
+export interface GetPopularPublicParam {
+  /**
+   * 排名数量
+   */
+  rankLen: number
+  /**
+   * 餐次类型：数组，用,分割
+   */
+  mealType: string
+}
