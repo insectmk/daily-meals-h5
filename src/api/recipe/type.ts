@@ -65,3 +65,24 @@ export interface GetPopularPublicParam {
    */
   mealType: string
 }
+
+/**
+ * 新增菜谱的信息
+ */
+export interface RecipeCreateReq {
+  name?: string
+  recipeDesc?: string
+  recipeStep?: string
+  recipeType?: number
+  recipeLevel?: number
+  sort?: number
+  memo?: string
+  /**
+   * 菜谱封面图
+   */
+  picUrl?: string
+  /**
+   * 菜谱轮播图
+   */
+  sliderPicUrls?: string[]
+}

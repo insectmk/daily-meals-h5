@@ -110,6 +110,9 @@
       "title": "菜谱详细信息",
       "addPlan": "加入计划",
       "addTodayPlan": "加入今日计划"
+    },
+    "add": {
+      "title": "添加菜谱"
     }
   },
   "plan": {
@@ -119,5 +122,9 @@
   },
   "navbar": {
     "back": "返回"
+  },
+  "common": {
+    "cancel": "取消",
+    "done": "完成"
   }
 }

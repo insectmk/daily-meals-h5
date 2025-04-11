@@ -2,6 +2,7 @@
 import { page as getRecipesPage, publicRecipePage } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
+import RecipeAddBubble from '@/pages/recipe-cache/component/recipe-add-bubble.vue'
 
 defineOptions({
   name: 'RecipeCache',
@@ -81,6 +82,7 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
+  <RecipeAddBubble />
   <van-tabs
     v-model:active="recipeTabActive"
     type="card" swipeable sticky

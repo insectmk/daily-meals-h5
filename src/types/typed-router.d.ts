@@ -32,6 +32,8 @@ declare module 'vue-router/auto-routes' {
     'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,
     'RecipeCache': RouteRecordInfo<'RecipeCache', '/recipe-cache', Record<never, never>, Record<never, never>>,
     'RecipeInfo': RouteRecordInfo<'RecipeInfo', '/recipe-cache/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    'RecipeAdd': RouteRecordInfo<'RecipeAdd', '/recipe-cache/add', Record<never, never>, Record<never, never>>,
+    '/recipe-cache/component/recipe-add-bubble': RouteRecordInfo<'/recipe-cache/component/recipe-add-bubble', '/recipe-cache/component/recipe-add-bubble', Record<never, never>, Record<never, never>>,
     '/recipe-cache/component/recipe-card-list': RouteRecordInfo<'/recipe-cache/component/recipe-card-list', '/recipe-cache/component/recipe-card-list', Record<never, never>, Record<never, never>>,
     'register': RouteRecordInfo<'register', '/register', Record<never, never>, Record<never, never>>,
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
