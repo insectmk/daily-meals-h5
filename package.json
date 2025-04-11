@@ -18,6 +18,11 @@
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
+    "@tiptap/extension-bold": "^2.11.7",
+    "@tiptap/extension-italic": "^2.11.7",
+    "@tiptap/pm": "^2.11.7",
+    "@tiptap/starter-kit": "^2.11.7",
+    "@tiptap/vue-3": "^2.11.7",
     "@unhead/vue": "~1.11.20",
     "@vant/touch-emulator": "^1.4.0",
     "@vant/use": "^1.6.0",
