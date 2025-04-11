@@ -154,8 +154,21 @@ export function post<T>(url: string, params?: any) {
 export function get<T>(url: string, params?: any) {
   return request.get<any, CommonResult<T>>(url, { params })
 }
+/**
+ * FormData请求（支持文件上传）
+ * @param url 请求路径
+ * @param formData 表单数据对象
+ */
+export function postForm<T>(url: string, formData: FormData) {
+  return request.post<any, CommonResult<T>>(url, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data', // 显式指定表单类型[3,7](@ref)
+    },
+  })
+}
 
 export default {
   post, // POST请求
   get, // GET请求
+  postForm, // POST-Form请求
 }
