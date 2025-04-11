@@ -11,6 +11,7 @@ declare module 'vue' {
     Chart: typeof import('./../components/Chart/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     MkFormCalendar: typeof import('./../components/form/mk-form-calendar/index.vue')['default']
+    MkFormFile: typeof import('./../components/form/mk-form-file/index.vue')['default']
     MkFormPicker: typeof import('./../components/form/mk-form-picker/index.vue')['default']
     MkFormText: typeof import('./../components/form/mk-form-text/index.vue')['default']
     MkFormTiptop: typeof import('./../components/form/mk-form-tiptop/index.vue')['default']
@@ -53,5 +54,6 @@ declare module 'vue' {
     VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTabs: typeof import('vant/es')['Tabs']
     VanTag: typeof import('vant/es')['Tag']
+    VanUploader: typeof import('vant/es')['Uploader']
   }
 }

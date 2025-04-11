@@ -1,4 +1,4 @@
-import type { GetPopularPublicParam, GetRecipeParam, RecipeInfo } from '@/api/recipe/type'
+import type { GetPopularPublicParam, GetRecipeParam, RecipeCreateReq, RecipeInfo } from '@/api/recipe/type'
 import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
@@ -32,4 +32,12 @@ export function getRecipeInfo(param: GetRecipeParam) {
  */
 export function getPopularPublicRecipes(param: GetPopularPublicParam) {
   return request.get<RecipeInfo[]>('/meals/recipe/public/popular', param)
+}
+
+/**
+ * 添加菜谱
+ * @param param
+ */
+export function addRecipe(param: RecipeCreateReq) {
+  return request.post<number>('/meals/recipe/create', param)
 }
