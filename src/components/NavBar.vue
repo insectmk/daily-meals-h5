@@ -15,9 +15,9 @@ const title = computed(() => {
 
 // 判断是否为主页，为主页则不显示头部导航
 const isShow = computed(() => route.name
-  && (routeWhiteList.includes(route.name)
+  && (!routeWhiteList.includes(route.name)
     // 自定义头部导航
-    || !route.meta?.customNav))
+    && !route.meta?.customNav))
 
 /**
  * 返回操作
@@ -32,7 +32,7 @@ function onBack() {
 
 <template>
   <van-nav-bar
-    v-if="!isShow"
+    v-if="isShow"
     :title="title"
     :left-text="t('navbar.back')"
     left-arrow placeholder fixed
