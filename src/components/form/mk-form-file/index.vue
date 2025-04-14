@@ -28,6 +28,12 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  // 表单验证规则
+  rules: {
+    type: Array as () => Array<FieldRule>, // 更明确的数组类型声明
+    required: false,
+    default: () => [], // 使用工厂函数返回默认值
+  },
 })
 
 // 声明 emit 事件（用于更新父组件的 v-model）
@@ -92,7 +98,7 @@ function beforeDelete(file: UploaderFileListItem) {
 </script>
 
 <template>
-  <van-field name="uploader" :label="label">
+  <van-field name="uploader" :label="label" :rules="rules">
     <template #input>
       <van-uploader
         v-model="fileList"

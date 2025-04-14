@@ -71,6 +71,7 @@ function onConfirm() {
     />
     <mk-form-tiptop
       v-model="recipeForm.recipeStep"
+      :rules="[{ required: true, message: '请填写菜谱步骤' }]"
       label="步骤"
       :maxlength="2000"
     />
@@ -81,6 +82,7 @@ function onConfirm() {
     />
     <mk-form-file
       v-model="recipeForm.picUrl"
+      :rules="[{ required: true, message: '请上传封面' }]"
       label="封面"
     />
     <mk-form-file

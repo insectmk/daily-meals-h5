@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { EditorContent, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import type { FieldRule } from 'vant'
 
 defineProps({
   // 文本
@@ -25,6 +26,12 @@ defineProps({
     type: String,
     required: false,
     default: '请输入内容',
+  },
+  // 表单验证规则
+  rules: {
+    type: Array as () => Array<FieldRule>, // 更明确的数组类型声明
+    required: false,
+    default: () => [], // 使用工厂函数返回默认值
   },
 })
 
@@ -63,6 +70,7 @@ function handleFocus() {
     :model-value="modelValue"
     rows="2"
     autosize
+    :rules="rules"
     :label="label"
     label-align="top"
     type="textarea"
