@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import type { SimpleFoodInfo } from '@/api/food/type'
+import type { FoodInfo, SimpleFoodInfo } from '@/api/food/type'
 
 /**
  * 获取食材精简信息列表
@@ -7,4 +7,12 @@ import type { SimpleFoodInfo } from '@/api/food/type'
  */
 export function getSimpleFoodList() {
   return request.get<SimpleFoodInfo[]>('/meals/food/list-all-simple')
+}
+
+/**
+ * 获得食材
+ * @return 获得食材
+ */
+export function getFood(params: { id: number }) {
+  return request.get<FoodInfo>('/meals/food/get', params)
 }
