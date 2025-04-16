@@ -4,7 +4,7 @@ import type { FieldRule, PickerFieldNames } from 'vant'
 import type { CommonResult } from '@/api/type'
 
 // 属性
-const prop = defineProps({
+const props = defineProps({
   modelValue: { // 默认的 v-model 属性名
     type: [String, Number], // 支持多种类型
     required: true,
@@ -41,31 +41,50 @@ const prop = defineProps({
       value: 'value',
     }),
   },
+  // 只读状态
+  readonly: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 // 事件
-const emit = defineEmits(['update:modelValue']) // 声明 emit 事件
+const emit = defineEmits([
+  'update:modelValue', // 下拉更新
+  'change', // 值改变
+]) // 声明 emit 事件
+
+// 监听 modelValue 的变化
+watch(
+  () => props.modelValue, // 监听目标
+  (newVal, _oldVal) => {
+    // 执行你的业务逻辑
+    updateResult(String(newVal)) // 更新显示内容
+  },
+  // { immediate: true }, // 可选：立即触发一次（初始值）
+)
 
 const dictStore = useDictStore()
 
-const result = ref<string>(String(prop.modelValue)) // 内容显示
+const result = ref<string>(String(props.modelValue)) // 内容显示
 const showPicker = ref<boolean>(false) // 控制选择框显示
 const columns = ref<any[]>([]) // 列表信息
 
-if (typeof prop.dictType === 'string') {
+if (typeof props.dictType === 'string') {
   // 从字典状态读取列表
-  dictStore.getDictByType(prop.dictType).then((res) => {
+  dictStore.getDictByType(props.dictType).then((res) => {
     columns.value = res
     // 初始化选择的内容为label
-    updateResult(String(prop.modelValue))
+    updateResult(String(props.modelValue))
   })
 }
 else {
   // 从接口读取列表
-  prop.dictType().then((res) => {
+  props.dictType().then((res) => {
     columns.value = res.data
     // 初始化选择的内容为label
-    updateResult(String(prop.modelValue))
+    updateResult(String(props.modelValue))
   })
 }
 
@@ -74,9 +93,9 @@ else {
  * @param value
  */
 function updateResult(value: string) {
-  const column = columns.value.find(item => String(item[prop.customFieldName.value]) === value)
+  const column = columns.value.find(item => String(item[props.customFieldName.value]) === value)
   if (column) {
-    result.value = column[prop.customFieldName.text]
+    result.value = column[props.customFieldName.text]
   }
   else {
     result.value = value
@@ -92,6 +111,27 @@ function onConfirm({ selectedValues }) {
   emit('update:modelValue', selectedValues[0])
   updateResult(String(selectedValues)) // 表单显示的类型
   showPicker.value = false
+}
+
+/**
+ * 处理 Picker 的 change 事件
+ * @param singleValue
+ * @param columnIndex
+ * @param selectedValues
+ */
+function handlePickerChange({
+  singleValue,
+  columnIndex,
+  selectedValues,
+}) {
+  // 更新显示的值
+  updateResult(selectedValues[0])
+  // 透传所有参数给父组件
+  emit('change', {
+    singleValue,
+    columnIndex,
+    selectedValues,
+  })
 }
 </script>
 
@@ -111,6 +151,8 @@ function onConfirm({ selectedValues }) {
       :columns-field-names="customFieldName"
       :columns="columns"
       :value="[modelValue]"
+      :readonly="readonly"
+      @change="handlePickerChange"
       @confirm="onConfirm"
       @cancel="showPicker = false"
     />
