@@ -41,6 +41,19 @@ function confirmItem() {
   formData.value = JSON.parse(JSON.stringify(prop.defaultFormData))
   showPopup.value = false // 关闭表单
 }
+
+/**
+ * 删除明细tag
+ */
+function handelItemDelete(item: any) {
+  // 删除明细
+  const newItems = [...prop.modelValue]
+  const index = newItems.indexOf(item)
+  if (index !== -1) {
+    newItems.splice(index, 1)
+  }
+  emit('update:modelValue', [...newItems])
+}
 </script>
 
 <template>
@@ -58,7 +71,9 @@ function confirmItem() {
           v-for="(item, index) in modelValue"
           :key="index"
           class="mr-4"
-          plain type="primary"
+          type="primary"
+          closeable plain
+          @close="handelItemDelete(item)"
         >
           {{ formatter(item) }}
         </van-tag>
