@@ -126,11 +126,20 @@ function handlePickerChange({
 }) {
   // 更新显示的值
   updateResult(selectedValues[0])
+  const selectedTexts = [] // 选项显示值
+  const column = columns.value.find(item => String(item[props.customFieldName.value]) === String(selectedValues[0]))
+  if (column) {
+    selectedTexts[0] = column[props.customFieldName.text]
+  }
+  else {
+    selectedTexts[0] = selectedValues[0]
+  }
   // 透传所有参数给父组件
   emit('change', {
     singleValue,
     columnIndex,
     selectedValues,
+    selectedTexts,
   })
 }
 </script>
