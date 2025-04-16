@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { RecipeCreateReq } from '@/api/recipe/type'
+import type { RecipeCreateReq, RecipeFoodInfo } from '@/api/recipe/type'
 import type { FormInstance } from 'vant'
 import { addRecipe } from '@/api/recipe'
 import ResponseCode from '@/constants/response-code'
+import { DICT_TYPE } from '@/constants/dict'
+import { getFood, getSimpleFoodList } from '@/api/food'
+import { useDictStore } from '@/stores'
 
 defineOptions({
   name: 'RecipeAdd',
 })
 
 const router = useRouter()
+const dictStore = useDictStore()
 const formRef = ref<FormInstance>()
 
 // 菜谱表单数据
@@ -18,8 +22,11 @@ const recipeForm = reactive<RecipeCreateReq>({
   recipeDesc: '', // 菜谱描述
   recipeStep: '', // 菜谱教程
   memo: '', // 菜谱备注
+  recipeType: 0, // 菜谱类型
+  recipeLevel: 0, // 烹饪难度
   picUrl: '', // 封面图片
   sliderPicUrls: [], // 菜谱轮播图图片
+  recipeFoods: [], // 菜谱食材
 })
 
 /**
@@ -45,6 +52,27 @@ function onConfirm() {
         showNotify({ type: 'success', message: `菜谱添加成功！`, duration: 1500 })
       }
     })
+  })
+}
+
+/**
+ * 格式化食材信息
+ * @param food 食材信息
+ */
+function recipeFoodFormatter(food: RecipeFoodInfo) {
+  return `${food.foodName}:${food.amount}${dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, String(food.foodUnit))}`
+}
+
+/**
+ * 食材ID更改处理
+ * @param newFoodId 新食材ID
+ * @param newFoodName 新食材名称
+ * @param recipeFoodData 菜谱食材信息
+ */
+function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
+  getFood({ id: Number(newFoodId) }).then((res) => {
+    recipeFoodData.foodName = newFoodName // 赋值食材名称
+    recipeFoodData.foodUnit = res.data.foodUnit // 赋值食材单位
   })
 }
 </script>
@@ -80,6 +108,18 @@ function onConfirm() {
       label="备注"
       :maxlength="256"
     />
+    <mk-form-picker
+      v-model="recipeForm.recipeType"
+      :rules="[{ required: true, message: '请填写菜谱类型' }]"
+      :dict-type="DICT_TYPE.MEALS_RECIPE_TYPE"
+      label="菜谱类型" placeholder="点击选择类型"
+    />
+    <mk-form-picker
+      v-model="recipeForm.recipeLevel"
+      :rules="[{ required: true, message: '请填写烹饪难度' }]"
+      :dict-type="DICT_TYPE.MEALS_RECIPE_LEVEL"
+      label="烹饪难度" placeholder="点击选择难度"
+    />
     <mk-form-file
       v-model="recipeForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
@@ -91,6 +131,50 @@ function onConfirm() {
       :max-count="2"
       label="轮播图"
     />
+    <mk-form-items
+      v-model="recipeForm.recipeFoods"
+      :formatter="recipeFoodFormatter"
+      :default-form-data="{
+        foodId: 0,
+        amount: 0.0,
+        foodName: '未知',
+        foodUnit: 0,
+        memo: '',
+      }"
+      label="食材"
+    >
+      <template #default="{ itemData }">
+        <mk-form-picker
+          v-model="itemData.foodId"
+          :rules="[{ required: true, message: '请选择食材' }]"
+          :custom-field-name="{
+            text: 'name',
+            value: 'id',
+          }"
+          :dict-type="getSimpleFoodList"
+          label="食材"
+          placeholder="点击选择食材" @change="({ selectedValues, selectedTexts }) => {
+            foodIdChange(selectedValues[0], selectedTexts[0], itemData)
+          }"
+        />
+        <mk-form-picker
+          v-model="itemData.foodUnit"
+          :readonly="true"
+          :rules="[{ required: true, message: '食材单位' }]"
+          :dict-type="DICT_TYPE.MEALS_FOOD_UNIT"
+          label="单位"
+        />
+        <mk-form-input
+          v-model="itemData.amount"
+          type="number" placeholder="请输入量" label="量"
+        />
+        <mk-form-text
+          v-model="itemData.memo"
+          label="备注"
+          :maxlength="256"
+        />
+      </template>
+    </mk-form-items>
   </van-form>
 </template>
 
