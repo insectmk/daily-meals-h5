@@ -85,4 +85,17 @@ export interface RecipeCreateReq {
    * 菜谱轮播图
    */
   sliderPicUrls?: string[]
+  /**
+   * 菜谱食材明细
+   */
+  recipeFoods: RecipeCreateReq[]
+}
+
+/**
+ * 菜谱食材请求信息
+ */
+export interface RecipeFoodReq {
+  foodId: number
+  amount: number
+  memo: string
 }
