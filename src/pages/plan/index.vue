@@ -17,6 +17,11 @@ const loading = ref(false) // 加载
 const finished = ref(false) // 结束
 // const { t } = useI18n() // 多语言支持
 
+// 计划日期范围
+const planDateRange = [-15, 15].map(days =>
+  new Date(Date.now() + days * 864e5),
+)
+
 /**
  * 加载计划
  */
@@ -26,6 +31,10 @@ function loadPlan() {
   getDailyPlansPage({
     pageNo,
     pageSize,
+    planDate: [
+      useDateFormat(planDateRange[0], 'YYYY-MM-DD HH:mm:ss').value,
+      useDateFormat(planDateRange[1], 'YYYY-MM-DD HH:mm:ss').value,
+    ],
   }).then((res) => {
     // 将菜谱添加到列表中
     dailyPlanList.value = [...dailyPlanList.value, ...res.data.list]
@@ -107,6 +116,8 @@ onBeforeRouteLeave(() => {
     title="计划"
     :poppable="false"
     :show-confirm="false"
+    :min-date="planDateRange[0]"
+    :max-date="planDateRange[1]"
     @select="onCalendarSelect"
   />
 </template>
