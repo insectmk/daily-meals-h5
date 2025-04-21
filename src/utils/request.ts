@@ -5,6 +5,7 @@ import { HEADER_ACCESS_TOKEN, HEADER_TENANT, STORAGE_TOKEN_KEY } from '@/stores/
 import type { CommonResult } from '@/api/type'
 import ResponseCode from '@/constants/response-code'
 import { getRefreshToken, setRefreshToken, setToken } from '@/utils/auth'
+import qs from 'qs'
 
 interface RetryRequest {
   resolve: (value: unknown) => void
@@ -28,6 +29,11 @@ const request = axios.create({
   // API 请求的默认前缀
   baseURL,
   timeout: 6000, // 请求超时时间
+  withCredentials: false, // 禁用 Cookie 等信息
+  // 自定义参数序列化函数
+  paramsSerializer: (params) => {
+    return qs.stringify(params, { allowDots: true })
+  },
 })
 
 export type RequestError = AxiosError<{
