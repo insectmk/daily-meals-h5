@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { UploaderFileListItem } from 'vant'
+import type { FieldRule, UploaderFileListItem } from 'vant'
 import { uploadFile } from '@/api/infra'
 import ResponseCode from '@/constants/response-code'
 
@@ -30,7 +30,7 @@ const props = defineProps({
   },
   // 表单验证规则
   rules: {
-    type: Array as () => Array<FieldRule>, // 更明确的数组类型声明
+    type: Array as PropType<FieldRule[]>, // 更明确的数组类型声明
     required: false,
     default: () => [], // 使用工厂函数返回默认值
   },
