@@ -1,4 +1,15 @@
 import type { RecipeInfo } from '@/api/recipe/type'
+import type { PageParam } from '@/api/type'
+
+/**
+ * 计划分页查询
+ */
+export interface DailyPlanPageParam extends PageParam {
+  /**
+   * 日期范围，'2025-04-17 00:00:00','2025-05-21 23:59:59',
+   */
+  planDate?: string[]
+}
 
 /**
  * 获取菜谱计划详细信息请求参数

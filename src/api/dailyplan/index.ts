@@ -1,6 +1,6 @@
-import type { CreatePlanReq, DailyPlanInfo, GetDailyParam } from '@/api/dailyplan/type'
+import type { CreatePlanReq, DailyPlanInfo, DailyPlanPageParam, GetDailyParam } from '@/api/dailyplan/type'
 import request from '@/utils/request'
-import type { PageParam, PageResult } from '@/api/type'
+import type { PageResult } from '@/api/type'
 
 /**
  * 将菜谱加入到计划
@@ -15,7 +15,7 @@ export function addRecipesPlan(data: CreatePlanReq) {
  * 分页查询菜谱计划信息
  * @param pageReqVO
  */
-export function page(pageReqVO: PageParam) {
+export function page(pageReqVO: DailyPlanPageParam) {
   return request.get<PageResult<DailyPlanInfo>>('/meals/daily-plan/page', pageReqVO)
 }
 
