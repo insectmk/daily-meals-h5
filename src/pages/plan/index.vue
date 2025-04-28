@@ -18,7 +18,7 @@ const finished = ref(false) // 结束
 // const { t } = useI18n() // 多语言支持
 
 // 计划日期范围
-const planDateRange = [-15, 15].map(days =>
+const planDateRange = [-30, 30].map(days =>
   new Date(Date.now() + days * 864e5),
 )
 
