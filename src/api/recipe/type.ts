@@ -74,6 +74,7 @@ export interface RecipeCreateReq {
   recipeDesc?: string
   recipeStep?: string
   recipeType?: number
+  recipeCategory?: number[] // 菜谱分类
   recipeLevel?: number
   sort?: number
   memo?: string

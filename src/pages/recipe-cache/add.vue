@@ -7,6 +7,7 @@ import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
 import { getFood, getSimpleFoodList } from '@/api/food'
 import { useDictStore } from '@/stores'
+import { getRecipeCategoryList } from '@/api/recipecategory'
 
 defineOptions({
   name: 'RecipeAdd',
@@ -23,6 +24,7 @@ const recipeForm = reactive<RecipeCreateReq>({
   recipeStep: '', // 菜谱教程
   memo: '', // 菜谱备注
   recipeType: 0, // 菜谱类型
+  recipeCategory: [], // 菜谱分类
   recipeLevel: 0, // 烹饪难度
   picUrl: '', // 封面图片
   sliderPicUrls: [], // 菜谱轮播图图片
@@ -107,6 +109,11 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       v-model="recipeForm.memo"
       label="备注"
       :maxlength="256"
+    />
+    <mk-form-tree-select
+      v-model="recipeForm.recipeCategory"
+      :tree-options="getRecipeCategoryList"
+      label="菜谱分类"
     />
     <mk-form-picker
       v-model="recipeForm.recipeType"
