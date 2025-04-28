@@ -68,6 +68,7 @@
     "mockjs": "^1.1.0",
     "postcss-mobile-forever": "^4.4.0",
     "rollup": "^4.34.9",
+    "sass-embedded": "^1.87.0",
     "simple-git-hooks": "^2.11.1",
     "terser": "^5.39.0",
     "typescript": "^5.8.2",
