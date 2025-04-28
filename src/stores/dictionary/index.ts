@@ -26,16 +26,26 @@ export const useDictStore = defineStore('dictionary', () => {
   }
 
   // 获取字典显示的值
-  const getDictLabelByValue = (type: string, value: string): string => {
+  const getDictLabelByValue = (type: string, value: string | number): string => {
     if (dictMap.has(type)) {
       const dictInfos: DictInfo[] = dictMap.get(type)
-      const dictInfo = dictInfos.find(dictInfo => dictInfo.value === value)
+      const dictInfo = dictInfos.find(dictInfo => String(dictInfo.value) === String(value))
       if (dictInfo) {
         return dictInfo.label
       }
-      return value
+      return String(value)
     }
-    return value
+    return String(value)
+  }
+
+  // 异步获取字典显示的值
+  const getDictLabelByValueAsync = async (type: string, value: string | number): string => {
+    const dictInfos = await getDictByType(type)
+    const dictInfo = dictInfos.find(dictInfo => String(dictInfo.value) === String(value))
+    if (dictInfo) {
+      return dictInfo.label
+    }
+    return String(value)
   }
 
   return {
@@ -43,6 +53,7 @@ export const useDictStore = defineStore('dictionary', () => {
     flushDictByType,
     getDictByType,
     getDictLabelByValue,
+    getDictLabelByValueAsync,
   }
 }, {
   persist: true,

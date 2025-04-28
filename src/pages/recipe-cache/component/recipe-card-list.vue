@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RecipeInfo } from '@/api/recipe/type'
-import { useRouter } from 'vue-router'
+import RecipeCard from '@/pages/recipe-cache/component/recipe-card.vue'
 
 defineProps({
   // 菜谱列表
@@ -28,8 +28,6 @@ const emit = defineEmits([
   'update:loading',
 ])
 
-const router = useRouter()
-
 // 监听输入变化，触发双向绑定
 function handleLoading(value: string) {
   emit('update:loading', value)
@@ -51,19 +49,7 @@ function handleLoading(value: string) {
         :key="index"
         span="24"
       >
-        <van-card
-          :title="recipe.name"
-          :desc="recipe.recipeDesc"
-          tag="入门"
-          :thumb="recipe.picUrl"
-          @click="router.push(`/recipe-cache/${recipe.id}`)"
-        >
-          <template #tags>
-            <van-tag plain type="primary">
-              简单
-            </van-tag>
-          </template>
-        </van-card>
+        <RecipeCard :recipe="recipe" />
       </van-col>
     </van-row>
   </van-list>
