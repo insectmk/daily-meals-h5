@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 
 import type { DictInfo } from '@/api/system/type'
-import { getDictDataListByType } from '@/api/system'
+import { getDictDataListByType } from '@/api/common'
 import type { CommonResult } from '@/api/type'
 
 export const useDictStore = defineStore('dictionary', () => {
@@ -39,7 +39,7 @@ export const useDictStore = defineStore('dictionary', () => {
   }
 
   // 异步获取字典显示的值
-  const getDictLabelByValueAsync = async (type: string, value: string | number): string => {
+  const getDictLabelByValueAsync = async (type: string, value: string | number): Promise<string> => {
     const dictInfos = await getDictByType(type)
     const dictInfo = dictInfos.find(dictInfo => String(dictInfo.value) === String(value))
     if (dictInfo) {

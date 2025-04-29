@@ -116,12 +116,6 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       label="菜谱分类"
     />
     <mk-form-picker
-      v-model="recipeForm.recipeType"
-      :rules="[{ required: true, message: '请填写菜谱类型' }]"
-      :dict-type="DICT_TYPE.MEALS_RECIPE_TYPE"
-      label="菜谱类型" placeholder="点击选择类型"
-    />
-    <mk-form-picker
       v-model="recipeForm.recipeLevel"
       :rules="[{ required: true, message: '请填写烹饪难度' }]"
       :dict-type="DICT_TYPE.MEALS_RECIPE_LEVEL"
