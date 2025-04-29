@@ -2,6 +2,7 @@
 import type { RecipeInfo } from '@/api/recipe/type'
 import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
 import { page as getRecipesPage } from '@/api/recipe'
+import type { CommonResult, PageResult } from '@/api/type'
 
 let pageNo = 0 // 当前页
 const pageSize = 10 // 每页行数
@@ -12,13 +13,14 @@ const finished = ref(false) // 结束
 /**
  * 加载
  */
-function onLoad() {
+function onLoad(callback: (res: CommonResult<PageResult<RecipeInfo>>) => void) {
   pageNo++ // 页面加1
   // 获取菜单
   getRecipesPage({
     pageNo,
     pageSize,
   }).then((res) => {
+    callback(res) // 回调
     // 将菜谱添加到列表中
     res.data.list.forEach((recipe) => {
       recipeList.value.push(recipe)
@@ -36,7 +38,6 @@ function onLoad() {
 <template>
   <RecipeCardList
     v-model:loading="loading"
-    style="min-height: 100vh;"
     :finished="finished"
     :recipe-list="recipeList"
     @load="onLoad"
