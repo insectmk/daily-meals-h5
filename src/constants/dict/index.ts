@@ -14,6 +14,9 @@ export enum DICT_TYPE {
   MEALS_FOOD_TYPE = 'meals_food_type', // 食材类型
   MEALS_FOOD_UNIT = 'meals_food_unit', // 食材单位
   MEALS_MEAL_TYPE = 'meals_meal_type', // 餐次类型
+  // ========== Meals 模块 每日饭菜（静态类型） ==========
+  MEALS_STATIC_RECIPE_STATUS = 'meals_static_recipe_status', // 菜谱状态
+  MEALS_STATIC_RECIPE_TYPES = 'meals_static_recipe_types', // 菜谱类型
 
   // ========== SYSTEM 模块 ==========
   SYSTEM_USER_SEX = 'system_user_sex',
