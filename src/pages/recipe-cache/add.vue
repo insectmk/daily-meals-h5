@@ -176,6 +176,12 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
         />
       </template>
     </mk-form-items>
+    <mk-form-picker
+      v-model="recipeForm.recipeType"
+      :rules="[{ required: true, message: '请选择菜谱状态' }]"
+      :dict-type="DICT_TYPE.MEALS_STATIC_RECIPE_STATUS"
+      label="菜谱状态" placeholder="点击选择状态"
+    />
   </van-form>
 </template>
 
