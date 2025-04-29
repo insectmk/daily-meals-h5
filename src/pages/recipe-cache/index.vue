@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import RecipeAddBubble from '@/pages/recipe-cache/component/recipe-add-bubble.vue'
 import RecipeSelf from '@/pages/recipe-cache/tab-pages/RecipeSelf.vue'
 import RecipePub from '@/pages/recipe-cache/tab-pages/RecipePub.vue'
 import RecipeSystem from '@/pages/recipe-cache/tab-pages/RecipeSystem.vue'
@@ -26,7 +25,6 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
-  <RecipeAddBubble />
   <van-tabs
     v-model:active="recipeTabActive"
     animated swipeable sticky
