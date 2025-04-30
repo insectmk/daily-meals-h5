@@ -2,12 +2,12 @@
 import { useRoute } from 'vue-router'
 import type { DailyPlanInfo, DailyPlanItemInfo } from '@/api/dailyplan/type'
 import { getDailyPlanInfo } from '@/api/dailyplan'
-import RecipeCardList from '@/pages/plan/component/recipe-card-list.vue'
+import PlanRecipeCardList from '@/pages/plan/component/plan-recipe-card-list.vue'
 
 const route = useRoute()
 // const { t } = useI18n() // 国际化
 
-const id = (route.params as { id: number }).id // 路由参数：计划ID
+const id = Number((route.params as { id: number }).id) // 路由参数：计划ID
 const dailyPlan = ref<DailyPlanInfo>() // 计划信息
 const loading = ref<boolean>(true) // 加载中
 /**
@@ -33,7 +33,8 @@ const recipeList = computed(() => {
     </van-loading>
   </div>
   <div v-else>
-    <RecipeCardList
+    <PlanRecipeCardList
+      :plan-id="id"
       :recipe-list="recipeList"
     />
   </div>
