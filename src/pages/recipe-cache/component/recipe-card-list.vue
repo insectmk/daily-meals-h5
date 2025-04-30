@@ -10,6 +10,11 @@ const props = defineProps({
     type: Function as PropType<(pageParam: PageParam) => Promise<CommonResult<PageResult<RecipeInfo>>>>,
     required: true,
   },
+  // 查询参数
+  queryParam: {
+    type: Object as PropType<any>,
+    required: false,
+  },
 })
 
 let pageNo = 0 // 当前页
@@ -33,6 +38,7 @@ function onLoad() {
   props.recipeListApi({
     pageNo,
     pageSize,
+    ...props.queryParam,
   }).then((res) => {
     // 刷新加载状态
     refreshing.value = false
