@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
-import { page as getRecipesPage } from '@/api/recipe'
+import { getSelfRecipePage as getRecipesPage } from '@/api/recipe'
 </script>
 
 <template>
