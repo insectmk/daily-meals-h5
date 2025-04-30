@@ -2,6 +2,7 @@
 import RecipeSelf from '@/pages/recipe-cache/tab-pages/RecipeSelf.vue'
 import RecipePub from '@/pages/recipe-cache/tab-pages/RecipePub.vue'
 import RecipeSystem from '@/pages/recipe-cache/tab-pages/RecipeSystem.vue'
+import RecipeCategory from '@/pages/recipe-cache/tab-pages/recipe-category/index.vue'
 
 defineOptions({
   name: 'RecipeCache',
@@ -47,6 +48,12 @@ onBeforeRouteLeave(() => {
         我的菜谱
       </template>
       <RecipeSelf />
+    </van-tab>
+    <van-tab name="category">
+      <template #title>
+        分类
+      </template>
+      <RecipeCategory />
     </van-tab>
   </van-tabs>
 </template>

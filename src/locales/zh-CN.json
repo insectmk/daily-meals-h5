@@ -106,6 +106,9 @@
     "logoutSuccess": "退出登录成功！"
   },
   "recipe": {
+    "category": {
+      "title": "菜谱分类信息"
+    },
     "info": {
       "title": "菜谱详细信息",
       "addPlan": "加入计划",
@@ -125,6 +128,7 @@
   },
   "common": {
     "cancel": "取消",
-    "done": "完成"
+    "done": "完成",
+    "back": "返回"
   }
 }
