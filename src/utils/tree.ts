@@ -3,7 +3,7 @@ interface TreeConfigOptions {
   childProps: string
 }
 
-interface TreeNode {
+export interface TreeNode {
   [key: string]: any
   children?: TreeNode[]
 }
