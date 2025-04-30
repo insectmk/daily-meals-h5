@@ -107,7 +107,10 @@
   },
   "recipe": {
     "category": {
-      "title": "菜谱分类信息"
+      "title": "菜谱分类"
+    },
+    "foodCategory": {
+      "title": "食材分类菜谱"
     },
     "info": {
       "title": "菜谱详细信息",

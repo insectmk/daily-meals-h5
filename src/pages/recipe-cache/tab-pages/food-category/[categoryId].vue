@@ -4,7 +4,7 @@ import { getRecipePage } from '@/api/recipe'
 import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
 
 defineOptions({
-  name: 'RecipeListCategory',
+  name: 'RecipeListFoodCategory',
 })
 
 const router = useRouter()
@@ -30,7 +30,7 @@ function onBack() {
     left-arrow placeholder fixed
     @click-left="onBack"
   />
-  <RecipeCardList :recipe-list-api="getRecipePage" :query-param="{ recipeCategory: [categoryId] }" />
+  <RecipeCardList :recipe-list-api="getRecipePage" :query-param="{ foodCategory: [categoryId] }" />
 </template>
 
 <style scoped>
@@ -38,10 +38,10 @@ function onBack() {
 
 <route lang="json5">
 {
-  name: 'RecipeListCategory',
+  name: 'RecipeListFoodCategory',
   meta: {
-    title: '菜谱分类信息',
-    i18n: 'recipe.category.title',
+    title: '食材分类信息',
+    i18n: 'recipe.foodCategory.title',
     keepAlive: false,
     customNav: true,
   },

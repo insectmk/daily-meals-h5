@@ -36,6 +36,8 @@ declare module 'vue-router/auto-routes' {
     'RecipeAdd': RouteRecordInfo<'RecipeAdd', '/recipe-cache/add', Record<never, never>, Record<never, never>>,
     '/recipe-cache/component/recipe-card': RouteRecordInfo<'/recipe-cache/component/recipe-card', '/recipe-cache/component/recipe-card', Record<never, never>, Record<never, never>>,
     '/recipe-cache/component/recipe-card-list': RouteRecordInfo<'/recipe-cache/component/recipe-card-list', '/recipe-cache/component/recipe-card-list', Record<never, never>, Record<never, never>>,
+    '/recipe-cache/tab-pages/food-category/': RouteRecordInfo<'/recipe-cache/tab-pages/food-category/', '/recipe-cache/tab-pages/food-category', Record<never, never>, Record<never, never>>,
+    'RecipeListFoodCategory': RouteRecordInfo<'RecipeListFoodCategory', '/recipe-cache/tab-pages/food-category/:categoryId', { categoryId: ParamValue<true> }, { categoryId: ParamValue<false> }>,
     '/recipe-cache/tab-pages/recipe-category/': RouteRecordInfo<'/recipe-cache/tab-pages/recipe-category/', '/recipe-cache/tab-pages/recipe-category', Record<never, never>, Record<never, never>>,
     'RecipeListCategory': RouteRecordInfo<'RecipeListCategory', '/recipe-cache/tab-pages/recipe-category/:categoryId', { categoryId: ParamValue<true> }, { categoryId: ParamValue<false> }>,
     '/recipe-cache/tab-pages/RecipePub': RouteRecordInfo<'/recipe-cache/tab-pages/RecipePub', '/recipe-cache/tab-pages/RecipePub', Record<never, never>, Record<never, never>>,
