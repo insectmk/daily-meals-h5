@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import RecipeSelf from '@/pages/recipe-cache/tab-pages/RecipeSelf.vue'
-import RecipePub from '@/pages/recipe-cache/tab-pages/RecipePub.vue'
-import RecipeSystem from '@/pages/recipe-cache/tab-pages/RecipeSystem.vue'
 import RecipeCategory from '@/pages/recipe-cache/tab-pages/recipe-category/index.vue'
 import FoodCategory from '@/pages/recipe-cache/tab-pages/food-category/index.vue'
 
@@ -9,7 +7,7 @@ defineOptions({
   name: 'RecipeCache',
 })
 
-const recipeTabActive = ref('system') // 当前所在tab
+const recipeTabActive = ref('category') // 当前所在tab
 
 // 用于记录滚动状态
 const scrollTop = ref(0)
@@ -32,24 +30,6 @@ onBeforeRouteLeave(() => {
     animated swipeable sticky
     background="transparent"
   >
-    <van-tab name="system">
-      <template #title>
-        系统菜谱
-      </template>
-      <RecipeSystem />
-    </van-tab>
-    <van-tab name="public">
-      <template #title>
-        公共菜谱
-      </template>
-      <RecipePub />
-    </van-tab>
-    <van-tab name="self">
-      <template #title>
-        我的菜谱
-      </template>
-      <RecipeSelf />
-    </van-tab>
     <van-tab name="category">
       <template #title>
         分类
@@ -61,6 +41,12 @@ onBeforeRouteLeave(() => {
         食材
       </template>
       <FoodCategory />
+    </van-tab>
+    <van-tab name="self">
+      <template #title>
+        我的菜谱
+      </template>
+      <RecipeSelf />
     </van-tab>
   </van-tabs>
 </template>
