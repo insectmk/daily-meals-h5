@@ -3,18 +3,26 @@ import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
 /**
- * 分页查询菜谱信息
+ * 分页查询可见的菜谱信息
  * @param pageReqVO
  */
-export function page(pageReqVO: PageParam) {
+export function getRecipePage(pageReqVO: PageParam) {
   return request.get<PageResult<RecipeInfo>>('/meals/recipe/page', pageReqVO)
+}
+
+/**
+ * 分页查询自己的菜谱信息
+ * @param pageReqVO
+ */
+export function getSelfRecipePage(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeInfo>>('/meals/recipe/page/self', pageReqVO)
 }
 
 /**
  * 分页查询公共菜谱信息
  * @param pageReqVO
  */
-export function publicRecipePage(pageReqVO: PageParam) {
+export function getPublicRecipePage(pageReqVO: PageParam) {
   return request.get<PageResult<RecipeInfo>>('/meals/recipe/page/public', pageReqVO)
 }
 
@@ -22,7 +30,7 @@ export function publicRecipePage(pageReqVO: PageParam) {
  * 分页查询系统菜谱信息
  * @param pageReqVO
  */
-export function systemRecipePage(pageReqVO: PageParam) {
+export function getSystemRecipePage(pageReqVO: PageParam) {
   return request.get<PageResult<RecipeInfo>>('/meals/recipe/page/system', pageReqVO)
 }
 
