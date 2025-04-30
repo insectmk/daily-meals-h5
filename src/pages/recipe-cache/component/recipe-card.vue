@@ -7,7 +7,7 @@ import { getRecipeCategoryList } from '@/api/recipecategory'
 
 const props = defineProps({
   recipe: {
-    type: Object as RecipeInfo,
+    type: Object as PropType<RecipeInfo>,
     required: true,
   },
 })

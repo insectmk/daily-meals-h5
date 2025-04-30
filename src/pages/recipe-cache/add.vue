@@ -111,7 +111,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       :maxlength="256"
     />
     <mk-form-tree-select
-      v-model="recipeForm.recipeCategory"
+      v-model="recipeForm.recipeCategory as number[]"
       :tree-options="getRecipeCategoryList"
       label="菜谱分类"
     />

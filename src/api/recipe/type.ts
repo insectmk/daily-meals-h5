@@ -22,6 +22,7 @@ export interface RecipeInfo {
   name: string
   recipeDesc: string
   recipeStep: string
+  recipeCategory: number[] // 菜谱分类
   recipeType: number
   recipeLevel: number
   sort: number

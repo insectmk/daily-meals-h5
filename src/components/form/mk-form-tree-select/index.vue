@@ -35,8 +35,10 @@ interface ComponentData {
 // 定义 props
 const props = defineProps({
   modelValue: {
-    type: [Number, Array] as PropType<number | number[]>,
+    type: Array as PropType<number[]>,
     required: true,
+    validator: (value: unknown) =>
+      Array.isArray(value) && value.every(i => typeof i === 'number'),
   },
   treeOptions: {
     type: Function as PropType<() => Promise<CommonResult<TreeItem[]>>>,

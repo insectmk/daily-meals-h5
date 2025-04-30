@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { RouteMap } from 'vue-router'
 
 import logo from '~/images/logo.svg'
 import logoDark from '~/images/logo-dark.svg'
@@ -49,9 +48,9 @@ async function login(values: LoginData) {
     const result = await memberStore.login({ ...postData, ...values })
     if (result.code === ResponseCode.SUCCESS.code) {
       const { redirect, ...othersQuery } = router.currentRoute.value.query
-      // 跳转到未登陆前的页面
+      // todo 跳转到未登陆前的页面
       await router.push({
-        name: (redirect as keyof RouteMap) || 'home',
+        name: 'home',
         query: {
           ...othersQuery,
         },
