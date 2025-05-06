@@ -51,23 +51,30 @@ function openRecipeListByCategory(treeSecond: TreeNode) {
       <!-- 右侧内容区域 -->
       <van-col :span="18" class="right-col">
         <div class="scroll-wrapper">
-          <van-grid column-num="3" :gutter="10">
-            <van-grid-item
-              v-for="treeSecond in activeCategory.children" :key="treeSecond.id"
-              style="font-size: 0.8rem;font-weight: 500;"
-              @click="openRecipeListByCategory(treeSecond)"
+          <div v-for="treeSecond in activeCategory.children" :key="treeSecond.id">
+            <van-divider
+              :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
             >
-              <span v-if="treeSecond.picUrl">
-                <van-image
-                  :src="treeSecond.picUrl"
-                />
-                {{ treeSecond.name }}
-              </span>
-              <span v-else>
-                {{ treeSecond.name }}
-              </span>
-            </van-grid-item>
-          </van-grid>
+              {{ treeSecond.name }}
+            </van-divider>
+            <van-grid column-num="3" :gutter="10">
+              <van-grid-item
+                v-for="treeThird in treeSecond.children" :key="treeThird.id"
+                style="font-size: 0.8rem;font-weight: 500;"
+                @click="openRecipeListByCategory(treeThird)"
+              >
+                <span v-if="treeThird.picUrl">
+                  <van-image
+                    :src="treeThird.picUrl"
+                  />
+                  {{ treeThird.name }}
+                </span>
+                <span v-else>
+                  {{ treeThird.name }}
+                </span>
+              </van-grid-item>
+            </van-grid>
+          </div>
         </div>
       </van-col>
     </van-row>
