@@ -15,6 +15,11 @@ const props = defineProps({
     type: Object as PropType<any>,
     required: false,
   },
+  minHeight: {
+    type: String,
+    required: false,
+    default: '80vh',
+  },
 })
 
 let pageNo = 0 // 当前页
@@ -72,7 +77,9 @@ function onRefresh() {
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       v-model:loading="loading"
-      style="min-height: 80vh;"
+      :style="{
+        minHeight,
+      }"
       :finished="finished"
       finished-text="已经到底啦 ~"
       loading-text="加载中..."
