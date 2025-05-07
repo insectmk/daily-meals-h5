@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getPopularPublicRecipes, getSelfRecipePage as getRecipesPage } from '@/api/recipe'
+import { getPopularPublicRecipes, getRecipePage } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import { useRouter } from 'vue-router'
 import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
@@ -13,7 +13,7 @@ const popularPublicRecipeList = ref<RecipeInfo[]>() // 公共菜谱排行列表
  */
 getPopularPublicRecipes({
   rankLen: 5,
-  mealType: [0, 1, 2].join(','),
+  mealType: [0, 1, 2],
 }).then((res) => {
   popularPublicRecipeList.value = res.data
 })
@@ -40,7 +40,7 @@ getPopularPublicRecipes({
     最新菜谱
   </van-divider>
   <RecipeCardList
-    :recipe-list-api="getRecipesPage"
+    :recipe-list-api="getRecipePage"
     min-height="50vh"
   />
 </template>

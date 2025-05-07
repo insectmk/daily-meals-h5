@@ -62,9 +62,9 @@ export interface GetPopularPublicParam {
    */
   rankLen: number
   /**
-   * 餐次类型：数组，用,分割
+   * 餐次类型：数组
    */
-  mealType: string
+  mealType: number[]
 }
 
 /**
