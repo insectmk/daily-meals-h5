@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { showConfirmDialog } from 'vant'
 import router from '@/router'
-import { useUserStore } from '@/stores'
+import { useMemberStore } from '@/stores'
 import { version } from '~root/package.json'
-
 import type { PickerColumn } from 'vant'
 import { languageColumns, locale } from '@/utils/i18n'
+import ResponseCode from '@/constants/response-code'
 
 const { t } = useI18n()
-const userStore = useUserStore()
-const userInfo = computed(() => userStore.userInfo)
+const userStore = useMemberStore()
+const userInfo = computed(() => userStore.memberInfo)
 
 /**
  * 退出登录
@@ -20,8 +20,19 @@ function Logout() {
     title: t('settings.comfirmTitle'),
   })
     .then(() => {
-      userStore.logout()
-      router.push({ name: 'home' })
+      return userStore.logout()
+    })
+    .then((result) => {
+      if (result.code === ResponseCode.SUCCESS.code && result.data) {
+        // 退出登录成功
+        showNotify({ type: 'success', message: t('settings.logoutSuccess') })
+        // 跳转到首页
+        router.push({ name: 'home' })
+      }
+      else {
+        // 退出登录失败
+        showNotify({ type: 'danger', message: result.msg })
+      }
     })
     .catch(() => {})
 }
@@ -77,7 +88,7 @@ function toggle(val: boolean) {
 
   <div class="text-center">
     <VanCellGroup :inset="true">
-      <van-cell v-if="userInfo.uid" :title="$t('settings.logout')" clickable class="van-text-color" @click="Logout" />
+      <van-cell v-if="userInfo.id" :title="$t('settings.logout')" clickable class="van-text-color" @click="Logout" />
     </VanCellGroup>
 
     <div class="mt-10 text-gray">
