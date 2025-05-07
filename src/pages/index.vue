@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { getPopularPublicRecipes } from '@/api/recipe'
+import { getPopularPublicRecipes, getSelfRecipePage as getRecipesPage } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import { useRouter } from 'vue-router'
+import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
 
 const router = useRouter()
 
@@ -33,6 +34,15 @@ getPopularPublicRecipes({
       />
     </van-swipe-item>
   </van-swipe>
+  <van-divider
+    :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+  >
+    最新菜谱
+  </van-divider>
+  <RecipeCardList
+    :recipe-list-api="getRecipesPage"
+    min-height="50vh"
+  />
 </template>
 
 <route lang="json5">
