@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { getSelfRecipePage as getRecipesPage } from '@/api/recipe'
 import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
+import RecipeMenuTab from '@/pages/profile/self-content-tab/recipe-menu-tab.vue'
 
 const tabActive = ref('category') // 当前所在tab
 </script>
@@ -24,7 +25,7 @@ const tabActive = ref('category') // 当前所在tab
       <template #title>
         菜单
       </template>
-      <p>这是我的菜单</p>
+      <RecipeMenuTab />
     </van-tab>
   </van-tabs>
 </template>

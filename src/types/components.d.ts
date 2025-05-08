@@ -21,6 +21,8 @@ declare module 'vue' {
     NavBar: typeof import('./../components/NavBar.vue')['default']
     RecipeCard: typeof import('./../components/recipe/recipe-card.vue')['default']
     RecipeCardList: typeof import('./../components/recipe/recipe-card-list.vue')['default']
+    RecipeMenuCard: typeof import('./../components/recipe-menu/recipe-menu-card.vue')['default']
+    RecipeMenuCardList: typeof import('./../components/recipe-menu/recipe-menu-card-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TabBar: typeof import('./../components/TabBar.vue')['default']
