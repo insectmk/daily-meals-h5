@@ -27,6 +27,7 @@ declare module 'vue' {
     Tree: typeof import('./../components/form/mk-form-tree-select/tree.vue')['default']
     VanActionBar: typeof import('vant/es')['ActionBar']
     VanActionBarButton: typeof import('vant/es')['ActionBarButton']
+    VanActionBarIcon: typeof import('vant/es')['ActionBarIcon']
     VanButton: typeof import('vant/es')['Button']
     VanCalendar: typeof import('vant/es')['Calendar']
     VanCard: typeof import('vant/es')['Card']
