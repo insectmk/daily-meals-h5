@@ -22,16 +22,12 @@ const dailyPlanForm = reactive<CreatePlanReq>({
   mealType: 0, // 计划类型
   memo: '', // 备注
 })
-const isToday = ref<boolean>(false) // 是否今日
 
 /**
  * 加入到菜谱计划
  */
 function addToPlan() {
   dailyPlanForm.recipeIds = [props.recipeId] // 菜谱ID
-  if (isToday.value) {
-    dailyPlanForm.planDate = Date.now() // 为今日，计划日期为今日
-  }
   addRecipesPlan(dailyPlanForm).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
       showNotify({ type: 'success', message: `成功加入到计划！`, duration: 1500 })
@@ -48,10 +44,7 @@ function addToPlan() {
 <template>
   <van-action-bar-button
     type="danger" color="#7232dd" :text="t('recipe.info.addPlan')"
-    @click="() => {
-      addToPlanDialogShow = true
-      isToday = false
-    }"
+    @click="addToPlanDialogShow = true"
   />
 
   <!-- 加入指定日期 -->
