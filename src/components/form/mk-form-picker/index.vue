@@ -75,6 +75,8 @@ if (typeof props.dictType === 'string') {
   // 从字典状态读取列表
   dictStore.getDictByType(props.dictType).then((res) => {
     columns.value = res
+    // 初始化选中的内容
+    initSelected()
     // 初始化选择的内容为label
     updateResult(String(props.modelValue))
   })
@@ -83,9 +85,21 @@ else {
   // 从接口读取列表
   props.dictType().then((res) => {
     columns.value = res.data
+    // 初始化选中的内容
+    initSelected()
     // 初始化选择的内容为label
     updateResult(String(props.modelValue))
   })
+}
+
+/**
+ * 初始化选中的内容
+ */
+function initSelected() {
+  // 如果绑定值为空之类的，默认选中第一个
+  if (!props.modelValue) {
+    emit('update:modelValue', columns.value[0][props.customFieldName.value])
+  }
 }
 
 /**
