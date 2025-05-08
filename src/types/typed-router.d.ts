@@ -31,6 +31,7 @@ declare module 'vue-router/auto-routes' {
     'PlanInfo': RouteRecordInfo<'PlanInfo', '/plan/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/plan/component/plan-recipe-card-list': RouteRecordInfo<'/plan/component/plan-recipe-card-list', '/plan/component/plan-recipe-card-list', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,
+    '/profile/component/self-content-tab/': RouteRecordInfo<'/profile/component/self-content-tab/', '/profile/component/self-content-tab', Record<never, never>, Record<never, never>>,
     'RecipeCache': RouteRecordInfo<'RecipeCache', '/recipe-cache', Record<never, never>, Record<never, never>>,
     'RecipeInfo': RouteRecordInfo<'RecipeInfo', '/recipe-cache/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'RecipeAdd': RouteRecordInfo<'RecipeAdd', '/recipe-cache/add', Record<never, never>, Record<never, never>>,

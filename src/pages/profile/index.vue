@@ -2,6 +2,7 @@
 import router from '@/router'
 import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
+import SelfContentTab from '@/pages/profile/component/self-content-tab/index.vue'
 
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
@@ -37,6 +38,8 @@ function login() {
       <van-cell :title="$t('profile.settings')" icon="setting-o" is-link to="/settings" />
       <van-cell :title="$t('profile.docs')" icon="flower-o" is-link url="https://easy-temps.github.io/easy-docs/vue3-vant-mobile/" />
     </VanCellGroup>
+    <!-- tab页 -->
+    <SelfContentTab />
   </div>
 </template>
 

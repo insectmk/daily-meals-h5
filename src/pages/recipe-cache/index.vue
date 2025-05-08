@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import RecipeSelf from '@/pages/recipe-cache/tab-pages/RecipeSelf.vue'
 import RecipeCategory from '@/pages/recipe-cache/tab-pages/recipe-category/index.vue'
 import FoodCategory from '@/pages/recipe-cache/tab-pages/food-category/index.vue'
 
@@ -41,12 +40,6 @@ onBeforeRouteLeave(() => {
         食材
       </template>
       <FoodCategory />
-    </van-tab>
-    <van-tab name="self">
-      <template #title>
-        我的菜谱
-      </template>
-      <RecipeSelf />
     </van-tab>
   </van-tabs>
 </template>
