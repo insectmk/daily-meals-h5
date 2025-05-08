@@ -1,3 +1,5 @@
+import type { RecipeInfo } from '@/api/recipe/type'
+
 /**
  * 菜谱菜单
  */
@@ -16,6 +18,8 @@ export interface RecipeMenu {
   memo: string
   // 创建时间
   createTime: number
+  // 菜谱信息列表
+  recipes: RecipeInfo[]
 }
 
 /**

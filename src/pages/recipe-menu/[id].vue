@@ -45,6 +45,7 @@ function onBack() {
     <h1>{{ recipeMenu.title }}</h1>
     <h2>{{ recipeMenu.subtitle }}</h2>
     <div v-html="recipeMenu.menuDesc" />
+    <RecipeCardList :recipe-list-api="recipeMenu.recipes" min-height="0" />
   </div>
 </template>
 
