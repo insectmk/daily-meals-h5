@@ -23,7 +23,7 @@ const recipeForm = reactive<RecipeCreateReq>({
   recipeDesc: '', // 菜谱描述
   recipeStep: '', // 菜谱教程
   memo: '', // 菜谱备注
-  recipeType: 0, // 菜谱类型
+  status: 0, // 菜谱状态
   recipeCategory: [], // 菜谱分类
   recipeLevel: 0, // 烹饪难度
   picUrl: '', // 封面图片
@@ -84,7 +84,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     :title="$t('recipe.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
-    placeholder left-arrow fixed
+    left-arrow placeholder fixed
     @click-left="onBack"
     @click-right="onConfirm"
   />
@@ -177,7 +177,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       </template>
     </mk-form-items>
     <mk-form-picker
-      v-model="recipeForm.recipeType"
+      v-model="recipeForm.status"
       :rules="[{ required: true, message: '请选择菜谱状态' }]"
       :dict-type="DICT_TYPE.MEALS_STATIC_RECIPE_STATUS"
       label="菜谱状态" placeholder="点击选择状态"
