@@ -2,7 +2,7 @@
 import { getPopularPublicRecipes, getRecipePage } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import { useRouter } from 'vue-router'
-import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
+import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 
 const router = useRouter()
 

@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import type { DailyPlanInfo, DailyPlanItemInfo } from '@/api/dailyplan/type'
 import { getDailyPlanInfo } from '@/api/dailyplan'
-import PlanRecipeCardList from '@/pages/plan/component/plan-recipe-card-list.vue'
+import PlanRecipeCardList from '@/pages/plan/plan-recipe-card-list/index.vue'
 
 const route = useRoute()
 // const { t } = useI18n() // 国际化

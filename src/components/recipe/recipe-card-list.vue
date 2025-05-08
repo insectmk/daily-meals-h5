@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { RecipeInfo } from '@/api/recipe/type'
-import RecipeCard from '@/pages/recipe-cache/component/recipe-card.vue'
+import RecipeCard from '@/components/recipe/recipe-card.vue'
 import type { CommonResult, PageParam, PageResult } from '@/api/type'
 import type { PropType } from 'vue'
 

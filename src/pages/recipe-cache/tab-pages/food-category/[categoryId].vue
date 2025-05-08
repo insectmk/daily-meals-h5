@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { getRecipePage } from '@/api/recipe'
-import RecipeCardList from '@/pages/recipe-cache/component/recipe-card-list.vue'
+import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 
 defineOptions({
   name: 'RecipeListFoodCategory',

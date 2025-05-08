@@ -19,6 +19,8 @@ declare module 'vue' {
     MkFormTiptop: typeof import('./../components/form/mk-form-tiptop/index.vue')['default']
     MkFormTreeSelect: typeof import('./../components/form/mk-form-tree-select/index.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']
+    RecipeCard: typeof import('./../components/recipe/recipe-card.vue')['default']
+    RecipeCardList: typeof import('./../components/recipe/recipe-card-list.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TabBar: typeof import('./../components/TabBar.vue')['default']

@@ -2,7 +2,7 @@
 import router from '@/router'
 import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
-import SelfContentTab from '@/pages/profile/component/self-content-tab/index.vue'
+import SelfContentTab from '@/pages/profile/self-content-tab/index.vue'
 
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
