@@ -66,6 +66,7 @@ function onLoad() {
 function onRefresh() {
   // 清空列表数据
   finished.value = false
+  recipeList.value = []
   pageNo = 0 // 当前页
   // 重新加载数据
   onLoad()
