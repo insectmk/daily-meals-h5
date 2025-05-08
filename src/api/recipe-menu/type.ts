@@ -17,3 +17,11 @@ export interface RecipeMenu {
   // 创建时间
   createTime: number
 }
+
+/**
+ * 菜谱菜单精简信息：用于下拉列表
+ */
+export interface SimpleRecipeMenuInfo {
+  id: number // 编号
+  title: string // 标题
+}
