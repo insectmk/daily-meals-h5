@@ -27,7 +27,7 @@ declare module 'vue-router/auto-routes' {
     'KeepAlive': RouteRecordInfo<'KeepAlive', '/keepalive', Record<never, never>, Record<never, never>>,
     'login': RouteRecordInfo<'login', '/login', Record<never, never>, Record<never, never>>,
     'mock': RouteRecordInfo<'mock', '/mock', Record<never, never>, Record<never, never>>,
-    'PlanCache': RouteRecordInfo<'PlanCache', '/plan', Record<never, never>, Record<never, never>>,
+    'Plan': RouteRecordInfo<'Plan', '/plan', Record<never, never>, Record<never, never>>,
     'PlanInfo': RouteRecordInfo<'PlanInfo', '/plan/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/plan/plan-recipe-card-list/': RouteRecordInfo<'/plan/plan-recipe-card-list/', '/plan/plan-recipe-card-list', Record<never, never>, Record<never, never>>,
     'profile': RouteRecordInfo<'profile', '/profile', Record<never, never>, Record<never, never>>,

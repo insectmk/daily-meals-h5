@@ -5,7 +5,7 @@ import type { DailyPlanInfo } from '@/api/dailyplan/type'
 import type { CalendarDayItem } from 'vant'
 
 defineOptions({
-  name: 'PlanCache',
+  name: 'Plan',
 })
 
 const router = useRouter()
@@ -128,7 +128,7 @@ onBeforeRouteLeave(() => {
 
 <route lang="json5">
 {
-  name: 'PlanCache',
+  name: 'Plan',
   meta: {
     i18n: 'layouts.plan',
     keepAlive: true
