@@ -4,6 +4,10 @@ import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
 import SelfContentTab from '@/pages/profile/self-content-tab/index.vue'
 
+defineOptions({
+  name: 'Profile',
+})
+
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
 const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
@@ -45,10 +49,11 @@ function login() {
 
 <route lang="json5">
 {
-  name: 'profile',
+  name: 'Profile',
   meta: {
     title: '个人中心',
-    i18n: 'menus.profile'
+    i18n: 'menus.profile',
+    keepAlive: true
   },
 }
 </route>
