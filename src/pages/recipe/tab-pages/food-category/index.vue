@@ -31,7 +31,7 @@ function sidebarClick(treeRoot: TreeNode) {
  * @param treeSecond 二次食材分类
  */
 function openRecipeListByCategory(treeSecond: TreeNode) {
-  router.push(`/recipe-cache/tab-pages/food-category/${treeSecond.id}`)
+  router.push(`/recipe/tab-pages/food-category/${treeSecond.id}`)
 }
 </script>
 

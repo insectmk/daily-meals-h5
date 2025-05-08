@@ -50,7 +50,7 @@ function onConfirm() {
     addRecipe(recipeForm).then((res) => {
       if (res.code === ResponseCode.SUCCESS.code) {
         // 跳转到菜谱页面
-        router.push(`/recipe-cache/${res.data}`)
+        router.push(`/recipe/${res.data}`)
         showNotify({ type: 'success', message: `菜谱添加成功！`, duration: 1500 })
       }
     })
@@ -84,7 +84,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     :title="$t('recipe.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
-    left-arrow placeholder fixed
+    placeholder left-arrow fixed
     @click-left="onBack"
     @click-right="onConfirm"
   />

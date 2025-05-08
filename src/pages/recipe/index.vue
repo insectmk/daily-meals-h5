@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import RecipeCategory from '@/pages/recipe-cache/tab-pages/recipe-category/index.vue'
-import FoodCategory from '@/pages/recipe-cache/tab-pages/food-category/index.vue'
+import RecipeCategory from '@/pages/recipe/tab-pages/recipe-category/index.vue'
+import FoodCategory from '@/pages/recipe/tab-pages/food-category/index.vue'
 
 defineOptions({
-  name: 'RecipeCache',
+  name: 'Recipe',
 })
 
 const recipeTabActive = ref('category') // 当前所在tab
@@ -46,7 +46,7 @@ onBeforeRouteLeave(() => {
 
 <route lang="json5">
 {
-  name: 'RecipeCache',
+  name: 'Recipe',
   meta: {
     i18n: 'layouts.recipe',
     keepAlive: true

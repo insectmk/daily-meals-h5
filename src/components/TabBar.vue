@@ -23,7 +23,7 @@ const router = useRouter()
       </template>
     </van-tabbar-item>
     <!-- 菜谱 -->
-    <van-tabbar-item replace to="/recipe-cache">
+    <van-tabbar-item replace to="/recipe">
       {{ t('layouts.recipe') }}
       <template #icon>
         <div class="i-carbon:fruit-bowl" />
@@ -61,7 +61,7 @@ const router = useRouter()
                 // 关闭遮罩层
                 overlayShow = false
                 // 打开录入页面
-                router.push('/recipe-cache/add')
+                router.push('/recipe/add')
               }"
             >
               发菜谱

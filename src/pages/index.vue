@@ -24,7 +24,7 @@ getPopularPublicRecipes({
     <van-swipe-item
       v-for="recipe in popularPublicRecipeList"
       :key="recipe.id"
-      @click="router.push(`/recipe-cache/${recipe.id}`)"
+      @click="router.push(`/recipe/${recipe.id}`)"
     >
       <van-image
         height="200"

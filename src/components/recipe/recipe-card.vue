@@ -40,7 +40,7 @@ getRecipeCategoryList().then((res) => {
     :desc="recipe.recipeDesc"
     :tag="tag"
     :thumb="recipe.picUrl"
-    @click="router.push(`/recipe-cache/${recipe.id}`)"
+    @click="router.push(`/recipe/${recipe.id}`)"
   >
     <template #tags>
       <van-tag

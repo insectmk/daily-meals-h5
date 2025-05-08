@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import RecipeCard from '@/pages/recipe-cache/component/recipe-card.vue'
+import RecipeCard from '@/components/recipe/recipe-card.vue'
 
 import { getDailyPlanInfo } from '@/api/dailyplan'
 import type { DailyPlanInfo, DailyPlanItemInfo } from '@/api/dailyplan/type'

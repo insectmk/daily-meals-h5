@@ -68,7 +68,7 @@ function addToPlan() {
       </van-swipe-item>
     </van-swipe>
     <div v-html="recipe.recipeStep" />
-    <van-action-bar safe-area-inset-bottom placeholder>
+    <van-action-bar placeholder safe-area-inset-bottom>
       <van-action-bar-button
         type="warning" color="#be99ff" :text="t('recipe.info.addPlan')"
         @click="() => {
