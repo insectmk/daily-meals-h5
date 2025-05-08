@@ -6,7 +6,7 @@ import type { RecipeMenu } from '@/api/recipe-menu/type'
 const route = useRoute()
 const router = useRouter()
 
-const id = (route.params as { id: number }).id // 路由参数：菜谱菜单ID
+const id = Number((route.params as { id: number }).id) // 路由参数：菜谱菜单ID
 const recipeMenu = ref<RecipeMenu>()
 const loading = ref<boolean>(true) // 加载中
 

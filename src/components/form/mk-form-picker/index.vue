@@ -6,7 +6,7 @@ import type { CommonResult } from '@/api/type'
 // 属性
 const props = defineProps({
   modelValue: { // 默认的 v-model 属性名
-    type: [String, Number], // 支持多种类型
+    type: [String, Number, null] as PropType<string | number | null | undefined>, // 支持多种类型
     required: true,
   },
   // 字典标识

@@ -6,7 +6,7 @@ import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 
 const route = useRoute()
 
-const id = (route.params as { id: number }).id // 路由参数：菜谱ID
+const id = Number((route.params as { id: number }).id) // 路由参数：菜谱ID
 const recipe = ref<RecipeInfo>()
 const loading = ref<boolean>(true) // 加载中
 
