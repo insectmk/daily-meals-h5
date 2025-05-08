@@ -24,3 +24,10 @@ export function getRecipeMenu(id: number) {
 export function getSelfRecipeMenuList() {
   return request.get<SimpleRecipeMenuInfo[]>('/meals/recipe-menu/list-self-simple')
 }
+
+/**
+ * 创建菜谱菜单
+ */
+export function createRecipeMenu(param: RecipeMenu) {
+  return request.post<number>('/meals/recipe-menu/create', param)
+}

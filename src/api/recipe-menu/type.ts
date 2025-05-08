@@ -4,22 +4,16 @@ import type { RecipeInfo } from '@/api/recipe/type'
  * 菜谱菜单
  */
 export interface RecipeMenu {
-  // 编号
-  id: number
-  // 标题
-  title: string
-  // 副标题
-  subtitle: string
-  // 菜单描述
-  menuDesc: string
-  // 菜单封面图
-  picUrl: string
-  // 备注
-  memo: string
-  // 创建时间
-  createTime: number
-  // 菜谱信息列表
-  recipes: RecipeInfo[]
+  id?: number // 编号
+  title?: string // 标题
+  subtitle?: string // 副标题
+  menuDesc?: string // 菜单描述
+  picUrl?: string // 菜单封面图
+  menuType?: number // 菜单类型
+  menuStatus?: number // 菜单状态
+  memo?: string // 备注
+  createTime?: number // 创建时间
+  recipes?: RecipeInfo[] // 菜谱信息列表
 }
 
 /**
