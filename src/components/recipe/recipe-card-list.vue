@@ -66,6 +66,7 @@ function onLoad() {
 function onRefresh() {
   // 清空列表数据
   finished.value = false
+  pageNo = 0 // 当前页
   // 重新加载数据
   onLoad()
   // 将 loading 设置为 true，表示处于加载状态
