@@ -5,9 +5,13 @@ import type { CommonResult, PageParam, PageResult } from '@/api/type'
 import type { PropType } from 'vue'
 
 const props = defineProps({
-  // 获取菜谱的接口
+  // 获取菜谱的接口，或者直接为菜谱数组
   recipeListApi: {
-    type: Function as PropType<(pageParam: PageParam) => Promise<CommonResult<PageResult<RecipeInfo>>>>,
+    type: [Function, Array] as PropType<
+      ((pageParam: PageParam) => Promise<CommonResult<PageResult<RecipeInfo>>>)
+        |
+      RecipeInfo[]
+    >,
     required: true,
   },
   // 查询参数
@@ -30,14 +34,19 @@ const finished = ref(false) // 结束
 
 const refreshing = ref<boolean>(false) // 下拉刷新
 
+// 判断参数类型
+if (typeof props.recipeListApi !== 'function') {
+  recipeList.value = props.recipeListApi
+}
+
 /**
  * 加载更多
  */
-
-/**
- * 加载
- */
 function onLoad() {
+  if (typeof props.recipeListApi !== 'function') {
+    // 不是方法就退出，防止编译报错
+    return
+  }
   pageNo++ // 页面加1
   // 获取菜单
   props.recipeListApi({
@@ -76,7 +85,7 @@ function onRefresh() {
 </script>
 
 <template>
-  <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
+  <van-pull-refresh v-if="typeof recipeListApi === 'function'" v-model="refreshing" @refresh="onRefresh">
     <van-list
       v-model:loading="loading"
       :style="{
@@ -98,6 +107,22 @@ function onRefresh() {
       </van-row>
     </van-list>
   </van-pull-refresh>
+  <van-list
+    v-else
+    :style="{
+      minHeight,
+    }"
+  >
+    <van-row>
+      <van-col
+        v-for="(recipe, index) in recipeList"
+        :key="index"
+        span="24"
+      >
+        <RecipeCard :recipe="recipe" />
+      </van-col>
+    </van-row>
+  </van-list>
 </template>
 
 <style scoped>
