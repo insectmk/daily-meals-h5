@@ -106,6 +106,11 @@
     "logoutSuccess": "退出登录成功！"
   },
   "recipe": {
+    "menu": {
+      "info": {
+        "title": "菜单信息"
+      }
+    },
     "category": {
       "title": "菜谱分类"
     },
