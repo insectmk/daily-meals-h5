@@ -15,8 +15,8 @@ const props = defineProps({
 const addToPlanDialogShow = ref<boolean>(false) // 加入到日期计划弹窗
 
 const menuRecipeForm = reactive<MenuRecipe>({
-  recipeMenuId: props.recipeId, // 菜谱ID
-  recipeId: null, // 菜谱ID
+  recipeMenuId: null, // 菜单ID
+  recipeId: props.recipeId, // 菜谱ID
   memo: '', // 备注
 })
 const isToday = ref<boolean>(false) // 是否今日
@@ -46,12 +46,12 @@ function addToMenu() {
   <!-- 加入指定菜单 -->
   <van-dialog
     v-model:show="addToPlanDialogShow"
-    title="加入计划"
+    title="加入我的菜单"
     show-cancel-button
     @confirm="addToMenu"
   >
     <mk-form-picker
-      v-model="menuRecipeForm.recipeId"
+      v-model="menuRecipeForm.recipeMenuId"
       :dict-type="getSelfRecipeMenuList"
       label="菜单" placeholder="点击选择菜单"
       :custom-field-name="{
