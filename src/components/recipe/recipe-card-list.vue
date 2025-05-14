@@ -19,10 +19,17 @@ const props = defineProps({
     type: Object as PropType<any>,
     required: false,
   },
+  // 最小宽度
   minHeight: {
     type: String,
     required: false,
     default: '80vh',
+  },
+  // 是否直接查询
+  isAutoQuery: {
+    type: Boolean,
+    required: false,
+    default: true,
   },
 })
 
@@ -82,12 +89,18 @@ function onRefresh() {
   // 将 loading 设置为 true，表示处于加载状态
   loading.value = true
 }
+
+// 导出方法
+defineExpose({
+  query: onRefresh,
+})
 </script>
 
 <template>
   <van-pull-refresh v-if="typeof recipeListApi === 'function'" v-model="refreshing" @refresh="onRefresh">
     <van-list
       v-model:loading="loading"
+      :immediate-check="isAutoQuery"
       :style="{
         minHeight,
       }"

@@ -20,6 +20,12 @@ const props = defineProps({
     required: false,
     default: '80vh',
   },
+  // 是否直接查询
+  isAutoQuery: {
+    type: Boolean,
+    required: false,
+    default: true,
+  },
 })
 
 let pageNo = 0 // 当前页
@@ -73,6 +79,11 @@ function onRefresh() {
   // 将 loading 设置为 true，表示处于加载状态
   loading.value = true
 }
+
+// 导出方法
+defineExpose({
+  query: onRefresh,
+})
 </script>
 
 <template>
@@ -82,6 +93,7 @@ function onRefresh() {
       :style="{
         minHeight,
       }"
+      :immediate-check="isAutoQuery"
       :finished="finished"
       finished-text="已经到底啦 ~"
       loading-text="加载中..."
