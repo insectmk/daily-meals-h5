@@ -36,13 +36,21 @@ getRecipeInfo({ id }).then((res) => {
         />
       </van-swipe-item>
     </van-swipe>
-    <div v-html="recipe.recipeStep" />
+    <div class="recipe-step-container" v-html="recipe.recipeStep" />
     <!--  动作栏  -->
     <ActionFuncBar :recipe-id="id" />
   </div>
 </template>
 
 <style scoped>
+/* 为所有通过v-html渲染的图片添加约束 */
+.recipe-step-container :deep(img) {
+  max-width: 100%; /* 限制最大宽度为容器宽度 */
+  height: auto; /* 高度按比例自适应 */
+  display: block; /* 消除图片底部间隙 */
+  margin: 10px auto; /* 居中显示 */
+  object-fit: contain; /* 完整显示图片（防止裁剪） */
+}
 </style>
 
 <route lang="json5">
