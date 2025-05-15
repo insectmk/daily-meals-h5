@@ -34,7 +34,7 @@ async function getCode() {
   })
   if (res.code === ResponseCode.SUCCESS.code) {
     // TODO 假验证码，后续看情况增加
-    passwordEditPostData.code = 9999
+    passwordEditPostData.code = '9999'
     showNotify({ type: 'success', message: `${t('register.sendCodeSuccess')}: ${9999}` })
   }
 

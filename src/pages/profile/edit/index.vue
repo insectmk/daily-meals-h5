@@ -38,7 +38,7 @@ function onConfirm() {
       showToast('修改成功！')
     }
     else {
-      showNotify({ type: 'danger', message: result.msg, duration: 1500 })
+      showNotify({ type: 'danger', message: res.msg, duration: 1500 })
     }
   })
 }
