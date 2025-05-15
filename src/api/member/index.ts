@@ -12,5 +12,5 @@ export function getInfo() {
  * 修改用户基本信息
  */
 export function updateUser(data: MemberUserUpdateReq) {
-  return request.put<boolean>('/member/user/get', data)
+  return request.put<boolean>('/member/user/update', data)
 }
