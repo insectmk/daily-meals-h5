@@ -13,11 +13,15 @@ const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
 const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
 
 /**
- * 登录
+ * 用户信息点击处理
  */
-function login() {
-  if (isLogin.value)
+function userInfoClickHandel() {
+  if (isLogin.value) {
+    // 已经登录，跳转到个人信息修改页面
+    router.push('/profile/edit')
     return
+  }
+  // 未登录跳转到登录页面
   router.push({ name: 'login', query: { redirect: 'profile' } })
 }
 </script>
@@ -25,7 +29,7 @@ function login() {
 <template>
   <div>
     <VanCellGroup :inset="true">
-      <van-cell center :is-link="!isLogin" @click="login">
+      <van-cell center :is-link="!isLogin" @click="userInfoClickHandel">
         <template #title>
           <van-image :src="memberInfo.avatar || defaultAvatar" round class="h-56 w-56" />
         </template>
