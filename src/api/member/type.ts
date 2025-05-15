@@ -12,3 +12,11 @@ export interface Member {
   point?: number
   sex?: number // 性别
 }
+/**
+ * 会员用户更新 Request
+ */
+export interface MemberUserUpdateReq {
+  nickname?: string // 用户昵称
+  avatar?: string // 头像
+  sex?: number // 性别
+}

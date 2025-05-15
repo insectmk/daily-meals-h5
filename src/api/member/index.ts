@@ -1,4 +1,4 @@
-import type { Member } from '@/api/member/type'
+import type { Member, MemberUserUpdateReq } from '@/api/member/type'
 import request from '@/utils/request'
 
 /**
@@ -6,4 +6,11 @@ import request from '@/utils/request'
  */
 export function getInfo() {
   return request.get<Member | null>('/member/user/get')
+}
+
+/**
+ * 修改用户基本信息
+ */
+export function updateUser(data: MemberUserUpdateReq) {
+  return request.put<boolean>('/member/user/get', data)
 }
