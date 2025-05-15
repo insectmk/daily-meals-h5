@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 import type { LoginData, SmsLoginReq } from '@/api/auth/type'
-import type { Member, MemberUserUpdateReq } from '@/api/member/type'
+import type { Member, MemberUserUpdateMobileReq, MemberUserUpdateReq } from '@/api/member/type'
 import { clearAllToken, setRefreshToken, setToken } from '@/utils/auth'
 import {
   getInfo as getMemberInfo,
   updateUser as updateMember,
+  updateUserMobile,
 } from '@/api/member'
 import {
   login as memberLogin,
@@ -72,7 +73,7 @@ export const useMemberStore = defineStore('member', () => {
   // 更新用户基础信息
   const updateMemberCommonInfo = async (data: MemberUserUpdateReq) => {
     const result = await updateMember(data)
-    // 判断是否登录成功
+    // 判断是否修改成功
     if (result.code === ResponseCode.SUCCESS.code) {
       // 同步修改用户信息
       if (data.avatar)
@@ -81,6 +82,16 @@ export const useMemberStore = defineStore('member', () => {
         memberInfo.value.sex = data.sex
       if (data.nickname)
         memberInfo.value.nickname = data.nickname
+    }
+    return result
+  }
+  // 更新用户手机
+  const updateMemberMobile = async (data: MemberUserUpdateMobileReq) => {
+    const result = await updateUserMobile(data)
+    // 判断是否修改成功
+    if (result.code === ResponseCode.SUCCESS.code) {
+      // 同步修改用户信息
+      memberInfo.value.mobile = data.mobile
     }
     return result
   }
@@ -102,6 +113,7 @@ export const useMemberStore = defineStore('member', () => {
     smsLogin,
     logout,
     updateMemberCommonInfo,
+    updateMemberMobile,
   }
 }, {
   persist: true,

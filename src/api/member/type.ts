@@ -20,3 +20,15 @@ export interface MemberUserUpdateReq {
   avatar?: string // 头像
   sex?: number // 性别
 }
+
+/**
+ * 修改手机请求
+ */
+export interface MemberUserUpdateMobileReq {
+  // 新手机验证码
+  code: string
+  // 新手机号
+  mobile: string
+  // 原手机验证码
+  oldCode?: string
+}
