@@ -106,7 +106,20 @@ function beforeDelete(file: UploaderFileListItem) {
         :max-count="maxCount"
         :after-read="afterRead"
         :before-delete="beforeDelete"
-      />
+      >
+        <template #default>
+          <slot name="default">
+            <van-image width="80" height="80">
+              <template #loading>
+                <div class="i-carbon:camera" />
+              </template>
+            </van-image>
+          </slot>
+        </template>
+        <template #preview-cover="{ file }">
+          <slot name="preview-cover" :file="file" />
+        </template>
+      </van-uploader>
     </template>
   </van-field>
 </template>
