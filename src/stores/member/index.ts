@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { LoginData } from '@/api/auth/type'
+import type { LoginData, SmsLoginReq } from '@/api/auth/type'
 import type { Member } from '@/api/member/type'
 import { clearAllToken, setRefreshToken, setToken } from '@/utils/auth'
 import {
@@ -7,6 +7,7 @@ import {
 } from '@/api/member'
 import {
   login as memberLogin,
+  smsLogin as memberSmsLogin,
 } from '@/api/auth'
 import ResponseCode from '@/constants/response-code'
 import { loginOut } from '@/api/system'
@@ -28,6 +29,22 @@ export const useMemberStore = defineStore('member', () => {
   const login = async (loginForm: LoginData) => {
     try {
       const result = await memberLogin(loginForm)
+      // 判断是否登录成功
+      if (result.code === ResponseCode.SUCCESS.code) {
+        setToken(result.data?.accessToken) // 设置令牌
+        setRefreshToken(result.data?.refreshToken) // 设置刷新令牌
+      }
+      return result
+    }
+    catch (error) {
+      clearAllToken()
+      throw error
+    }
+  }
+  // 会员手机验证码登录
+  const smsLogin = async (loginForm: SmsLoginReq) => {
+    try {
+      const result = await memberSmsLogin(loginForm)
       // 判断是否登录成功
       if (result.code === ResponseCode.SUCCESS.code) {
         setToken(result.data?.accessToken) // 设置令牌
@@ -66,6 +83,7 @@ export const useMemberStore = defineStore('member', () => {
     memberInfo,
     info,
     login,
+    smsLogin,
     logout,
   }
 }, {

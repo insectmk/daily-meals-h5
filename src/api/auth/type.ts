@@ -31,3 +31,33 @@ export interface Member {
   point?: number
   sex?: number // 性别
 }
+
+/**
+ * 手机 + 验证码登录
+ */
+export interface SmsLoginReq {
+  // 手机号
+  mobile: string
+  // 验证码
+  code: number
+}
+
+/**
+ * SMS发送场景
+ */
+export enum SMS_SCENE_ENUM {
+  MEMBER_LOGIN = 1, //  "user-sms-login", "会员用户 - 手机号登陆"),
+  MEMBER_UPDATE_MOBILE = 2, //  "user-update-mobile", "会员用户 - 修改手机"),
+  MEMBER_UPDATE_PASSWORD = 3, //  "user-update-password", "会员用户 - 修改密码"),
+  MEMBER_RESET_PASSWORD = 4, //  "user-reset-password", "会员用户 - 忘记密码"),
+}
+
+/**
+ * 发送手机验证码请求
+ */
+export interface SmsSendReq {
+  // 手机号
+  mobile: string
+  // 发送场景
+  scene: number
+}
