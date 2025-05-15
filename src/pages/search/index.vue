@@ -66,6 +66,7 @@ function cancel() {
           title: searchContent,
         }"
         min-height="80vh"
+        :is-auto-query="false"
       />
     </van-tab>
   </van-tabs>
