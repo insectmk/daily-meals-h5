@@ -5,8 +5,11 @@ import { useMemberStore } from '@/stores'
 import ResponseCode from '@/constants/response-code'
 import { showToast } from 'vant'
 import { useRouter } from 'vue-router'
+import MobileEditPopup from './mobile-edit-popup/index.vue'
 
 const loading = ref(false)
+const showMobileEdit = ref(false) // 展示手机修改弹出层
+const showPasswordEdit = ref(false) // 展示密码修改弹出层
 const memberStore = useMemberStore()
 const router = useRouter()
 
@@ -103,19 +106,23 @@ function onCancel() {
 
       <div class="mt-16 overflow-hidden rounded-3xl">
         <van-field
-          v-model.trim="postData.password"
-          type="password"
-          name="password"
-          placeholder="手机号"
+          :model-value="memberStore.memberInfo.mobile"
+          label="手机号"
+          label-align="left"
+          readonly
+          right-icon="arrow"
+          @click="showMobileEdit = true"
         />
       </div>
 
       <div class="mt-16 overflow-hidden rounded-3xl">
         <van-field
-          v-model.trim="postData.confirmPassword"
-          type="password"
-          name="confirmPassword"
-          placeholder="登录密码"
+          label="登录密码"
+          label-align="left"
+          right-icon="arrow"
+          disabled
+          placeholder="点击修改登录密码"
+          @click="showPasswordEdit = true"
         />
       </div>
 
@@ -133,6 +140,16 @@ function onCancel() {
 
     <GhostButton to="login" block :style="{ 'margin-top': vw(8) }" />
   </div>
+
+  <MobileEditPopup v-model:show="showMobileEdit" />
+
+  <!-- 密码修改弹出层 -->
+  <van-popup
+    v-model:show="showPasswordEdit"
+    position="bottom"
+    round
+    :style="{ height: '30%' }"
+  />
 </template>
 
 <style scoped>
