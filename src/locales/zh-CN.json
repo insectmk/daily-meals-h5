@@ -81,12 +81,14 @@
     "passwordResetSuccess": "密码重置成功"
   },
   "register": {
+    "mobile": "手机",
     "email": "邮箱",
     "code": "验证码",
     "nickname": "昵称",
     "password": "密码",
     "comfirmPassword": "再次输入密码",
     "pleaseEnterEmail": "请输入邮箱",
+    "pleaseEnterMobile": "请输入手机",
     "pleaseEnterCode": "请输入验证码",
     "pleaseEnterNickname": "请输入昵称",
     "pleaseEnterPassword": "请输入密码",

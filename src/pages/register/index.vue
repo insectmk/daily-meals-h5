@@ -1,52 +1,46 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { FieldRule } from 'vant'
-import { useUserStore } from '@/stores'
 import vw from '@/utils/inline-px-to-vw'
+import { sendSmsCode } from '@/api/auth'
+import { SMS_SCENE_ENUM } from '@/api/auth/type'
+import type { SmsLoginReq } from '@/api/auth/type'
+import ResponseCode from '@/constants/response-code'
+import { useMemberStore } from '@/stores'
 
 const { t } = useI18n()
 const router = useRouter()
-const userStore = useUserStore()
 const loading = ref(false)
+const isGettingCode = ref(false) // 是否正在获取验证码
+const memberStore = useMemberStore()
 
-const postData = reactive({
-  email: '',
-  code: '',
-  nickname: '',
-  password: '',
-  confirmPassword: '',
+const postData = reactive<SmsLoginReq>({
+  mobile: '', // 手机号
+  code: null, // 验证码
 })
 
-const validatorPassword = (val: string) => val === postData.password
-
+// 表单规则
 const rules = reactive({
-  email: [
+  mobile: [
     { required: true, message: t('register.pleaseEnterEmail') },
   ],
   code: [
     { required: true, message: t('register.pleaseEnterCode') },
   ],
-  nickname: [
-    { required: true, message: t('register.pleaseEnterNickname') },
-  ],
-  password: [
-    { required: true, message: t('register.pleaseEnterPassword') },
-  ],
-  confirmPassword: [
-    { required: true, message: t('register.pleaseEnterConfirmPassword') },
-    { required: true, validator: validatorPassword, message: t('register.passwordsDoNotMatch') },
-  ] as FieldRule[],
 })
 
+/**
+ * 注册用户
+ */
 async function register() {
   try {
     loading.value = true
-
-    const res = await userStore.register()
-
-    if (res.code === 0) {
+    // 发送注册请求
+    const res = await memberStore.smsLogin(postData)
+    if (res.code === ResponseCode.SUCCESS.code) {
+      // 注册成功
       showNotify({ type: 'success', message: t('register.registerSuccess') })
-      router.push({ name: 'login' })
+      // 跳转到个人中心页面
+      await router.push('/profile')
     }
   }
   finally {
@@ -54,22 +48,30 @@ async function register() {
   }
 }
 
-const isGettingCode = ref(false)
-
 const buttonText = computed(() => {
   return isGettingCode.value ? t('register.gettingCode') : t('register.getCode')
 })
 
+/**
+ * 获取验证码
+ */
 async function getCode() {
-  if (!postData.email) {
-    showNotify({ type: 'warning', message: t('register.pleaseEnterEmail') })
+  if (!postData.mobile) {
+    // 没有输入手机号
+    showNotify({ type: 'warning', message: t('register.pleaseEnterMobile') })
     return
   }
 
   isGettingCode.value = true
-  const res = await userStore.getCode()
-  if (res.code === 0)
-    showNotify({ type: 'success', message: `${t('register.sendCodeSuccess')}: ${res.result}` })
+  const res = await sendSmsCode({
+    mobile: postData.mobile,
+    scene: SMS_SCENE_ENUM.MEMBER_LOGIN,
+  })
+  if (res.code === ResponseCode.SUCCESS.code) {
+    // TODO 假验证码，后续看情况增加
+    postData.code = 9999
+    showNotify({ type: 'success', message: `${t('register.sendCodeSuccess')}: ${9999}` })
+  }
 
   isGettingCode.value = false
 }
@@ -80,10 +82,10 @@ async function getCode() {
     <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="register">
       <div class="overflow-hidden rounded-3xl">
         <van-field
-          v-model.trim="postData.email"
-          :rules="rules.email"
-          name="email"
-          :placeholder="t('register.email')"
+          v-model.trim="postData.mobile"
+          :rules="rules.mobile"
+          name="mobile"
+          :placeholder="t('register.mobile')"
         />
       </div>
 
@@ -100,35 +102,6 @@ async function getCode() {
             </van-button>
           </template>
         </van-field>
-      </div>
-
-      <div class="mt-16 overflow-hidden rounded-3xl">
-        <van-field
-          v-model.trim="postData.nickname"
-          :rules="rules.nickname"
-          name="nickname"
-          :placeholder="t('register.nickname')"
-        />
-      </div>
-
-      <div class="mt-16 overflow-hidden rounded-3xl">
-        <van-field
-          v-model.trim="postData.password"
-          type="password"
-          :rules="rules.password"
-          name="password"
-          :placeholder="t('register.password')"
-        />
-      </div>
-
-      <div class="mt-16 overflow-hidden rounded-3xl">
-        <van-field
-          v-model.trim="postData.confirmPassword"
-          type="password"
-          :rules="rules.confirmPassword"
-          name="confirmPassword"
-          :placeholder="t('register.comfirmPassword')"
-        />
       </div>
 
       <div class="mt-16">
