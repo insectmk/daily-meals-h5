@@ -32,3 +32,12 @@ export interface MemberUserUpdateMobileReq {
   // 原手机验证码
   oldCode?: string
 }
+/**
+ * 修改密码 Req
+ */
+export interface MemberUserUpdatePasswordReq {
+  // 新手机号
+  password: string
+  // 新手机验证码
+  code: string
+}

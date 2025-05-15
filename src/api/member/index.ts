@@ -1,4 +1,9 @@
-import type { Member, MemberUserUpdateMobileReq, MemberUserUpdateReq } from '@/api/member/type'
+import type {
+  Member,
+  MemberUserUpdateMobileReq,
+  MemberUserUpdatePasswordReq,
+  MemberUserUpdateReq,
+} from '@/api/member/type'
 import request from '@/utils/request'
 
 /**
@@ -20,4 +25,11 @@ export function updateUser(data: MemberUserUpdateReq) {
  */
 export function updateUserMobile(data: MemberUserUpdateMobileReq) {
   return request.put<boolean>('/member/user/update-mobile', data)
+}
+
+/**
+ * 修改用户密码
+ */
+export function updateUserPassword(data: MemberUserUpdatePasswordReq) {
+  return request.put<boolean>('/member/user/update-password', data)
 }
