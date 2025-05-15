@@ -3,7 +3,7 @@ import { sendSmsCode } from '@/api/auth'
 import { SMS_SCENE_ENUM } from '@/api/auth/type'
 import ResponseCode from '@/constants/response-code'
 import { useMemberStore } from '@/stores'
-import type { MemberUserUpdateMobileReq } from '@/api/member/type'
+import type { MemberUserUpdatePasswordReq } from '@/api/member/type'
 
 defineProps({
   // 弹窗的显示
@@ -22,25 +22,19 @@ const memberStore = useMemberStore()
  * 获取验证码
  */
 const isGettingCode = ref(false) // 是否正在获取验证码
-const mobileEditPostData = reactive<MemberUserUpdateMobileReq>({
-  mobile: '', // 手机号
+const passwordEditPostData = reactive<MemberUserUpdatePasswordReq>({
+  password: '', // 密码
   code: null, // 验证码
 })
 async function getCode() {
-  if (!mobileEditPostData.mobile) {
-    // 没有输入手机号
-    showNotify({ type: 'warning', message: t('register.pleaseEnterMobile') })
-    return
-  }
-
-  isGettingCode.value = true
+  isGettingCode.value = true // 正在获取验证码
   const res = await sendSmsCode({
-    mobile: mobileEditPostData.mobile,
-    scene: SMS_SCENE_ENUM.MEMBER_UPDATE_MOBILE, // 修改手机
+    mobile: memberStore.memberInfo.mobile, // 用户手机
+    scene: SMS_SCENE_ENUM.MEMBER_UPDATE_PASSWORD, // 修改密码
   })
   if (res.code === ResponseCode.SUCCESS.code) {
     // TODO 假验证码，后续看情况增加
-    mobileEditPostData.code = 9999
+    passwordEditPostData.code = 9999
     showNotify({ type: 'success', message: `${t('register.sendCodeSuccess')}: ${9999}` })
   }
 
@@ -48,14 +42,14 @@ async function getCode() {
 }
 
 /**
- * 提交修改手机号的表单
+ * 提交修改的表单
  */
-function editeMobileConfirm() {
-  memberStore.updateMemberMobile(mobileEditPostData).then((res) => {
+function editeConfirm() {
+  memberStore.updateMemberPassword(passwordEditPostData).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
       // 关闭页面
       emit('update:show', false)
-      showToast('手机修改成功！')
+      showToast('密码修改成功！')
     }
   })
 }
@@ -73,10 +67,9 @@ function editeMobileConfirm() {
     <div class="m-x-a w-7xl text-center">
       <div class="overflow-hidden">
         <van-field
-          v-model.trim="mobileEditPostData.mobile"
-          name="mobile"
-          label="手机号"
-          :placeholder="t('register.mobile')"
+          v-model.trim="passwordEditPostData.code"
+          label="验证码"
+          :placeholder="t('register.code')"
         >
           <template #button>
             <van-button size="small" type="primary" round plain style="width: 85px;" @click="getCode">
@@ -88,13 +81,13 @@ function editeMobileConfirm() {
 
       <div class="mt-16 overflow-hidden">
         <van-field
-          v-model.trim="mobileEditPostData.code"
-          name="code"
-          label="验证码"
-          :placeholder="t('register.code')"
+          v-model.trim="passwordEditPostData.password"
+          name="password"
+          label="密码"
+          :placeholder="t('register.password')"
         >
           <template #button>
-            <van-button size="small" type="primary" round style="width: 85px;" @click="editeMobileConfirm">
+            <van-button size="small" type="primary" round style="width: 85px;" @click="editeConfirm">
               确认
             </van-button>
           </template>

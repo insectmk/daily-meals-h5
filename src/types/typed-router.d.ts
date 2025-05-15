@@ -32,6 +32,8 @@ declare module 'vue-router/auto-routes' {
     '/plan/plan-recipe-card-list/': RouteRecordInfo<'/plan/plan-recipe-card-list/', '/plan/plan-recipe-card-list', Record<never, never>, Record<never, never>>,
     'Profile': RouteRecordInfo<'Profile', '/profile', Record<never, never>, Record<never, never>>,
     'ProfileEdit': RouteRecordInfo<'ProfileEdit', '/profile/edit', Record<never, never>, Record<never, never>>,
+    '/profile/edit/mobile-edit-popup/': RouteRecordInfo<'/profile/edit/mobile-edit-popup/', '/profile/edit/mobile-edit-popup', Record<never, never>, Record<never, never>>,
+    '/profile/edit/password-edit-popup/': RouteRecordInfo<'/profile/edit/password-edit-popup/', '/profile/edit/password-edit-popup', Record<never, never>, Record<never, never>>,
     '/profile/self-content-tab/': RouteRecordInfo<'/profile/self-content-tab/', '/profile/self-content-tab', Record<never, never>, Record<never, never>>,
     '/profile/self-content-tab/recipe-menu-tab': RouteRecordInfo<'/profile/self-content-tab/recipe-menu-tab', '/profile/self-content-tab/recipe-menu-tab', Record<never, never>, Record<never, never>>,
     'Recipe': RouteRecordInfo<'Recipe', '/recipe', Record<never, never>, Record<never, never>>,

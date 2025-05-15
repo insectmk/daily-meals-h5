@@ -6,6 +6,7 @@ import ResponseCode from '@/constants/response-code'
 import { showToast } from 'vant'
 import { useRouter } from 'vue-router'
 import MobileEditPopup from './mobile-edit-popup/index.vue'
+import PasswordEditPopup from './password-edit-popup/index.vue'
 
 const loading = ref(false)
 const showMobileEdit = ref(false) // 展示手机修改弹出层
@@ -120,7 +121,7 @@ function onCancel() {
           label="登录密码"
           label-align="left"
           right-icon="arrow"
-          disabled
+          readonly
           placeholder="点击修改登录密码"
           @click="showPasswordEdit = true"
         />
@@ -141,15 +142,10 @@ function onCancel() {
     <GhostButton to="login" block :style="{ 'margin-top': vw(8) }" />
   </div>
 
+  <!-- 手机修改弹出层 -->
   <MobileEditPopup v-model:show="showMobileEdit" />
-
   <!-- 密码修改弹出层 -->
-  <van-popup
-    v-model:show="showPasswordEdit"
-    position="bottom"
-    round
-    :style="{ height: '30%' }"
-  />
+  <PasswordEditPopup v-model:show="showPasswordEdit" />
 </template>
 
 <style scoped>
