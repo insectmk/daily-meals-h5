@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
-import type { LoginData, Member } from '@/api/member/type'
+import type { LoginData } from '@/api/auth/type'
+import type { Member } from '@/api/member/type'
 import { clearAllToken, setRefreshToken, setToken } from '@/utils/auth'
 import {
   getInfo as getMemberInfo,
-  login as memberLogin,
 } from '@/api/member'
+import {
+  login as memberLogin,
+} from '@/api/auth'
 import ResponseCode from '@/constants/response-code'
 import { loginOut } from '@/api/system'
 
