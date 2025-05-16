@@ -54,7 +54,7 @@ function addRecipeMenu() {
       label="步骤"
       :maxlength="2000"
     />
-    <mk-form-file
+    <mk-form-img
       v-model="recipeMenuForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
       label="封面"

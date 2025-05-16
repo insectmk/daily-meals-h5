@@ -11,7 +11,7 @@ declare module 'vue' {
     Chart: typeof import('./../components/Chart/index.vue')['default']
     GhostButton: typeof import('./../components/GhostButton.vue')['default']
     MkFormCalendar: typeof import('./../components/form/mk-form-calendar/index.vue')['default']
-    MkFormFile: typeof import('./../components/form/mk-form-file/index.vue')['default']
+    MkFormImg: typeof import('./../components/form/mk-form-img/index.vue')['default']
     MkFormInput: typeof import('./../components/form/mk-form-input/index.vue')['default']
     MkFormItems: typeof import('./../components/form/mk-form-items/index.vue')['default']
     MkFormPicker: typeof import('./../components/form/mk-form-picker/index.vue')['default']

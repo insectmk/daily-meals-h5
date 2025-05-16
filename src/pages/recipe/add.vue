@@ -121,12 +121,12 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       :dict-type="DICT_TYPE.MEALS_RECIPE_LEVEL"
       label="烹饪难度" placeholder="点击选择难度"
     />
-    <mk-form-file
+    <mk-form-img
       v-model="recipeForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
       label="封面"
     />
-    <mk-form-file
+    <mk-form-img
       v-model="recipeForm.sliderPicUrls"
       multiple
       :max-count="2"

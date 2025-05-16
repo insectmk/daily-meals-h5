@@ -2,6 +2,7 @@
 import type { FieldRule, UploaderFileListItem } from 'vant'
 import { uploadFile } from '@/api/infra'
 import ResponseCode from '@/constants/response-code'
+import { bytesToSize } from '@/utils/file-size-util'
 
 // 属性
 const props = defineProps({
@@ -33,6 +34,12 @@ const props = defineProps({
     type: Array as PropType<FieldRule[]>, // 更明确的数组类型声明
     required: false,
     default: () => [], // 使用工厂函数返回默认值
+  },
+  // 上传大小限制
+  maxSize: {
+    type: Number,
+    required: false,
+    defualt: 500 * 1024,
   },
 })
 
@@ -95,6 +102,14 @@ function beforeDelete(file: UploaderFileListItem) {
   }
   return true
 }
+
+/**
+ * 超过最大上传大小
+ * @param _file
+ */
+function onOversize(_file: UploaderFileListItem) {
+  showToast(`图片大小不能超过${bytesToSize(props.maxSize)}`)
+}
 </script>
 
 <template>
@@ -106,6 +121,8 @@ function beforeDelete(file: UploaderFileListItem) {
         :max-count="maxCount"
         :after-read="afterRead"
         :before-delete="beforeDelete"
+        :max-size="maxSize"
+        @oversize="onOversize"
       >
         <template #default>
           <slot name="default">
