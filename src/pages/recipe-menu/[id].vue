@@ -59,11 +59,12 @@ function onBack() {
     position="bottom" :style="{ height: '30%' }"
   >
     <van-divider
+      v-if="recipeMenu.selfMenu"
       :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
     >
       快捷操作
     </van-divider>
-    <van-grid>
+    <van-grid v-if="recipeMenu.selfMenu">
       <van-grid-item
         icon="records-o" text="编辑菜单" @click="() => {
           showToast('敬请期待！！！');

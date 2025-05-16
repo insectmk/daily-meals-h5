@@ -38,6 +38,7 @@ export interface RecipeInfo {
    */
   sliderPicUrls: string[]
   foods: RecipeFoodInfo[]
+  selfRecipe: boolean // 是否为自己的菜谱
 }
 
 /**
