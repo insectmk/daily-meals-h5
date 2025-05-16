@@ -87,7 +87,7 @@ function recipeFoodFormatter(food: RecipeFoodInfo) {
 function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
   getFood({ id: Number(newFoodId) }).then((res) => {
     recipeFoodData.foodName = newFoodName // 赋值食材名称
-    recipeFoodData.foodUnit = res.data.foodUnit // 赋值食材单位
+    recipeFoodData.foodUnit = dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, res.data.foodUnit) // 赋值食材单位
   })
 }
 </script>
@@ -97,7 +97,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     :title="$t('recipe.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
-    placeholder left-arrow fixed
+    left-arrow placeholder fixed
     @click-left="onBack"
     @click-right="onConfirm"
   />
