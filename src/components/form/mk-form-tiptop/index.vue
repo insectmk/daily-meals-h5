@@ -57,6 +57,19 @@ const editor = useEditor({
   },
 })
 
+// 监听外部绑定值改变，同步更新
+watch(
+  () => props.modelValue,
+  (newValue, oldValue) => {
+    // 避免相同内容重复触发更新
+    if (newValue === oldValue)
+      return
+    // 安全更新编辑器内容
+    editor.value?.commands.setContent(newValue, false) // 第二个参数关闭触发 onUpdate 事件[3,6](@ref)
+  },
+  { deep: true, immediate: true },
+)
+
 // 手动接管焦点控制
 function handleFocus() {
   if (editor.value && !editor.value.isDestroyed) {

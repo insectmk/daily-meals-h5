@@ -2,7 +2,7 @@
 import type { FieldRule, UploaderFileListItem } from 'vant'
 import { uploadFile } from '@/api/infra'
 import ResponseCode from '@/constants/response-code'
-import { bytesToSize } from '@/utils/file-size-util'
+import { bytesToSize } from '@/utils/file-util'
 
 // 属性
 const props = defineProps({
@@ -48,6 +48,22 @@ const emit = defineEmits(['update:modelValue'])
 
 // 文件列表
 const fileList = ref<UploaderFileListItem[]>([])
+
+watch(
+  () => props.modelValue,
+  (newUrls) => {
+    fileList.value = formatModelValue(newUrls)
+  },
+  { deep: true, immediate: true },
+)
+
+// 新增格式化函数
+function formatModelValue(value: string | string[]): UploaderFileListItem[] {
+  const urls = Array.isArray(value) ? value : [value]
+  return urls.filter(Boolean).map(url => ({
+    url, // 必须包含有效图片地址
+  }))
+}
 
 /**
  * 上传图片后
