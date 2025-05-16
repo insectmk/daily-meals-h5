@@ -2,7 +2,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { getRecipeMenu } from '@/api/recipe-menu'
 import type { RecipeMenu } from '@/api/recipe-menu/type'
-import { showToast } from 'vant'
+import MorePopup from '@/pages/recipe-menu/more-popup/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -52,31 +52,9 @@ function onBack() {
     <h2>{{ recipeMenu.subtitle }}</h2>
     <div v-html="recipeMenu.menuDesc" />
     <RecipeCardList :recipe-list-api="recipeMenu.recipes" min-height="0" />
+    <!-- 更多操作弹窗 -->
+    <MorePopup v-model:show="showMoreOperator" :menu="recipeMenu" />
   </div>
-  <!-- 更多操作弹窗 -->
-  <van-popup
-    v-model:show="showMoreOperator"
-    position="bottom" :style="{ height: '30%' }"
-  >
-    <van-divider
-      v-if="recipeMenu.selfMenu"
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
-    >
-      快捷操作
-    </van-divider>
-    <van-grid v-if="recipeMenu.selfMenu">
-      <van-grid-item
-        icon="records-o" text="编辑菜单" @click="() => {
-          showToast('敬请期待！！！');
-        }"
-      />
-      <van-grid-item
-        icon="delete-o" text="删除菜单" @click="() => {
-          showToast('敬请期待！！！');
-        }"
-      />
-    </van-grid>
-  </van-popup>
 </template>
 
 <style scoped>

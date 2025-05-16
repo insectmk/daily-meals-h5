@@ -52,6 +52,7 @@ declare module 'vue-router/auto-routes' {
     'RecipeListCategory': RouteRecordInfo<'RecipeListCategory', '/recipe/tab-pages/recipe-category/:categoryId', { categoryId: ParamValue<true> }, { categoryId: ParamValue<false> }>,
     '/recipe/tab-pages/RecipeSelf': RouteRecordInfo<'/recipe/tab-pages/RecipeSelf', '/recipe/tab-pages/RecipeSelf', Record<never, never>, Record<never, never>>,
     'RecipeMenuInfo': RouteRecordInfo<'RecipeMenuInfo', '/recipe-menu/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/recipe-menu/more-popup/': RouteRecordInfo<'/recipe-menu/more-popup/', '/recipe-menu/more-popup', Record<never, never>, Record<never, never>>,
     'register': RouteRecordInfo<'register', '/register', Record<never, never>, Record<never, never>>,
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
     'Search': RouteRecordInfo<'Search', '/search', Record<never, never>, Record<never, never>>,
