@@ -14,7 +14,7 @@ export interface RecipeMenu {
   memo?: string // 备注
   createTime?: number // 创建时间
   recipes?: RecipeInfo[] // 菜谱信息列表
-  selfMenu: boolean // 是否为自己的菜单
+  selfMenu?: boolean // 是否为自己的菜单
 }
 
 /**
