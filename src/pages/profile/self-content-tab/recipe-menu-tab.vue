@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { createRecipeMenu, getRecipeMenuPage } from '@/api/recipe-menu'
+import { createRecipeMenu, getSelfRecipeMenuPage } from '@/api/recipe-menu'
 import type { RecipeMenu } from '@/api/recipe-menu/type'
 import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
@@ -29,8 +29,8 @@ function addRecipeMenu() {
 
 <template>
   <van-cell title="新建菜单" is-link @click="addRecipeMenuDialogShow = true" />
-  <RecipeMenuCardList :menu-list-api="getRecipeMenuPage" min-height="55vh" />
-  <!-- 加入指定日期 -->
+  <RecipeMenuCardList :menu-list-api="getSelfRecipeMenuPage" min-height="55vh" />
+  <!-- 新建菜单弹窗 -->
   <van-dialog
     v-model:show="addRecipeMenuDialogShow"
     title="新建菜单"

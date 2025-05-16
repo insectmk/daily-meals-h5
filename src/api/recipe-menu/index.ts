@@ -9,6 +9,14 @@ import type { PageParam, PageResult } from '@/api/type'
 export function getRecipeMenuPage(pageReqVO: PageParam) {
   return request.get<PageResult<RecipeMenu>>('/meals/recipe-menu/page', pageReqVO)
 }
+
+/**
+ * 分页查询自己的的菜谱菜单信息
+ * @param pageReqVO
+ */
+export function getSelfRecipeMenuPage(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeMenu>>('/meals/recipe-menu/page-self', pageReqVO)
+}
 /**
  * 分页查询可见的菜谱菜单信息
  * @param id
