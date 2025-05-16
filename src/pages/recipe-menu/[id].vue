@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { getRecipeMenu } from '@/api/recipe-menu'
 import type { RecipeMenu } from '@/api/recipe-menu/type'
+import { showToast } from 'vant'
 
 const route = useRoute()
 const router = useRouter()
@@ -9,6 +10,7 @@ const router = useRouter()
 const id = Number((route.params as { id: number }).id) // 路由参数：菜谱菜单ID
 const recipeMenu = ref<RecipeMenu>()
 const loading = ref<boolean>(true) // 加载中
+const showMoreOperator = ref<boolean>(false) // 展示更多操作的弹窗
 
 /**
  * 获取菜谱菜单信息
@@ -35,7 +37,11 @@ function onBack() {
     :left-text="$t('common.back')"
     left-arrow placeholder fixed
     @click-left="onBack"
-  />
+  >
+    <template #right>
+      <van-icon name="ellipsis" size="24" @click="showMoreOperator = true" />
+    </template>
+  </van-nav-bar>
   <div v-if="loading">
     <van-loading size="24px">
       加载中...
@@ -47,6 +53,29 @@ function onBack() {
     <div v-html="recipeMenu.menuDesc" />
     <RecipeCardList :recipe-list-api="recipeMenu.recipes" min-height="0" />
   </div>
+  <!-- 更多操作弹窗 -->
+  <van-popup
+    v-model:show="showMoreOperator"
+    position="bottom" :style="{ height: '30%' }"
+  >
+    <van-divider
+      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+    >
+      快捷操作
+    </van-divider>
+    <van-grid>
+      <van-grid-item
+        icon="records-o" text="编辑菜单" @click="() => {
+          showToast('敬请期待！！！');
+        }"
+      />
+      <van-grid-item
+        icon="delete-o" text="删除菜单" @click="() => {
+          showToast('敬请期待！！！');
+        }"
+      />
+    </van-grid>
+  </van-popup>
 </template>
 
 <style scoped>
