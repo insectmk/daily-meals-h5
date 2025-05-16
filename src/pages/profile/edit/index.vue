@@ -55,7 +55,7 @@ function onCancel() {
 
 <template>
   <van-nav-bar
-    :title="$t('recipe.add.title')"
+    :title="$t('profile.edit.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
     left-arrow placeholder fixed
@@ -66,8 +66,9 @@ function onCancel() {
   <div class="m-x-a w-7xl text-center">
     <van-form :model="postData" @submit="onConfirm">
       <div class="overflow-hidden rounded-3xl">
-        <mk-form-file
+        <mk-form-img
           v-model="postData.avatar"
+          :max-size="1"
           label="头像"
         >
           <template #default>
@@ -83,7 +84,7 @@ function onCancel() {
               </template>
             </van-image>
           </template>
-        </mk-form-file>
+        </mk-form-img>
       </div>
 
       <div class="overflow-hidden rounded-3xl">
@@ -176,7 +177,7 @@ function onCancel() {
   name: 'ProfileEdit',
   meta: {
     title: '个人中心修改',
-    i18n: 'menus.profile',
+    i18n: 'profile.edit.title',
     customNav: true,
   },
 }

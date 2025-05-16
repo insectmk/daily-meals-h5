@@ -44,7 +44,10 @@
     "settings": "设置",
     "docs": "文档",
     "logout": "退出登录",
-    "demo": "演示页面"
+    "demo": "演示页面",
+    "edit": {
+      "title": "个人信息"
+    }
   },
   "keepAlive": {
     "label": "当前组件将会被缓存"
