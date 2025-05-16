@@ -61,7 +61,10 @@ const router = useRouter()
                 // 关闭遮罩层
                 overlayShow = false
                 // 打开录入页面
-                router.push('/recipe/add')
+                router.push({
+                  name: 'RecipeForm', // 需指定路由名称
+                  //query: { recipeId: props.recipe.id },
+                })
               }"
             >
               发菜谱

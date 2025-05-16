@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import type { RecipeCreateReq, RecipeFoodInfo } from '@/api/recipe/type'
+import { useRoute, useRouter } from 'vue-router'
+import type { RecipeFoodInfo, RecipeInfo } from '@/api/recipe/type'
 import type { FormInstance } from 'vant'
-import { addRecipe } from '@/api/recipe'
+import { createOrUpdateRecipe, getRecipeInfo } from '@/api/recipe'
 import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
 import { getFood, getSimpleFoodList } from '@/api/food'
@@ -10,15 +10,18 @@ import { useDictStore } from '@/stores'
 import { getRecipeCategoryList } from '@/api/recipecategory'
 
 defineOptions({
-  name: 'RecipeAdd',
+  name: 'RecipeForm',
 })
+
+const route = useRoute()
+const recipeId = Number(route.query.recipeId) // 菜谱编号
 
 const router = useRouter()
 const dictStore = useDictStore()
 const formRef = ref<FormInstance>()
 
 // 菜谱表单数据
-const recipeForm = reactive<RecipeCreateReq>({
+const recipeForm = reactive<RecipeInfo>({
   name: '', // 菜谱名称
   recipeDesc: '', // 菜谱描述
   recipeStep: '', // 菜谱教程
@@ -28,8 +31,18 @@ const recipeForm = reactive<RecipeCreateReq>({
   recipeLevel: 0, // 烹饪难度
   picUrl: '', // 封面图片
   sliderPicUrls: [], // 菜谱轮播图图片
-  recipeFoods: [], // 菜谱食材
+  foods: [], // 菜谱食材
 })
+// 判断是否有菜谱编号，如果有的话，说明为编辑而非新增
+if (recipeId) {
+  getRecipeInfo({ id: recipeId }).then((res) => {
+    if (res.code === ResponseCode.SUCCESS.code) {
+      // 如果成功，替换表单
+      // 保留响应式：将新对象属性合并到原对象
+      Object.assign(recipeForm, res.data)
+    }
+  })
+}
 
 /**
  * 返回操作
@@ -46,8 +59,8 @@ function onBack() {
 function onConfirm() {
   // 验证表单
   formRef.value.validate().then(() => {
-    // 添加菜谱
-    addRecipe(recipeForm).then((res) => {
+    // 添加/修改菜谱
+    createOrUpdateRecipe(recipeForm).then((res) => {
       if (res.code === ResponseCode.SUCCESS.code) {
         // 跳转到菜谱页面
         router.push(`/recipe/${res.data}`)
@@ -84,7 +97,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     :title="$t('recipe.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
-    left-arrow placeholder fixed
+    placeholder left-arrow fixed
     @click-left="onBack"
     @click-right="onConfirm"
   />
@@ -133,7 +146,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       label="轮播图"
     />
     <mk-form-items
-      v-model="recipeForm.recipeFoods"
+      v-model="recipeForm.foods"
       :formatter="recipeFoodFormatter"
       :default-form-data="{
         foodId: 0,
@@ -191,10 +204,9 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
 
 <route lang="json5">
 {
-  name: 'RecipeAdd',
+  name: 'RecipeForm',
   meta: {
     i18n: 'recipe.add.title',
-    keepAlive: true,
     customNav: true,
   },
 }
