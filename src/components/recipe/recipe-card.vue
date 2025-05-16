@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { DICT_TYPE } from '@/constants/dict'
 import type { RecipeInfo } from '@/api/recipe/type'
-import { useDictStore } from '@/stores'
+import { useApiCacheStore, useDictStore } from '@/stores'
 import { useRouter } from 'vue-router'
-import { getRecipeCategoryList } from '@/api/recipecategory'
+import APICacheKey from '@/stores/api-cache/api-cache-key'
 
 const props = defineProps({
   recipe: {
@@ -14,6 +14,7 @@ const props = defineProps({
 
 const router = useRouter()
 const dictStore = useDictStore()
+const apiCacheStore = useApiCacheStore()
 
 // 烹饪难度标签
 const tag = ref('未知')
@@ -23,8 +24,8 @@ dictStore.getDictLabelByValueAsync(DICT_TYPE.MEALS_RECIPE_LEVEL, props.recipe.re
   })
 // 菜谱分类处理
 const categoryList = ref<{ id: number, name: string }[]>([])
-getRecipeCategoryList().then((res) => {
-  const categories = res.data
+apiCacheStore.getApiCache(APICacheKey.MEALS_RECIPE_CATEGORY).then((res) => {
+  const categories = res
   props.recipe.recipeCategory?.forEach((categoryId) => {
     categoryList.value.push({
       id: categoryId,
