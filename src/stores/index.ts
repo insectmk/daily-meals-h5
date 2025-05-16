@@ -6,9 +6,11 @@ import useUserStore from './modules/user'
 import useMemberStore from '@/stores/member'
 // 字典相关
 import useDictStore from '@/stores/dictionary'
+// API缓存相关
+import useApiCacheStore from '@/stores/api-cache'
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
-export { useUserStore, useMemberStore, useDictStore }
+export { useUserStore, useMemberStore, useDictStore, useApiCacheStore }
 export default pinia
