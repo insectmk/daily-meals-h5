@@ -17,28 +17,28 @@ export interface GetRecipeParam {
  * 菜谱信息
  */
 export interface RecipeInfo {
-  id: number
-  userId: number
-  name: string
-  recipeDesc: string
-  recipeStep: string
-  recipeCategory: number[] // 菜谱分类
-  recipeType: number
-  recipeLevel: number
-  sort: number
-  memo: string
-  status: number
-  createTime: number
+  id?: number
+  userId?: number
+  name?: string
+  recipeDesc?: string
+  recipeStep?: string
+  recipeCategory?: number[] // 菜谱分类
+  recipeType?: number
+  recipeLevel?: number
+  sort?: number
+  memo?: string
+  status?: number
+  createTime?: number
   /**
    * 菜谱封面图
    */
-  picUrl: string
+  picUrl?: string
   /**
    * 菜谱轮播图
    */
-  sliderPicUrls: string[]
-  foods: RecipeFoodInfo[]
-  selfRecipe: boolean // 是否为自己的菜谱
+  sliderPicUrls?: string[]
+  foods?: RecipeFoodInfo[]
+  selfRecipe?: boolean // 是否为自己的菜谱
 }
 
 /**
@@ -67,33 +67,6 @@ export interface GetPopularPublicParam {
    */
   mealType: number[]
 }
-
-/**
- * 新增菜谱的信息
- */
-export interface RecipeCreateReq {
-  name?: string
-  recipeDesc?: string
-  recipeStep?: string
-  status?: number
-  recipeCategory?: number[] // 菜谱分类
-  recipeLevel?: number
-  sort?: number
-  memo?: string
-  /**
-   * 菜谱封面图
-   */
-  picUrl?: string
-  /**
-   * 菜谱轮播图
-   */
-  sliderPicUrls?: string[]
-  /**
-   * 菜谱食材明细
-   */
-  recipeFoods: RecipeCreateReq[]
-}
-
 /**
  * 菜谱食材请求信息
  */

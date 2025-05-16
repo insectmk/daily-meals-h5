@@ -1,4 +1,4 @@
-import type { GetPopularPublicParam, GetRecipeParam, RecipeCreateReq, RecipeInfo } from '@/api/recipe/type'
+import type { GetPopularPublicParam, GetRecipeParam, RecipeInfo } from '@/api/recipe/type'
 import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
@@ -53,7 +53,16 @@ export function getPopularPublicRecipes(param: GetPopularPublicParam) {
 /**
  * 添加菜谱
  * @param param
+ * @deprecated 不使用此方法添加菜谱了，使用新增/修改统一接口
  */
-export function addRecipe(param: RecipeCreateReq) {
+export function addRecipe(param: RecipeInfo) {
   return request.post<number>('/meals/recipe/create', param)
+}
+
+/**
+ * 添加/修改菜谱，根据id判断
+ * @param param
+ */
+export function createOrUpdateRecipe(param: RecipeInfo) {
+  return request.post<number>('/meals/recipe/create-or-update', param)
 }

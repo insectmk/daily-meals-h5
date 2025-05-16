@@ -34,7 +34,7 @@ function onBack() {
 
 <template>
   <van-nav-bar
-    :title="$t('recipe.menu.info.title')"
+    title="菜谱信息"
     :left-text="$t('common.back')"
     left-arrow placeholder fixed
     @click-left="onBack"
