@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { getRecipeInfo } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
-import { showToast } from 'vant'
+import MorePopup from './more-popup/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -62,31 +62,9 @@ function onBack() {
     <div class="recipe-step-container" v-html="recipe.recipeStep" />
     <!--  动作栏  -->
     <ActionFuncBar :recipe-id="id" />
+    <!-- 更多操作弹窗 -->
+    <MorePopup v-model:show="showMoreOperator" :recipe="recipe" />
   </div>
-  <!-- 更多操作弹窗 -->
-  <van-popup
-    v-model:show="showMoreOperator"
-    position="bottom" :style="{ height: '30%' }"
-  >
-    <van-divider
-      v-if="recipe.selfRecipe"
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
-    >
-      快捷操作
-    </van-divider>
-    <van-grid v-if="recipe.selfRecipe">
-      <van-grid-item
-        icon="records-o" text="编辑菜谱" @click="() => {
-          showToast('敬请期待！！！');
-        }"
-      />
-      <van-grid-item
-        icon="delete-o" text="删除菜谱" @click="() => {
-          showToast('敬请期待！！！');
-        }"
-      />
-    </van-grid>
-  </van-popup>
 </template>
 
 <style scoped>

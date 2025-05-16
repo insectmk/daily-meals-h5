@@ -1,0 +1,75 @@
+<script setup lang="ts">
+import { showToast } from 'vant'
+import type { RecipeInfo } from '@/api/recipe/type'
+
+defineProps({
+  // 控制prop显示
+  show: {
+    type: Boolean,
+    required: true,
+  },
+  // 菜谱信息
+  recipe: {
+    type: Object as PropType<RecipeInfo>,
+    required: true,
+  },
+})
+
+const emit = defineEmits(['update:show'])
+
+/**
+ * 复制当前URL到剪切板
+ */
+async function copyCurrentURL() {
+  try {
+    await navigator.clipboard.writeText(window.location.href)
+    showToast('复制成功！')
+  }
+  catch (err) {
+    console.error('复制失败:', err)
+    showToast('复制失败，请手动复制！')
+  }
+}
+</script>
+
+<template>
+  <!-- 更多操作弹窗 -->
+  <van-popup
+    :show="show"
+    position="bottom"
+    @close="emit('update:show', false)"
+  >
+    <van-divider
+      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+    >
+      分享到
+    </van-divider>
+    <van-grid>
+      <van-grid-item
+        icon="miniprogram-o" text="复制链接" @click="copyCurrentURL"
+      />
+    </van-grid>
+    <van-divider
+      v-if="recipe.selfRecipe"
+      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+    >
+      快捷操作
+    </van-divider>
+    <van-grid v-if="recipe.selfRecipe">
+      <van-grid-item
+        icon="records-o" text="编辑菜谱" @click="() => {
+          showToast('敬请期待！！！');
+        }"
+      />
+      <van-grid-item
+        icon="delete-o" text="删除菜谱" @click="() => {
+          showToast('敬请期待！！！');
+        }"
+      />
+    </van-grid>
+  </van-popup>
+</template>
+
+<style scoped>
+
+</style>
