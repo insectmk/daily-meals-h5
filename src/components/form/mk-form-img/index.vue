@@ -39,7 +39,7 @@ const props = defineProps({
   maxSize: {
     type: Number,
     required: false,
-    defualt: 500 * 1024,
+    default: 500 * 1024,
   },
 })
 
