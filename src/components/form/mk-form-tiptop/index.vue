@@ -3,7 +3,7 @@ import { EditorContent, useEditor } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import type { FieldRule } from 'vant'
 
-defineProps({
+const props = defineProps({
   // 文本
   modelValue: { // 默认的 v-model 属性名
     type: String,
@@ -40,7 +40,7 @@ const emit = defineEmits(['update:modelValue'])
 
 // tiptop 编辑器
 const editor = useEditor({
-  content: '',
+  content: props.modelValue,
   // 编辑器自动获取焦点
   autofocus: false,
   // 编辑器是否可用
