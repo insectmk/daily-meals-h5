@@ -180,10 +180,19 @@ export function postForm<T>(url: string, formData: FormData) {
 export function put<T>(url: string, params?: any) {
   return request.put<any, CommonResult<T>>(url, params)
 }
+/**
+ * DELETE请求
+ * @param url 请求路径
+ * @param params 请求参数
+ */
+export function del<T>(url: string, params?: any) {
+  return request.delete<any, CommonResult<T>>(url, { params })
+}
 
 export default {
   post, // POST请求
   get, // GET请求
   postForm, // POST-Form请求
   put, // PUT请求
+  del, // DELETE请求
 }
