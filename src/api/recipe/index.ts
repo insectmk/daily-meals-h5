@@ -53,7 +53,7 @@ export function getPopularPublicRecipes(param: GetPopularPublicParam) {
 /**
  * 添加菜谱
  * @param param
- * @deprecated 不使用此方法添加菜谱了，使用新增/修改统一接口
+ * @deprecated 不使用此方法添加菜谱了，使用新增/修改 createOrUpdateRecipe 统一接口
  */
 export function addRecipe(param: RecipeInfo) {
   return request.post<number>('/meals/recipe/create', param)
@@ -65,4 +65,12 @@ export function addRecipe(param: RecipeInfo) {
  */
 export function createOrUpdateRecipe(param: RecipeInfo) {
   return request.post<number>('/meals/recipe/create-or-update', param)
+}
+
+/**
+ * 删除菜谱
+ * @param id 菜谱ID
+ */
+export function deleteRecipe(id: number) {
+  return request.del<RecipeInfo>('/meals/recipe/delete', { id })
 }
