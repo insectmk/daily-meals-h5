@@ -63,7 +63,7 @@ function handelItemDelete(item: any) {
     label-align="top"
     right-icon="plus"
     show-word-limit
-    @click-right-icon="showPopup = true"
+    @click="showPopup = true"
   >
     <template #input>
       <div>
