@@ -11,7 +11,7 @@ class APICacheKey {
     public readonly apiParams: any, // 缓存的api参数
   ) {}
 
-  // ========== 成功 ==========
+  // ========== 菜谱菜单 ==========
   static readonly MEALS_RECIPE_CATEGORY = new APICacheKey('MEALS_RECIPE_CATEGORY', getRecipeCategoryList, null)
 
   // 可选：添加toString方法便于调试
