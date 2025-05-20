@@ -7,7 +7,7 @@ import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
 import { getFood, getSimpleFoodList } from '@/api/food'
 import { useDictStore } from '@/stores'
-import { getRecipeCategoryList } from '@/api/recipecategory'
+import APICacheKey from '@/stores/api-cache/api-cache-key'
 
 defineOptions({
   name: 'RecipeForm',
@@ -125,7 +125,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     />
     <mk-form-tree-select
       v-model="recipeForm.recipeCategory as number[]"
-      :tree-options="getRecipeCategoryList"
+      :tree-options="APICacheKey.MEALS_RECIPE_CATEGORY"
       label="菜谱分类"
     />
     <mk-form-picker
