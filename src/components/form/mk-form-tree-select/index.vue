@@ -62,10 +62,10 @@ function itemClickHandel(item: TreeSelectChild) {
   const newValue = [...props.modelValue]
   const itemId = item.id
   // 查看是否选择已经选择过
-  const index = props.modelValue.indexOf(itemId)
+  const index = newValue.indexOf(itemId)
   if (index > -1) {
     // 存在，删除
-    newValue.splice(existingIndex, 1)
+    newValue.splice(index, 1)
   }
   else {
     // 不存在，加入
@@ -83,6 +83,17 @@ function flushSelectedViewList() {
   props.modelValue.forEach((i) => {
     selectedViewList.value.push(itemList.value.find(item => item.id === i))
   })
+}
+/**
+ * 标签关闭操作，删除对应的选项
+ */
+function tagCloseHandel(item: TreeNode) {
+  // 创建新数组副本以避免直接修改 prop
+  const newValue = [...props.modelValue]
+  const index = newValue.indexOf(item.id)
+  newValue.splice(index, 1) // 删除
+  // 触发父组件更新
+  emit('update:modelValue', newValue)
 }
 </script>
 
@@ -102,6 +113,7 @@ function flushSelectedViewList() {
           class="mr-4"
           type="primary"
           closeable plain
+          @close="tagCloseHandel(item)"
         >
           {{ item.name }}
         </van-tag>
