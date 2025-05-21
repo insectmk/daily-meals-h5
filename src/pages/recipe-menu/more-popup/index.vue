@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { showToast } from 'vant'
+import { showConfirmDialog, showToast } from 'vant'
 import type { RecipeMenu } from '@/api/recipe-menu/type'
 import { useRouter } from 'vue-router'
+import { deleteRecipeMenu } from '@/api/recipe-menu'
+import ResponseCode from '@/constants/response-code'
 
 const props = defineProps({
   // 控制prop显示
@@ -43,6 +45,31 @@ function openEditForm() {
     query: { menuId: props.menu.id },
   })
 }
+/**
+ * 删除菜谱菜单
+ */
+function deleteRecipeMenuById() {
+  showConfirmDialog({
+    title: '警告',
+    message:
+      '确认要删除该菜单吗？不能撤回哟~',
+  })
+    .then(() => {
+      deleteRecipeMenu(props.menu.id).then((res) => {
+        if (res.code === ResponseCode.SUCCESS.code) {
+          showNotify({ type: 'success', message: `菜单删除成功！`, duration: 1500 })
+          // 返回到上一个页面
+          if (window.history.state.back)
+            history.back()
+          else
+            router.replace('/')
+        }
+      })
+    })
+    .catch(() => {
+      // on cancel
+    })
+}
 </script>
 
 <template>
@@ -73,9 +100,7 @@ function openEditForm() {
         icon="records-o" text="编辑菜单" @click="openEditForm"
       />
       <van-grid-item
-        icon="delete-o" text="删除菜单" @click="() => {
-          showToast('敬请期待！！！');
-        }"
+        icon="delete-o" text="删除菜单" @click="deleteRecipeMenuById"
       />
     </van-grid>
   </van-popup>

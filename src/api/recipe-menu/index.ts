@@ -48,3 +48,11 @@ export function createRecipeMenu(param: RecipeMenu) {
 export function createOrUpdateRecipeMenu(param: RecipeMenu) {
   return request.post<number>('/meals/recipe-menu/create-or-update', param)
 }
+
+/**
+ * 删除菜谱菜单
+ * @param id 菜谱菜单ID
+ */
+export function deleteRecipeMenu(id: number) {
+  return request.del<boolean>('/meals/recipe-menu/delete', { id })
+}

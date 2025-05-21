@@ -72,5 +72,5 @@ export function createOrUpdateRecipe(param: RecipeInfo) {
  * @param id 菜谱ID
  */
 export function deleteRecipe(id: number) {
-  return request.del<RecipeInfo>('/meals/recipe/delete', { id })
+  return request.del<boolean>('/meals/recipe/delete', { id })
 }
