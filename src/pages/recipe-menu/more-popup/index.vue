@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { showToast } from 'vant'
 import type { RecipeMenu } from '@/api/recipe-menu/type'
+import { useRouter } from 'vue-router'
 
-defineProps({
+const props = defineProps({
   // 控制prop显示
   show: {
     type: Boolean,
@@ -17,6 +18,8 @@ defineProps({
 
 const emit = defineEmits(['update:show'])
 
+const router = useRouter()
+
 /**
  * 复制当前URL到剪切板
  */
@@ -29,6 +32,16 @@ async function copyCurrentURL() {
     console.error('复制失败:', err)
     showToast('复制失败，请手动复制！')
   }
+}
+/**
+ * 打开菜谱菜单编辑页面
+ */
+function openEditForm() {
+  // 打开录入页面
+  router.push({
+    name: 'RecipeMenuForm', // 需指定路由名称
+    query: { menuId: props.menu.id },
+  })
 }
 </script>
 
@@ -57,9 +70,7 @@ async function copyCurrentURL() {
     </van-divider>
     <van-grid v-if="menu.selfMenu">
       <van-grid-item
-        icon="records-o" text="编辑菜单" @click="() => {
-          showToast('敬请期待！！！');
-        }"
+        icon="records-o" text="编辑菜单" @click="openEditForm"
       />
       <van-grid-item
         icon="delete-o" text="删除菜单" @click="() => {
