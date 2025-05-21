@@ -3,6 +3,7 @@ import ResponseCode from '@/constants/response-code'
 import { getSelfRecipeMenuList } from '@/api/recipe-menu'
 import type { MenuRecipe } from '@/api/menu-recipe/type'
 import { addMenuRecipe } from '@/api/menu-recipe'
+import { showSuccessToast } from 'vant'
 
 const props = defineProps({
   // 菜谱ID
@@ -27,7 +28,7 @@ const isToday = ref<boolean>(false) // 是否今日
 function addToMenu() {
   addMenuRecipe(menuRecipeForm).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
-      showNotify({ type: 'success', message: `成功加入到菜单！`, duration: 1500 })
+      showSuccessToast('成功加入到菜单！')
     }
   })
   return false

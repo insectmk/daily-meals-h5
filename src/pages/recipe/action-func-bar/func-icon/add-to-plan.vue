@@ -4,6 +4,7 @@ import type { CreatePlanReq } from '@/api/dailyplan/type'
 import { addRecipesPlan } from '@/api/dailyplan'
 import ResponseCode from '@/constants/response-code'
 import useRouteCacheStore from '@/stores/modules/routeCache'
+import { showSuccessToast } from 'vant'
 
 const props = defineProps({
   // 菜谱ID
@@ -30,7 +31,7 @@ function addToPlan() {
   dailyPlanForm.recipeIds = [props.recipeId] // 菜谱ID
   addRecipesPlan(dailyPlanForm).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
-      showNotify({ type: 'success', message: `成功加入到计划！`, duration: 1500 })
+      showSuccessToast('成功加入到计划！')
       // 清除菜谱计划的缓存
       const routeCacheStore = useRouteCacheStore()
       routeCacheStore.removeCache('PlanCache') // 菜谱计划
