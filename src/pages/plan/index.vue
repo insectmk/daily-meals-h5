@@ -11,7 +11,7 @@ defineOptions({
 const router = useRouter()
 
 let pageNo = 0 // 当前页
-const pageSize = 10 // 每页行数
+const pageSize = 60 // 每页行数
 const dailyPlanList = ref<DailyPlanInfo[]>([]) // 计划列表
 const loading = ref(false) // 加载
 const finished = ref(false) // 结束
