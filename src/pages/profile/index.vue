@@ -43,8 +43,8 @@ function userInfoClickHandel() {
 
     <VanCellGroup :inset="true" class="!mt-16">
       <van-cell :title="$t('profile.demo')" icon="brush-o" is-link to="/demo" />
+      <van-cell title="小助手" icon="service-o" is-link to="/chat" />
       <van-cell :title="$t('profile.settings')" icon="setting-o" is-link to="/settings" />
-      <van-cell :title="$t('profile.docs')" icon="flower-o" is-link url="https://easy-temps.github.io/easy-docs/vue3-vant-mobile/" />
     </VanCellGroup>
     <!-- tab页 -->
     <SelfContentTab />
