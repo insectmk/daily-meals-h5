@@ -35,7 +35,16 @@ export function getSelfRecipeMenuList() {
 
 /**
  * 创建菜谱菜单
+ * @deprecated 使用创建/更新一体方法 createOrUpdateRecipeMenu
  */
 export function createRecipeMenu(param: RecipeMenu) {
   return request.post<number>('/meals/recipe-menu/create', param)
+}
+
+/**
+ * 添加/修改菜谱，根据id判断
+ * @param param
+ */
+export function createOrUpdateRecipeMenu(param: RecipeMenu) {
+  return request.post<number>('/meals/recipe-menu/create-or-update', param)
 }
