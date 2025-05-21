@@ -4,6 +4,10 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import { useRouter } from 'vue-router'
 import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 
+defineOptions({
+  name: 'Home',
+})
+
 const router = useRouter()
 
 const popularPublicRecipeList = ref<RecipeInfo[]>() // 公共菜谱排行列表
@@ -16,6 +20,20 @@ getPopularPublicRecipes({
   mealType: [0, 1, 2],
 }).then((res) => {
   popularPublicRecipeList.value = res.data
+})
+
+// 用于记录滚动状态
+const scrollTop = ref(0)
+// 页面活动后
+onActivated(() => {
+  window.scrollTo(0, scrollTop.value)
+})
+// 路由跳转前
+onBeforeRouteLeave(() => {
+  scrollTop.value
+    = window.scrollY
+      || document.documentElement.scrollTop
+      || document.body.scrollTop
 })
 </script>
 
@@ -56,10 +74,11 @@ getPopularPublicRecipes({
 
 <route lang="json5">
 {
-  name: 'home',
+  name: 'Home',
   meta: {
     title: '主页',
-    i18n: 'menus.home'
+    i18n: 'menus.home',
+    keepAlive: true,
   },
 }
 </route>
