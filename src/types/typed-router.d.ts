@@ -61,5 +61,6 @@ declare module 'vue-router/auto-routes' {
     'Search': RouteRecordInfo<'Search', '/search', Record<never, never>, Record<never, never>>,
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
     'unocss': RouteRecordInfo<'unocss', '/unocss', Record<never, never>, Record<never, never>>,
+    'UserCollectForm': RouteRecordInfo<'UserCollectForm', '/user-collect/form', Record<never, never>, Record<never, never>>,
   }
 }
