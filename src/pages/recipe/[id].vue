@@ -61,7 +61,7 @@ function onBack() {
     </van-swipe>
     <div class="recipe-step-container" v-html="recipe.recipeStep" />
     <!--  动作栏  -->
-    <ActionFuncBar :recipe-id="id" />
+    <ActionFuncBar :recipe="recipe" />
     <!-- 更多操作弹窗 -->
     <MorePopup v-model:show="showMoreOperator" :recipe="recipe" />
   </div>
