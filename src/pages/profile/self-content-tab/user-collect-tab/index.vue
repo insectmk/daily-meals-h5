@@ -23,7 +23,7 @@ function toAddFrom() {
   <van-cell
     title="新建收藏" is-link @click="toAddFrom"
   />
-  <UserCollectCardList :list-api="getSelfUserCollectPage" min-height="55vh" />
+  <UserCollectCardList :list-api="getSelfUserCollectPage" min-height="50vh" />
 </template>
 
 <style scoped>

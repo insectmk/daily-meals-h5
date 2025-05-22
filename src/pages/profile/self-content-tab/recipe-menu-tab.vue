@@ -15,7 +15,7 @@ const router = useRouter()
       })
     }"
   />
-  <RecipeMenuCardList :menu-list-api="getSelfRecipeMenuPage" min-height="55vh" />
+  <RecipeMenuCardList :menu-list-api="getSelfRecipeMenuPage" min-height="50vh" />
 </template>
 
 <style scoped>
