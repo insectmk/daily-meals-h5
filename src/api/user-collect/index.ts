@@ -18,3 +18,11 @@ export function createUserCollect(param: UserCollect) {
 export function getSelfUserCollectPage(pageReqVO: PageParam) {
   return request.get<PageResult<UserCollect>>('/meals/user-collect/page-self', pageReqVO)
 }
+
+/**
+ * 查询用户收藏夹信息
+ * @param id 收藏夹ID
+ */
+export function getUserCollect(id: number) {
+  return request.get<UserCollect>('/meals/user-collect/get', { id })
+}
