@@ -24,6 +24,7 @@ const userCollectForm = reactive<UserCollect>({
   picUrl: '', // 封面图
   collectDesc: '', // 简介
   collectStatus: null, // 收藏夹状态
+  defaultFlag: false, // 是否默认收藏夹
 })
 // 判断是否有菜谱菜单编号，如果有的话，说明为编辑而非新增
 if (userContentId) {
@@ -94,6 +95,11 @@ function onConfirm() {
       :dict-type="DICT_TYPE.MEALS_STATIC_RECIPE_STATUS"
       label="收藏夹状态" placeholder="点击选择状态"
     />
+    <van-cell center title="是否默认收藏夹">
+      <template #right-icon>
+        <van-switch v-model="userCollectForm.defaultFlag" :disabled="userCollectForm.defaultFlag" />
+      </template>
+    </van-cell>
   </van-form>
 </template>
 

@@ -8,4 +8,5 @@ export interface UserCollect {
   picUrl?: string // 封面图
   collectDesc?: string // 简介
   collectStatus?: number // 收藏夹状态
+  defaultFlag?: boolean // 是否默认收藏夹
 }
