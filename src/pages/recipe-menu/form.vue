@@ -7,7 +7,7 @@ import { createOrUpdateRecipeMenu, getRecipeMenu } from '@/api/recipe-menu'
 import ResponseCode from '@/constants/response-code'
 
 defineOptions({
-  name: 'RecipeForm',
+  name: 'RecipeMenuForm',
 })
 
 const route = useRoute()
