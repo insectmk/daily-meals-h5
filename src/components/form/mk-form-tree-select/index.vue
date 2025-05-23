@@ -60,7 +60,7 @@ watch(() => props.modelValue, (newValue) => {
 function itemClickHandel(item: TreeSelectChild) {
   // 创建新数组副本以避免直接修改 prop
   const newValue = [...props.modelValue]
-  const itemId = item.id
+  const itemId = Number(item.id)
   // 查看是否选择已经选择过
   const index = newValue.indexOf(itemId)
   if (index > -1) {

@@ -27,7 +27,7 @@ function Logout() {
         // 退出登录成功
         showNotify({ type: 'success', message: t('settings.logoutSuccess') })
         // 跳转到首页
-        router.push({ name: 'home' })
+        router.push({ name: 'Home' })
       }
       else {
         // 退出登录失败

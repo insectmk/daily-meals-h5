@@ -50,7 +50,7 @@ async function login(values: LoginData) {
       const { redirect, ...othersQuery } = router.currentRoute.value.query
       // todo 跳转到未登陆前的页面
       await router.push({
-        name: 'home',
+        name: 'Home',
         query: {
           ...othersQuery,
         },
