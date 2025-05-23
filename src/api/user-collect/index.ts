@@ -1,6 +1,7 @@
-import type { UserCollect } from '@/api/user-collect/type'
+import type { SimpleUserCollect, UserCollect } from '@/api/user-collect/type'
 import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
+import type { ContentTypesEnum } from '@/api/user-collect/enums'
 
 /**
  * 创建或更新用户收藏夹，通过id判断
@@ -25,4 +26,13 @@ export function getSelfUserCollectPage(pageReqVO: PageParam) {
  */
 export function getUserCollect(id: number) {
   return request.get<UserCollect>('/meals/user-collect/get', { id })
+}
+
+/**
+ * 获取自己所有的收藏夹精简信息
+ * @param contentType 内容类型
+ * @return 精简信息
+ */
+export function getSelfUserCollectAllSimpleList(contentType: ContentTypesEnum) {
+  return request.get<SimpleUserCollect>('/meals/user-collect/list-self-all-simple', { contentType })
 }
