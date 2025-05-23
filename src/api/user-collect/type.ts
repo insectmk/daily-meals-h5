@@ -19,4 +19,12 @@ export interface SimpleUserCollect {
   collectName?: string // 收藏夹名称
   collectDesc?: string // 简介
   collectStatus?: number // 收藏夹状态
+  selected?: boolean // 内容是否在该收藏夹中
+}
+/**
+ * 用户获取精简收藏列表请求
+ */
+export interface UserCollectSimpleListReq {
+  contentType: number // 内容类型
+  contentId: number // 内容编号
 }
