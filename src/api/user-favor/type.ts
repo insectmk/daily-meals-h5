@@ -14,7 +14,7 @@ export interface FavorCreat {
 export interface UserFavorCreatParam {
   contentId: number // 内容编号
   contentType: number // 内容类型
-  collectIds: number[] // 收藏夹
+  collectIds?: number[] // 收藏夹
 }
 
 /**
