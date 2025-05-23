@@ -16,7 +16,7 @@ defineProps({
 </script>
 
 <template>
-  <van-action-bar placeholder safe-area-inset-bottom>
+  <van-action-bar id="recipe-info-action-bar" safe-area-inset-bottom placeholder>
     <!--  评论  -->
     <Comment />
     <!--  分享 -->
