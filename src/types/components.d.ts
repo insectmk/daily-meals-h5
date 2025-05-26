@@ -17,6 +17,7 @@ declare module 'vue' {
     MkFormPicker: typeof import('./../components/form/mk-form-picker/index.vue')['default']
     MkFormRadio: typeof import('./../components/form/mk-form-radio/index.vue')['default']
     MkFormText: typeof import('./../components/form/mk-form-text/index.vue')['default']
+    MkFormTiptap: typeof import('./../components/form/mk-form-tiptap/index.vue')['default']
     MkFormTiptop: typeof import('./../components/form/mk-form-tiptop/index.vue')['default']
     MkFormTreeSelect: typeof import('./../components/form/mk-form-tree-select/index.vue')['default']
     NavBar: typeof import('./../components/NavBar.vue')['default']

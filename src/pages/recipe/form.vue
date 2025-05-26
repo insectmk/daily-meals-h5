@@ -112,7 +112,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       :rules="[{ required: true, message: '请填写菜谱描述' }]"
       label="描述" placeholder="请输入菜谱描述"
     />
-    <mk-form-tiptop
+    <mk-form-tiptap
       v-model="recipeForm.recipeStep"
       :rules="[{ required: true, message: '请填写菜谱步骤' }]"
       label="步骤"

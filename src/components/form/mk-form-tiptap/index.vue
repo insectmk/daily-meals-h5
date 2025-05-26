@@ -38,7 +38,7 @@ const props = defineProps({
 // 声明 emit 事件（用于更新父组件的 v-model）
 const emit = defineEmits(['update:modelValue'])
 
-// tiptop 编辑器
+// tiptap 编辑器
 const editor = useEditor({
   content: props.modelValue,
   // 编辑器自动获取焦点
