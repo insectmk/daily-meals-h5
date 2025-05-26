@@ -18,6 +18,7 @@ export enum DICT_TYPE {
   MEALS_STATIC_RECIPE_STATUS = 'meals_static_recipe_status', // 菜谱状态
   MEALS_STATIC_RECIPE_TYPES = 'meals_static_recipe_types', // 菜谱类型
   MEALS_STATIC_TRUE_FALSE = 'meals_static_true_false', // 是否
+  MEALS_STATIC_MEAL_TYPES = 'meals_static_meal_types', // 餐次类型枚举
 
   // ========== SYSTEM 模块 ==========
   SYSTEM_USER_SEX = 'system_user_sex',
