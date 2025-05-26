@@ -48,7 +48,6 @@ export interface DailyPlanInfo {
   recipeId: number
   userId: number
   planDate: number
-  mealType: number
   memo: string
   createTime: number
   items: DailyPlanItemInfo[]

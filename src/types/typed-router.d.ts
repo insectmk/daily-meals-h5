@@ -30,7 +30,6 @@ declare module 'vue-router/auto-routes' {
     'mock': RouteRecordInfo<'mock', '/mock', Record<never, never>, Record<never, never>>,
     'Plan': RouteRecordInfo<'Plan', '/plan', Record<never, never>, Record<never, never>>,
     'PlanInfo': RouteRecordInfo<'PlanInfo', '/plan/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
-    '/plan/plan-recipe-card-list/': RouteRecordInfo<'/plan/plan-recipe-card-list/', '/plan/plan-recipe-card-list', Record<never, never>, Record<never, never>>,
     'Profile': RouteRecordInfo<'Profile', '/profile', Record<never, never>, Record<never, never>>,
     'ProfileEdit': RouteRecordInfo<'ProfileEdit', '/profile/edit', Record<never, never>, Record<never, never>>,
     '/profile/edit/mobile-edit-popup/': RouteRecordInfo<'/profile/edit/mobile-edit-popup/', '/profile/edit/mobile-edit-popup', Record<never, never>, Record<never, never>>,
