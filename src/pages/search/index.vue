@@ -4,6 +4,10 @@ import { getRecipePage } from '@/api/recipe'
 import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 import { getRecipeMenuPage } from '@/api/recipe-menu'
 
+defineOptions({
+  name: 'Search',
+})
+
 const router = useRouter()
 const tabActive = ref('recipe') // 当前活动tab
 const searchContent = ref('') // 查询的内容
@@ -92,6 +96,7 @@ function cancel() {
     title: '菜谱查询',
     i18n: 'menus.home',
     customNav: true,
+    keepAlive: true,
   },
 }
 </route>
