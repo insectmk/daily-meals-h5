@@ -56,6 +56,19 @@ function cancel() {
         :is-auto-query="false"
       />
     </van-tab>
+    <van-tab name="food">
+      <template #title>
+        食材
+      </template>
+      <RecipeCardList
+        :recipe-list-api="getRecipePage"
+        :query-param="{
+          foodNames: searchContent.trim().split(/[\s,，;；|]+/).filter(Boolean),
+        }"
+        min-height="80vh"
+        :is-auto-query="false"
+      />
+    </van-tab>
     <van-tab name="menu">
       <template #title>
         菜单
