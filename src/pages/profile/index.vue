@@ -1,16 +1,27 @@
 <script setup lang="ts">
 import router from '@/router'
-import { useUserStore } from '@/stores'
+import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
+import SelfContentTab from '@/pages/profile/self-content-tab/index.vue'
 
-const userStore = useUserStore()
-const userInfo = computed(() => userStore.userInfo)
-const isLogin = computed(() => !!userInfo.value.uid)
+defineOptions({
+  name: 'Profile',
+})
 
-function login() {
-  if (isLogin.value)
+const memberStore = useMemberStore()
+const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
+const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
+
+/**
+ * 用户信息点击处理
+ */
+function userInfoClickHandel() {
+  if (isLogin.value) {
+    // 已经登录，跳转到个人信息修改页面
+    router.push('/profile/edit')
     return
-
+  }
+  // 未登录跳转到登录页面
   router.push({ name: 'login', query: { redirect: 'profile' } })
 }
 </script>
@@ -18,31 +29,35 @@ function login() {
 <template>
   <div>
     <VanCellGroup :inset="true">
-      <van-cell center :is-link="!isLogin" @click="login">
+      <van-cell center :is-link="!isLogin" @click="userInfoClickHandel">
         <template #title>
-          <van-image :src="userInfo.avatar || defaultAvatar" round class="h-56 w-56" />
+          <van-image :src="memberInfo.avatar || defaultAvatar" round class="h-56 w-56" />
         </template>
 
         <template #value>
-          <span v-if="isLogin">{{ userInfo.name }}</span>
+          <span v-if="isLogin">{{ memberInfo.nickname }}</span>
           <span v-else>{{ $t('profile.login') }}</span>
         </template>
       </van-cell>
     </VanCellGroup>
 
     <VanCellGroup :inset="true" class="!mt-16">
+      <van-cell :title="$t('profile.demo')" icon="brush-o" is-link to="/demo" />
+      <van-cell title="小助手" icon="service-o" is-link to="/chat" />
       <van-cell :title="$t('profile.settings')" icon="setting-o" is-link to="/settings" />
-      <van-cell :title="$t('profile.docs')" icon="flower-o" is-link url="https://easy-temps.github.io/easy-docs/vue3-vant-mobile/" />
     </VanCellGroup>
+    <!-- tab页 -->
+    <SelfContentTab />
   </div>
 </template>
 
 <route lang="json5">
 {
-  name: 'profile',
+  name: 'Profile',
   meta: {
     title: '个人中心',
-    i18n: 'menus.profile'
+    i18n: 'menus.profile',
+    keepAlive: true
   },
 }
 </route>

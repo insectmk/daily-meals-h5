@@ -11,11 +11,13 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
   return {
     base: env.VITE_APP_PUBLIC_PATH,
-    plugins: createVitePlugins(mode),
+    plugins: [
+      ...createVitePlugins(mode),
+    ],
 
     server: {
       host: true,
-      port: 3000,
+      port: 62403,
       proxy: {
         '/api': {
           target: '',
@@ -23,6 +25,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
           changeOrigin: true,
         },
       },
+      allowedHosts: [
+        'mealsapp.frp.insectmk.cn', // 测试域名
+      ],
     },
 
     resolve: {

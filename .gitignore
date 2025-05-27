@@ -24,3 +24,5 @@ stats.html
 # Misc
 .DS_Store
 .history
+/dev-dist/
+/dist.zip

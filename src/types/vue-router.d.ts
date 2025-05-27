@@ -6,6 +6,8 @@ declare module 'vue-router' {
     i18n?: string
     /** keepalive */
     keepAlive?: boolean
+    /** 自定义头部导航 */
+    customNav?: boolean
   }
 }
 export {}

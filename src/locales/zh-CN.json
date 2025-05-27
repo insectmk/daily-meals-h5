@@ -16,7 +16,8 @@
     "settings": "设置",
     "basicSettings": "基本设置",
     "exampleComponents": "示例组件",
-    "forgot-password": "忘记密码"
+    "forgot-password": "忘记密码",
+    "demo": "演示页面"
   },
   "mock": {
     "fromAsyncData": "来自异步请求的数据",
@@ -34,12 +35,19 @@
   },
   "layouts": {
     "home": "首页",
+    "recipe": "菜谱",
+    "plan": "日程",
     "profile": "我的"
   },
   "profile": {
     "login": "登录",
     "settings": "设置",
-    "docs": "文档"
+    "docs": "文档",
+    "logout": "退出登录",
+    "demo": "演示页面",
+    "edit": {
+      "title": "个人信息"
+    }
   },
   "keepAlive": {
     "label": "当前组件将会被缓存"
@@ -51,6 +59,7 @@
     "login": "登录",
     "logout": "退出",
     "email": "邮箱",
+    "mobile": "手机号",
     "password": "密码",
     "pleaseEnterEmail": "请输入邮箱",
     "pleaseEnterPassword": "请输入密码",
@@ -75,12 +84,14 @@
     "passwordResetSuccess": "密码重置成功"
   },
   "register": {
+    "mobile": "手机",
     "email": "邮箱",
     "code": "验证码",
     "nickname": "昵称",
     "password": "密码",
     "comfirmPassword": "再次输入密码",
     "pleaseEnterEmail": "请输入邮箱",
+    "pleaseEnterMobile": "请输入手机",
     "pleaseEnterCode": "请输入验证码",
     "pleaseEnterNickname": "请输入昵称",
     "pleaseEnterPassword": "请输入密码",
@@ -96,6 +107,44 @@
   "settings": {
     "logout": "退出登录",
     "currentVersion": "当前版本",
-    "comfirmTitle": "确认退出？"
+    "comfirmTitle": "确认退出？",
+    "logoutSuccess": "退出登录成功！"
+  },
+  "recipe": {
+    "menu": {
+      "info": {
+        "title": "菜单信息"
+      }
+    },
+    "category": {
+      "title": "菜谱分类"
+    },
+    "foodCategory": {
+      "title": "食材分类菜谱"
+    },
+    "info": {
+      "title": "菜谱详细信息",
+      "addPlan": "加入计划",
+      "addTodayPlan": "加入今日计划"
+    },
+    "add": {
+      "title": "添加菜谱"
+    }
+  },
+  "plan": {
+    "info": {
+      "title": "计划详细信息"
+    }
+  },
+  "navbar": {
+    "back": "返回"
+  },
+  "common": {
+    "cancel": "取消",
+    "done": "完成",
+    "back": "返回"
+  },
+  "chat": {
+    "title": "每日饭菜小助手"
   }
 }

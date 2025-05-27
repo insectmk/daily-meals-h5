@@ -1,242 +1,163 @@
 <div id="top" align="center">
-
-<img src="https://cdn.jsdelivr.net/gh/easy-temps/easy-static/cover.png" alt="cover" />
-
-<h1 align="center">vue3-vant-mobile</h1>
-
-English / [简体中文](./README.zh-CN.md)
-
-An mobile web apps template based on the Vue 3 ecosystem.
-
-一个基于 Vue 3 生态系统的移动 web 应用模板，帮助你快速完成业务开发。
-
-<p>
-<img src="https://img.shields.io/github/license/easy-temps/vue3-vant-mobile" alt="license" />
-<img src="https://img.shields.io/github/package-json/v/easy-temps/vue3-vant-mobile" alt="version" />
-<img src="https://img.shields.io/github/repo-size/easy-temps/vue3-vant-mobile" alt="repo-size" />
-<img src="https://img.shields.io/github/languages/top/easy-temps/vue3-vant-mobile" alt="languages" />
-<img src="https://img.shields.io/github/issues-closed/easy-temps/vue3-vant-mobile" alt="issues" />
-</p>
-
-[文档](https://easy-temps.github.io/easy-docs/vue3-vant-mobile/) / [交流](https://github.com/easy-temps/vue3-vant-mobile/issues/56) / [反馈](https://github.com/easy-temps/vue3-vant-mobile/issues)
-
-🖥 <a href="https://vue3-vant-mobile.netlify.app">Online Preview</a>
-
-[![Netlify Status](https://api.netlify.com/api/v1/badges/e6828bd2-2904-4c3e-a67c-b97d32aa1275/deploy-status)](https://app.netlify.com/sites/vue3-vant-mobile/deploys)
-
+<h1 align="center">每日饭菜</h1>
 </div>
 
-<br>
+## 项目简介
 
-## Features
+用于录入菜谱信息并快速规划每日的饭菜计划，目前处于基础构建中，bug较多。
 
-- ⚡️ [Vue 3](https://github.com/vuejs/core), [Vite 6](https://github.com/vitejs/vite), [pnpm](https://pnpm.io/), [esbuild](https://github.com/evanw/esbuild) - born with fastness
+<p>
+<img src="https://img.shields.io/github/license/insectmk/daily-meals-h5" alt="license" />
+<img src="https://img.shields.io/github/package-json/v/insectmk/daily-meals-h5" alt="version" />
+<img src="https://img.shields.io/github/repo-size/insectmk/daily-meals-h5" alt="repo-size" />
+<img src="https://img.shields.io/github/languages/top/insectmk/daily-meals-h5" alt="languages" />
+<img src="https://img.shields.io/github/issues-closed/insectmk/daily-meals-h5" alt="issues" />
+</p>
 
-- 🗂 [File based routing](./src/router)
+后台页面移步至[每日饭菜管理后台前端](https://github.com/insectmk/daily-meals-ui)
 
-- 📦 [Components auto importing](./src/components)
+后端移步至[每日饭菜后端](https://github.com/insectmk/daily-meals)
 
-- 🍍 [State Management via Pinia](https://pinia.vuejs.org)
+## 部分页面展示
 
-- 📲 [PWA](https://github.com/antfu/vite-plugin-pwa)
+### 主页
 
-- 🎨 [UnoCSS](https://github.com/antfu/unocss) - the instant on-demand atomic CSS engine
+<table>
+<tr>
+<td>
+<img src="./README.assets/image-20250527093952424.png" alt="主页"  />
+</td>
+<td>
+<img src="./README.assets/image-20250527095409068.png" alt="菜谱搜索" />
+</td>
+</tr>
+</table>
 
-- 🌍 [I18n ready](./src/locales)
+### 分类
 
-- 🔥 Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
+<table>
+<tr>
+<td>
+<img src="./README.assets/image-20250527094046527.png" alt="按菜谱类型分类"  />
+</td>
+<td>
+<img src="./README.assets/image-20250527094100943.png" alt="按食材分类" />
+</td>
+</tr>
+</table>
 
-- 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
+### 表单
 
-- 💪 TypeScript, of course
+<table>
+<tr>
+<td>
+<img src="./README.assets/image-20250527100106891.png" alt="菜谱表单"  />
+</td>
+<td>
+<img src="./README.assets/image-20250527100224366.png" alt="收藏夹表单" />
+</td>
+</tr>
+</table>
 
-- ⚙️ Unit Testing with [Vitest](https://github.com/vitest-dev/vitest)
+### 菜谱
 
-- 💾 [Mock](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) server Support
+<table>
+<tr>
+<td>
+<img src="./README.assets/image-20250527100540115.png" alt="菜谱信息"  />
+</td>
+<td>
+<img src="./README.assets/image-20250527100559183.png" alt="菜谱计划" />
+</td>
+</tr>
+</table>
 
-- 🌈 Git hooks - lint and commit
+## 预配置
 
-- 🪶 [Vant](https://github.com/youzan/vant) - Vue UI library for mobile web apps
+### UI 框架
 
-- 🔭 [vConsole](https://github.com/vadxq/vite-plugin-vconsole) - the developer tool for mobile web page
+- [UnoCSS](https://github.com/antfu/unocss) - 高性能且极具灵活性的即时原子化 CSS 引擎
+  - [`@unocss/preset-rem-to-px`](https://github.com/unocss/unocss/tree/main/packages/preset-rem-to-px) - 将所有实用程序的 rem 转换为 px
+  - [`eslint-plugin-unocss`](https://github.com/devunt/eslint-plugin-unocss) - Unocss 的 ESLint 插件
+- [Vant](https://github.com/youzan/vant) - 移动端 Vue 组件库
+  - [`vant-touch-emulator`](https://github.com/youzan/vant/tree/main/packages/vant-touch-emulator) - 在桌面端上模拟移动端 touch 事件
+  - [`vant-use`](https://github.com/youzan/vant/tree/main/packages/vant-use) - Vant 内置的组合式 API
 
-- 📱 Browser adaptation - use viewport vw/vh units
-
-- 💻 [Desktop optimization](https://github.com/wswmsword/postcss-mobile-forever) - the mobile area
-
-- 🌓 Dark Mode Support
-
-- 🛡️ Configure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) as default
-
-- ☁️ Deploy on [Netlify](https://www.netlify.com), zero-config
-
-<br>
-
-## Pre-packed
-
-### UI Frameworks
-
-- [UnoCSS](https://github.com/antfu/unocss) - The instant on-demand atomic CSS engine
-  - [`@unocss/preset-rem-to-px`](https://github.com/unocss/unocss/tree/main/packages/preset-rem-to-px) - Converts rem to px for all utilities
-  - [`eslint-plugin-unocss`](https://github.com/devunt/eslint-plugin-unocss) - ESLint plugin for UnoCSS
-- [Vant](https://github.com/youzan/vant) - Vue UI library for mobile web apps
-  - [`vant-touch-emulator`](https://github.com/youzan/vant/tree/main/packages/vant-touch-emulator) - Simulate mobile touch events on the desktop
-  - [`vant-use`](https://github.com/youzan/vant/tree/main/packages/vant-use) - Built-in composition APIs of Vant
-
-### Plugins
+### 插件
 
 - [Vue Router](https://github.com/vuejs/router)
-  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - file system based routing
-- [Pinia](https://pinia.vuejs.org) - Intuitive, type safe, light and flexible Store for Vue using the composition api
-  - [`pinia-plugin-persistedstate`](https://github.com/prazdevs/pinia-plugin-persistedstate) -  Configurable persistence and rehydration of Pinia stores
-- [Vue I18n](https://github.com/intlify/vue-i18n-next) - Internationalization
-  - [`unplugin-vue-i18n`](https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n) - unplugin for Vue I18n
-- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - components auto import
-- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - Directly use Vue Composition API and others without importing
-- [vite-plugin-vconsole](https://github.com/vadxq/vite-plugin-vconsole) - A lightweight, extendable front-end developer tool for mobile web page
-- [vite-plugin-mock-dev-server](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) - Vite Plugin for API mock dev server
-- [postcss-mobile-forever](https://github.com/wswmsword/postcss-mobile-forever) - To adapt different displays by one mobile viewport
-- [vite-plugin-vue-devtools](https://github.com/vuejs/devtools-next) - Designed to enhance the Vue developer experience
-- [vueuse](https://github.com/antfu/vueuse) - collection of useful composition APIs
-- [@unhead/vue](https://github.com/unjs/unhead) - manipulate document head reactively
+  - [`unplugin-vue-router`](https://github.com/posva/unplugin-vue-router) - 以文件系统为基础的路由
+- [Pinia](https://pinia.vuejs.org) - 直接的, 类型安全的, 使用 Composition API 的轻便灵活的 Vue 状态管理库
+  - [`pinia-plugin-persistedstate`](https://github.com/prazdevs/pinia-plugin-persistedstate) -  适用于 Pinia 的持久化存储插件
+- [Vue I18n](https://github.com/intlify/vue-i18n-next) - 国际化
+  - [`unplugin-vue-i18n`](https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n) - Vue I18n 的 Vite 插件
+- [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) - 自动加载组件
+- [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) - 直接使用 Composition API 等，无需导入
+- [vite-plugin-vconsole](https://github.com/vadxq/vite-plugin-vconsole) - vConsole 的 vite 插件
+- [vite-plugin-mock-dev-server](https://github.com/pengzhanbo/vite-plugin-mock-dev-server) - vite mock 开发服务（mock-dev-server）插件
+- [postcss-mobile-forever](https://github.com/wswmsword/postcss-mobile-forever) - 一款 PostCSS 插件，将固定尺寸的移动端视图转为具有最大宽度的可伸缩的移动端视图
+- [vite-plugin-vue-devtools](https://github.com/vuejs/devtools-next) - 旨在增强Vue开发者体验的Vite插件
+- [vueuse](https://github.com/antfu/vueuse) - 实用的 Composition API 工具合集
+- [@unhead/vue](https://github.com/unjs/unhead) - 响应式地操作文档头信息
 - [vite-plugin-pwa](https://github.com/antfu/vite-plugin-pwa) - PWA
-- [vite-plugin-sitemap](https://github.com/jbaubree/vite-plugin-sitemap) - sitemap and robots generator
+- [vite-plugin-sitemap](https://github.com/jbaubree/vite-plugin-sitemap) - sitemap 和 robots 生成器
+- [echo-editor](https://github.com/Seedsa/echo-editor) - 支持移动端的富文本编辑器
 
-### Coding Style
+### 编码风格
 
-- Use Composition API with [`<script setup>` SFC syntax](https://github.com/vuejs/rfcs/pull/227)
-- [ESLint](https://eslint.org/) with [@antfu/eslint-config](https://github.com/antfu/eslint-config), single quotes, no semi
+- 使用 Composition API 地 [`<script setup>` SFC 语法](https://github.com/vuejs/rfcs/pull/227)
+- [ESLint](https://eslint.org/) 配置为 [@antfu/eslint-config](https://github.com/antfu/eslint-config), 单引号, 无分号
 
-### Dev tools
+### 开发工具
 
 - [TypeScript](https://www.typescriptlang.org/)
-- [Vitest](https://github.com/vitest-dev/vitest) - Unit testing powered by Vite
-- [pnpm](https://pnpm.js.org/) - fast, disk space efficient package manager
-- [Netlify](https://www.netlify.com/) - zero-config deployment
+- [Vitest](https://github.com/vitest-dev/vitest) - 基于 Vite 的单元测试框架
+- [pnpm](https://pnpm.js.org/) - 快, 节省磁盘空间的包管理器
+- [Netlify](https://www.netlify.com/) - 零配置的部署
 - [VS Code Extensions](./.vscode/extensions.json)
-  - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 `<script setup>` IDE support
-  - [Unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss) - UnoCSS for VS Code
-  - [Goto Alias](https://marketplace.visualstudio.com/items?itemName=antfu.goto-alias) - Go to Definition following alias redirections
-  - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - Icon inline display and autocomplete
-  - [File Nesting](https://marketplace.visualstudio.com/items?itemName=antfu.file-nesting) - Config of File Nesting for VS Code
-  - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) - All in one i18n support
-  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - Eslint support
-  - [Better JSON5](https://marketplace.visualstudio.com/items?itemName=blueglassblock.better-json5) - JSON5 support
+  - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) - Vue 3 `<script setup>` IDE 支持
+  - [Unocss](https://marketplace.visualstudio.com/items?itemName=antfu.unocss) - Unocss 智能提示
+  - [Goto Alias](https://marketplace.visualstudio.com/items?itemName=antfu.goto-alias) - 跳转到定义
+  - [Iconify IntelliSense](https://marketplace.visualstudio.com/items?itemName=antfu.iconify) - 图标内联显示和自动补全
+  - [File Nesting](https://marketplace.visualstudio.com/items?itemName=antfu.file-nesting) - 文件嵌套
+  - [i18n Ally](https://marketplace.visualstudio.com/items?itemName=lokalise.i18n-ally) - 多合一的 I18n 支持
+  - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) - ESLint 支持
+  - [Better JSON5](https://marketplace.visualstudio.com/items?itemName=blueglassblock.better-json5) - JSON5 支持
 
-## Try it now
+## 使用
 
-> vue3-vant-mobile requires Node 18+
+该项目使用[使用easy-temps模板创建仓库](https://github.com/easy-temps/vue3-vant-mobile/generate)，需要 Node 版本 18+
 
-### GitHub Template
+### 开发
 
-[Create a repo from this template on GitHub](https://github.com/easy-temps/vue3-vant-mobile/generate)
-
-### Clone to local
-
-If you prefer to do it manually with the cleaner git history
-
-```bash
-npx tiged easy-temps/vue3-vant-mobile my-mobile-app
-cd my-mobile-app
-pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
-```
-
-## Checklist
-
-When you use this template, try follow the checklist to update your info properly
-
-- [ ] Change the author name in `LICENSE`
-- [ ] Change the title in `index.html`
-- [ ] Change the hostname in `vite.config.ts`
-- [ ] Change the favicon in `public`
-- [ ] Clean up the READMEs and remove routes
-
-And, enjoy :)
-
-## Usage
-
-### Development
-
-Just run and visit <http://localhost:3000>
+只需要执行以下命令就可以在 <http://localhost:62403> 中看到
 
 ```bash
 pnpm dev
 ```
 
-### Build
+### 构建
 
-To build the App, run
+构建该应用只需要执行以下命令
 
 ```bash
 pnpm build
 ```
 
-And you will see the generated file in `dist` that ready to be served.
+然后你会看到用于发布的 `dist` 文件夹被生成。
 
-### Deploy on Netlify
+### 部署到 Netlify
 
-Go to [Netlify](https://app.netlify.com/start) and select your clone, `OK` along the way, and your App will be live in a minute.
+前往 [Netlify](https://app.netlify.com/start) 并选择你的仓库, 一路 `OK` 下去，稍等一下后，你的应用将被创建。
 
-## Community 👏
+## 社区 👏
 
-We recommend that [issue](https://github.com/easy-temps/vue3-vant-mobile/issues) be used for problem feedback, or [Wechat group](https://github.com/easy-temps/vue3-vant-mobile/issues/56).
-
-## Donation ☕
-
-[Buy Me a Coffee](https://github.com/CharleeWa/sponsor)
-
-<h2 align="center">💝 Our Sponsors 💝</h2>
-
-<p align="center">
-Your sponsorship will help us continue to iterate on this exciting project! 🚀
-</p>
-
-<p align="center">
-<a href="https://github.com/keyFeng"><img src="https://avatars.githubusercontent.com/u/52267976?v=4" width="60px" alt="keyFeng" /></a>
-<a href="https://github.com/ljt990218"><img src="https://avatars.githubusercontent.com/u/50509815?v=4" width="60px" alt="ljt990218" /></a>
-<a href="https://github.com/heked"><img src="https://avatars.githubusercontent.com/u/14127731?v=4" width="60px" alt="heked" /></a>
-<a href="https://github.com/topcnm"><img src="https://avatars.githubusercontent.com/u/8057893?v=4" width="60px" alt="topcnm" /></a>
-<a href="https://github.com/qiyue2015"><img src="https://avatars.githubusercontent.com/u/11554433?v=4" width="60px" alt="qiyue2015" /></a>
-<a href="https://github.com/scc0"><img src="https://avatars.githubusercontent.com/u/45963033?v=4" width="60px" alt="scc0" /></a>
-<a href="https://github.com/xiaminxi"><img src="https://avatars.githubusercontent.com/u/37994820?v=4" width="60px" alt="xiaminxi" /></a>
-</p>
-
-<h2 align="center">
-💪 Contributors 💪
-</h2>
-
-<p align="center">
-Our contributors have made this project better. Thank you! 🙏
-</p>
-
-<p align="center">
-<a href="https://github.com/CharleeWa"><img src="https://avatars.githubusercontent.com/u/22477554?v=4" width="60px" alt="CharleeWa" /></a>
-<a href="https://github.com/ljt990218"><img src="https://avatars.githubusercontent.com/u/50509815?v=4" width="60px" alt="ljt990218" /></a>
-<a href="https://github.com/wswmsword"><img src="https://avatars.githubusercontent.com/u/26893092?v=4" width="60px" alt="wswmsword" /></a>
-<a href="https://github.com/weiq"><img src="https://avatars.githubusercontent.com/u/1697158?v=4" width="60px" alt="weiq" /></a>
-<a href="https://github.com/SublimeCT"><img src="https://avatars.githubusercontent.com/u/20380890?v=4" width="60px" alt="SublimeCT" /></a>
-<a href="https://github.com/ReginYuan"><img src="https://avatars.githubusercontent.com/u/49477488?v=4" width="60px" alt="ReginYuan" /></a>
-<a href="https://github.com/smartsf"><img src="https://avatars.githubusercontent.com/u/19995400?v=4" width="60px" alt="smartsf" /></a>
-<a href="https://github.com/Kysen777"><img src="https://avatars.githubusercontent.com/u/63892082?v=4" width="60px" alt="Kysen777" /></a>
-<a href="https://github.com/Leezon"><img src="https://avatars.githubusercontent.com/u/38120280?v=4" width="60px" alt="Leezon" /></a>
-<a href="https://github.com/AlphaYoung111"><img src="https://avatars.githubusercontent.com/u/54132313?v=4" width="60px" alt="AlphaYoung111" /></a>
-<a href="https://github.com/leo4developer"><img src="https://avatars.githubusercontent.com/u/15160478?v=4" width="60px" alt="leo4developer" /></a>
-<a href="https://github.com/InsHomePgup"><img src="https://avatars.githubusercontent.com/u/47906083?v=4" width="60px" alt="InsHomePgup" /></a>
-<a href="https://github.com/wowping"><img src="https://avatars.githubusercontent.com/u/137802961?v=4" width="60px" alt="wowping" /></a>
-<a href="https://github.com/ChunyuPCY"><img src="https://avatars.githubusercontent.com/u/21986942?v=4" width="60px" alt="ChunyuPCY" /></a>
-<a href="https://github.com/qiyue2015"><img src="https://avatars.githubusercontent.com/u/11554433?v=4" width="60px" alt="qiyue2015" /></a>
-<a href="https://github.com/pyQianYi"><img src="https://avatars.githubusercontent.com/u/57526688?v=4" width="60px" alt="pyQianYi" /></a>
-<a href="https://github.com/xyy94813"><img src="https://avatars.githubusercontent.com/u/17971352?v=4" width="60px" alt="xyy94813" /></a>
-<a href="https://github.com/faukwaa"><img src="https://avatars.githubusercontent.com/u/133618995?v=4" width="60px" alt="faukwaa" /></a>
-<a href="https://github.com/chensongni"><img src="https://avatars.githubusercontent.com/u/18071921?v=4" width="60px" alt="chensongni" /></a>
-<a href="https://github.com/csheng-github"><img src="https://avatars.githubusercontent.com/u/88492404?v=4" width="60px" alt="csheng-github" /></a>
-<a href="https://github.com/LostElkByte"><img src="https://avatars.githubusercontent.com/u/24487727?v=4" width="60px" alt="LostElkByte" /></a>
-</p>
+推荐使用 [议题](https://github.com/insectmk/daily-meals-h5/issues) 来反馈问题。
 
 ## License
 
 [MIT](./LICENSE) License
 
 <p align="right">
-  <a href="#top">⬆️ Back to Top</a>
+  <a href="#top">⬆️ 回到顶部</a>
 </p>

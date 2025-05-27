@@ -34,7 +34,9 @@
   },
   "layouts": {
     "home": "HOME",
-    "profile": "PROFILE"
+    "profile": "PROFILE",
+    "recipe": "RECIPE",
+    "plan": "PLAN"
   },
   "profile": {
     "login": "Login",

@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 export interface LoginData {
-  email: string
+  mobile: string
   password: string
 }
 
@@ -24,7 +24,7 @@ export function logout() {
 }
 
 export function getUserInfo() {
-  return request<UserState>('/user/me')
+  return request.get<UserState>('/member/user/get')
 }
 
 export function getEmailCode(): Promise<any> {

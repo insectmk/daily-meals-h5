@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { RouteMap } from 'vue-router'
-import { useUserStore } from '@/stores'
 
 import logo from '~/images/logo.svg'
 import logoDark from '~/images/logo-dark.svg'
 import vw from '@/utils/inline-px-to-vw'
+import { useMemberStore } from '@/stores'
+import type { LoginData } from '@/api/user'
+import ResponseCode from '@/constants/response-code'
 
 const { t } = useI18n()
 const router = useRouter()
-const userStore = useUserStore()
+const memberStore = useMemberStore()
 const loading = ref(false)
 
 const dark = ref<boolean>(isDark.value)
@@ -21,13 +22,15 @@ watch(
   },
 )
 
-const postData = reactive({
-  email: '',
+const postData = reactive<LoginData>({
+  mobile: '',
   password: '',
 })
-
+/**
+ * 表单校验规则
+ */
 const rules = reactive({
-  email: [
+  mobile: [
     { required: true, message: t('login.pleaseEnterEmail') },
   ],
   password: [
@@ -35,17 +38,31 @@ const rules = reactive({
   ],
 })
 
-async function login(values: any) {
+/**
+ * 登录
+ * @param values
+ */
+async function login(values: LoginData) {
   try {
     loading.value = true
-    await userStore.login({ ...postData, ...values })
-    const { redirect, ...othersQuery } = router.currentRoute.value.query
-    router.push({
-      name: (redirect as keyof RouteMap) || 'home',
-      query: {
-        ...othersQuery,
-      },
-    })
+    const result = await memberStore.login({ ...postData, ...values })
+    if (result.code === ResponseCode.SUCCESS.code) {
+      const { redirect, ...othersQuery } = router.currentRoute.value.query
+      // todo 跳转到未登陆前的页面
+      await router.push({
+        name: 'Home',
+        query: {
+          ...othersQuery,
+        },
+      })
+    }
+    else {
+      // 提示消息
+      showNotify({
+        type: 'danger',
+        message: result.msg,
+      })
+    }
   }
   finally {
     loading.value = false
@@ -62,10 +79,10 @@ async function login(values: any) {
     <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="login">
       <div class="overflow-hidden rounded-3xl">
         <van-field
-          v-model="postData.email"
-          :rules="rules.email"
-          name="email"
-          :placeholder="t('login.email')"
+          v-model="postData.mobile"
+          :rules="rules.mobile"
+          name="mobile"
+          :placeholder="t('login.mobile')"
         />
       </div>
 
