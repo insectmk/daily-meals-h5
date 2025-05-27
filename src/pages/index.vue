@@ -62,7 +62,7 @@ onBeforeRouteLeave(() => {
     </van-swipe-item>
   </van-swipe>
   <van-divider
-    :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+    :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
   >
     最新菜谱
   </van-divider>

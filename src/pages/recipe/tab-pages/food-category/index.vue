@@ -85,7 +85,7 @@ onActivated(() => {
         <div ref="rightScrollRef" class="scroll-wrapper">
           <div v-for="treeSecond in activeCategory.children" :key="treeSecond.id">
             <van-divider
-              :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+              :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
             >
               {{ treeSecond.name }}
             </van-divider>
