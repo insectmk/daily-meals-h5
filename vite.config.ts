@@ -11,7 +11,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
 
   return {
     base: env.VITE_APP_PUBLIC_PATH,
-    plugins: createVitePlugins(mode),
+    plugins: [
+      ...createVitePlugins(mode),
+    ],
 
     server: {
       host: true,
