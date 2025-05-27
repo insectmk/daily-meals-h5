@@ -83,7 +83,7 @@ function onConfirm() {
       :rules="[{ required: true, message: '请填写菜单副标题' }]"
       placeholder="请输入菜单副标题"
     />
-    <mk-form-tiptap
+    <mk-form-rich-text
       v-model="recipeMenuForm.menuDesc"
       :rules="[{ required: true, message: '请填写菜单描述' }]"
       label="步骤"
