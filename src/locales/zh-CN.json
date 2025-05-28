@@ -82,7 +82,7 @@
     "backToLogin": "返回登录",
     "getCode": "获取验证码",
     "gettingCode": "获取中",
-    "sendCodeSuccess": "已发送，验证码为",
+    "sendCodeSuccess": "验证码发送成功",
     "passwordResetSuccess": "密码重置成功"
   },
   "register": {
