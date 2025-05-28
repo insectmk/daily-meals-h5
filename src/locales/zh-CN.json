@@ -112,6 +112,22 @@
     "comfirmTitle": "确认退出？",
     "logoutSuccess": "退出登录成功！"
   },
+  "user-collect": {
+    "add": {
+      "title": "创建收藏夹"
+    },
+    "edit": {
+      "title": "编辑收藏夹"
+    }
+  },
+  "recipe-menu": {
+    "add": {
+      "title": "创建菜单"
+    },
+    "edit": {
+      "title": "编辑菜单"
+    }
+  },
   "recipe": {
     "menu": {
       "info": {
@@ -131,6 +147,9 @@
     },
     "add": {
       "title": "添加菜谱"
+    },
+    "edit": {
+      "title": "修改菜谱"
     }
   },
   "plan": {

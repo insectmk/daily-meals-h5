@@ -65,7 +65,7 @@ function onConfirm() {
 
 <template>
   <van-nav-bar
-    :title="$t('recipe.add.title')"
+    :title="menuId ? $t('recipe-menu.edit.title') : $t('recipe-menu.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
     left-arrow placeholder fixed
