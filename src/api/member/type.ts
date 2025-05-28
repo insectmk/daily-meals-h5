@@ -36,8 +36,20 @@ export interface MemberUserUpdateMobileReq {
  * 修改密码 Req
  */
 export interface MemberUserUpdatePasswordReq {
-  // 新手机号
+  // 新密码
   password: string
-  // 新手机验证码
+  // 手机验证码
   code: string
+}
+
+/**
+ * 重置密码 Req
+ */
+export interface MemberUserResetPasswordReq {
+  // 密码
+  password: string
+  // 手机验证码
+  code: string
+  // 手机号
+  mobile: string
 }
