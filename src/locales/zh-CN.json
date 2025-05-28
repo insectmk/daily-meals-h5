@@ -63,8 +63,10 @@
     "password": "密码",
     "pleaseEnterEmail": "请输入邮箱",
     "pleaseEnterPassword": "请输入密码",
-    "sign-up": "还没有账号？点击注册",
-    "forgot-password": "忘记密码？"
+    "sign-up": "用户注册",
+    "sms-code-login": "验证码登录",
+    "password-login": "密码登录",
+    "forgot-password": "无法登录"
   },
   "forgot-password": {
     "email": "邮箱",

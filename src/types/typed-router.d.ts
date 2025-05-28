@@ -59,6 +59,7 @@ declare module 'vue-router/auto-routes' {
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
     'Search': RouteRecordInfo<'Search', '/search', Record<never, never>, Record<never, never>>,
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
+    'SmsCodeLogin': RouteRecordInfo<'SmsCodeLogin', '/sms-code-login', Record<never, never>, Record<never, never>>,
     'unocss': RouteRecordInfo<'unocss', '/unocss', Record<never, never>, Record<never, never>>,
     'UserCollectInfo': RouteRecordInfo<'UserCollectInfo', '/user-collect/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'UserCollectForm': RouteRecordInfo<'UserCollectForm', '/user-collect/form', Record<never, never>, Record<never, never>>,

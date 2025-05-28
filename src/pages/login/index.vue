@@ -108,13 +108,23 @@ async function login(values: LoginData) {
       </div>
     </van-form>
 
-    <GhostButton block to="register" :style="{ 'margin-top': vw(18) }">
-      {{ $t('login.sign-up') }}
-    </GhostButton>
-
-    <GhostButton block to="forgot-password">
-      {{ $t('login.forgot-password') }}
-    </GhostButton>
+    <van-row :style="{ 'margin-top': vw(18) }">
+      <van-col :span="8">
+        <GhostButton block to="register">
+          {{ $t('login.sign-up') }}
+        </GhostButton>
+      </van-col>
+      <van-col :span="8">
+        <GhostButton block to="sms-code-login">
+          {{ $t('login.sms-code-login') }}
+        </GhostButton>
+      </van-col>
+      <van-col :span="8">
+        <GhostButton block to="forgot-password">
+          {{ $t('login.forgot-password') }}
+        </GhostButton>
+      </van-col>
+    </van-row>
   </div>
 </template>
 
@@ -122,7 +132,7 @@ async function login(values: LoginData) {
 {
   name: 'login',
   meta: {
-    i18n: 'menus.login'
+    i18n: 'login.password-login'
   },
 }
 </route>
