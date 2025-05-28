@@ -3,6 +3,7 @@ import type { RecipeMenu } from '@/api/recipe-menu/type'
 import RecipeMenuCard from '@/components/recipe-menu/recipe-menu-card.vue'
 import type { CommonResult, PageParam, PageResult } from '@/api/type'
 import type { PropType } from 'vue'
+import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
 
 const props = defineProps({
   // 获取菜谱的接口
@@ -81,7 +82,7 @@ function onRefresh() {
 }
 
 // 导出方法
-defineExpose({
+defineExpose<RecipeMenuCardListExposed>({
   query: onRefresh,
 })
 </script>
