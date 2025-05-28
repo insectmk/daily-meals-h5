@@ -1,48 +1,54 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import type { FieldRule } from 'vant'
-import { useUserStore } from '@/stores'
+import { showSuccessToast } from 'vant'
 import vw from '@/utils/inline-px-to-vw'
+import ResponseCode from '@/constants/response-code'
+import { SMS_SCENE_ENUM } from '@/api/auth/type'
+import logo from '~/images/logo.svg'
+import logoDark from '~/images/logo-dark.svg'
+import { sendSmsCode } from '@/api/auth'
+import type { MemberUserResetPasswordReq } from '@/api/member/type'
+import { resetUserPassword } from '@/api/member'
 
 const { t } = useI18n()
 const router = useRouter()
-const userStore = useUserStore()
 const loading = ref(false)
+const isGettingCode = ref(false) // 是否正在获取验证码
 
-const postData = reactive({
-  email: '',
-  code: '',
-  password: '',
-  confirmPassword: '',
+const dark = ref<boolean>(isDark.value)
+
+const postData = reactive<MemberUserResetPasswordReq>({
+  mobile: '', // 手机号
+  code: null, // 验证码
+  password: null, // 密码
 })
 
-const validatorPassword = (val: string) => val === postData.password
-
+// 表单规则
 const rules = reactive({
-  email: [
-    { required: true, message: t('forgot-password.pleaseEnterEmail') },
+  mobile: [
+    { required: true, message: t('register.pleaseEnterEmail') },
   ],
   code: [
-    { required: true, message: t('forgot-password.pleaseEnterCode') },
+    { required: true, message: t('register.pleaseEnterCode') },
   ],
   password: [
-    { required: true, message: t('forgot-password.pleaseEnterPassword') },
+    { required: true, message: t('login.pleaseEnterPassword') },
   ],
-  confirmPassword: [
-    { required: true, message: t('forgot-password.pleaseEnterConfirmPassword') },
-    { required: true, validator: validatorPassword, message: t('forgot-password.passwordsDoNotMatch') },
-  ] as FieldRule[],
 })
 
-async function reset() {
+/**
+ * 重置密码
+ */
+async function resetPassword() {
   try {
     loading.value = true
-
-    const res = await userStore.reset()
-
-    if (res.code === 0) {
-      showNotify({ type: 'success', message: t('forgot-password.passwordResetSuccess') })
-      router.push({ name: 'login' })
+    // 发送密码重置请求
+    const res = await resetUserPassword(postData)
+    if (res.code === ResponseCode.SUCCESS.code) {
+      // 密码重置成功
+      showSuccessToast(`密码重置成功！`)
+      // 跳转到登录页面
+      await router.push('/login')
     }
   }
   finally {
@@ -50,22 +56,30 @@ async function reset() {
   }
 }
 
-const isGettingCode = ref(false)
-
 const buttonText = computed(() => {
-  return isGettingCode.value ? t('forgot-password.gettingCode') : t('forgot-password.getCode')
+  return isGettingCode.value ? t('register.gettingCode') : t('register.getCode')
 })
 
+/**
+ * 获取验证码
+ */
 async function getCode() {
-  if (!postData.email) {
-    showNotify({ type: 'warning', message: t('forgot-password.pleaseEnterEmail') })
+  if (!postData.mobile) {
+    // 没有输入手机号
+    showNotify({ type: 'warning', message: t('register.pleaseEnterMobile') })
     return
   }
 
   isGettingCode.value = true
-  const res = await userStore.getCode()
-  if (res.code === 0)
-    showNotify({ type: 'success', message: `${t('forgot-password.sendCodeSuccess')}: ${res.result}` })
+  const res = await sendSmsCode({
+    mobile: postData.mobile,
+    scene: SMS_SCENE_ENUM.MEMBER_RESET_PASSWORD, // 忘记密码
+  })
+  if (res.code === ResponseCode.SUCCESS.code) {
+    // TODO 假验证码，后续看情况增加
+    postData.code = '9999'
+    showNotify({ type: 'success', message: `${t('register.sendCodeSuccess')}: ${9999}` })
+  }
 
   isGettingCode.value = false
 }
@@ -73,13 +87,17 @@ async function getCode() {
 
 <template>
   <div class="m-x-a w-7xl text-center">
-    <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="reset">
+    <div class="mb-32 mt-20">
+      <van-image :src="dark ? logoDark : logo" class="h-120 w-120" alt="brand logo" />
+    </div>
+
+    <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="resetPassword">
       <div class="overflow-hidden rounded-3xl">
         <van-field
-          v-model.trim="postData.email"
-          :rules="rules.email"
-          name="email"
-          :placeholder="t('forgot-password.email')"
+          v-model.trim="postData.mobile"
+          :rules="rules.mobile"
+          name="mobile"
+          :placeholder="t('register.mobile')"
         />
       </div>
 
@@ -88,7 +106,7 @@ async function getCode() {
           v-model.trim="postData.code"
           :rules="rules.code"
           name="code"
-          :placeholder="t('forgot-password.code')"
+          :placeholder="t('register.code')"
         >
           <template #button>
             <van-button size="small" type="primary" plain @click="getCode">
@@ -100,21 +118,11 @@ async function getCode() {
 
       <div class="mt-16 overflow-hidden rounded-3xl">
         <van-field
-          v-model.trim="postData.password"
+          v-model="postData.password"
           type="password"
           :rules="rules.password"
           name="password"
-          :placeholder="t('forgot-password.password')"
-        />
-      </div>
-
-      <div class="mt-16 overflow-hidden rounded-3xl">
-        <van-field
-          v-model.trim="postData.confirmPassword"
-          type="password"
-          :rules="rules.confirmPassword"
-          name="confirmPassword"
-          :placeholder="t('forgot-password.comfirmPassword')"
+          :placeholder="t('login.password')"
         />
       </div>
 
@@ -125,7 +133,7 @@ async function getCode() {
           native-type="submit"
           round block
         >
-          {{ $t('forgot-password.confirm') }}
+          修改密码
         </van-button>
       </div>
     </van-form>
