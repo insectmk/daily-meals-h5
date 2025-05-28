@@ -39,14 +39,16 @@ onBeforeRouteLeave(() => {
 
 <template>
   <!-- 搜索框 -->
-  <van-cell-group inset>
-    <van-field
-      left-icon="search"
-      placeholder="搜索菜谱、菜单"
-      :border="false"
-      @click-input="router.push(`/search`)"
-    />
-  </van-cell-group>
+  <van-sticky>
+    <van-cell-group inset>
+      <van-field
+        left-icon="search"
+        placeholder="搜索菜谱、菜单"
+        :border="false"
+        @click-input="router.push(`/search`)"
+      />
+    </van-cell-group>
+  </van-sticky>
   <van-swipe :autoplay="3000" indicator-color="white">
     <van-swipe-item
       v-for="recipe in popularPublicRecipeList"

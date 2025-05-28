@@ -25,26 +25,29 @@ function cancel() {
 
 <template>
   <!-- 搜索框 -->
-  <van-cell-group inset>
-    <van-field
-      v-model="searchContent"
-      left-icon="search"
-      placeholder="想找什么，请输入"
-      :border="false"
-      :clearable="false"
-    >
-      <template #button>
-        <van-button
-          plain size="mini" type="primary" @click="cancel"
-        >
-          取消
-        </van-button>
-      </template>
-    </van-field>
-  </van-cell-group>
+  <van-sticky>
+    <van-cell-group inset>
+      <van-field
+        v-model="searchContent"
+        left-icon="search"
+        placeholder="想找什么，请输入"
+        :border="false"
+        :clearable="false"
+      >
+        <template #button>
+          <van-button
+            plain size="mini" type="primary" @click="cancel"
+          >
+            取消
+          </van-button>
+        </template>
+      </van-field>
+    </van-cell-group>
+  </van-sticky>
+
   <van-tabs
     v-model:active="tabActive"
-    animated swipeable sticky
+    animated swipeable
     background="transparent"
   >
     <van-tab name="recipe">
