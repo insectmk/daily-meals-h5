@@ -18,7 +18,7 @@ defineProps({
 <template>
   <van-action-bar id="recipe-info-action-bar" safe-area-inset-bottom placeholder>
     <!--  评论  -->
-    <Comment />
+    <Comment :recipe="recipe" />
     <!--  分享 -->
     <Share />
     <!--  加入到菜单  -->
