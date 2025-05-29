@@ -47,6 +47,7 @@ declare module 'vue-router/auto-routes' {
     '/recipe/action-func-bar/func-icon/share': RouteRecordInfo<'/recipe/action-func-bar/func-icon/share', '/recipe/action-func-bar/func-icon/share', Record<never, never>, Record<never, never>>,
     'RecipeForm': RouteRecordInfo<'RecipeForm', '/recipe/form', Record<never, never>, Record<never, never>>,
     '/recipe/more-popup/': RouteRecordInfo<'/recipe/more-popup/', '/recipe/more-popup', Record<never, never>, Record<never, never>>,
+    '/recipe/recipe-comment/': RouteRecordInfo<'/recipe/recipe-comment/', '/recipe/recipe-comment', Record<never, never>, Record<never, never>>,
     '/recipe/tab-pages/food-category/': RouteRecordInfo<'/recipe/tab-pages/food-category/', '/recipe/tab-pages/food-category', Record<never, never>, Record<never, never>>,
     'RecipeListFoodCategory': RouteRecordInfo<'RecipeListFoodCategory', '/recipe/tab-pages/food-category/:categoryId', { categoryId: ParamValue<true> }, { categoryId: ParamValue<false> }>,
     '/recipe/tab-pages/recipe-category/': RouteRecordInfo<'/recipe/tab-pages/recipe-category/', '/recipe/tab-pages/recipe-category', Record<never, never>, Record<never, never>>,

@@ -29,6 +29,8 @@ declare module 'vue' {
     TabBar: typeof import('./../components/TabBar.vue')['default']
     UserCollectCard: typeof import('./../components/user-collect/user-collect-card.vue')['default']
     UserCollectCardList: typeof import('./../components/user-collect/user-collect-card-list.vue')['default']
+    UserCommentCard: typeof import('./../components/user-comment/user-comment-card.vue')['default']
+    UserCommentCardList: typeof import('./../components/user-comment/user-comment-card-list.vue')['default']
     VanActionBar: typeof import('vant/es')['ActionBar']
     VanActionBarButton: typeof import('vant/es')['ActionBarButton']
     VanActionBarIcon: typeof import('vant/es')['ActionBarIcon']
