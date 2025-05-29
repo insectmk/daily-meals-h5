@@ -85,7 +85,7 @@ const router = useRouter()
   </van-overlay>
 </template>
 
-<style>
+<style scoped>
 .wrapper {
   display: flex;
   justify-content: center; /* 水平居中 */
