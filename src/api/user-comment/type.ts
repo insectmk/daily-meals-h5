@@ -16,6 +16,7 @@ export interface UserComment {
   replyUserId: number // 回复的用户编号
   replyUserNickname: string // 回复的用户名称
   replyContent: string // 回复的内容
+  createTime: number // 创建时间
 }
 
 /**
