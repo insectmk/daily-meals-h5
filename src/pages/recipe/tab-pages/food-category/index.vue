@@ -69,7 +69,7 @@ onActivated(() => {
 
 <template>
   <!-- 外层容器设置固定高度 -->
-  <div class="container">
+  <div class="out-container">
     <van-row class="flex-container">
       <!-- 左侧边栏区域（菜单根结点） -->
       <van-col :span="6" class="left-col">
@@ -115,7 +115,7 @@ onActivated(() => {
 
 <style scoped>
 /* 关键样式 */
-.container {
+.out-container {
   height: calc(100vh - 130px); /* 占据高度 */
   overflow: hidden; /* 禁止外部滚动 */
 }
