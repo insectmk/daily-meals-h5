@@ -88,6 +88,12 @@ defineExpose<UserCommentCardListExposed>({
 </script>
 
 <template>
+  <van-row>
+    <van-col :span="24" class="relative mb-20">
+      <span class="text-[18px] font-600">全部评论</span>
+      <span class="absolute right-0 top-0 text-[16px]">全部.最新</span>
+    </van-col>
+  </van-row>
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       v-model:loading="loading"

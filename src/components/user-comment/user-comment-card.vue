@@ -12,11 +12,7 @@ defineProps({
 </script>
 
 <template>
-  <van-row>
-    <van-col :span="24" class="mb-20">
-      <span class="text-[18px] font-600">全部评论</span>
-      <span class="absolute right-0 top-0 text-[16px]">全部.最新</span>
-    </van-col>
+  <van-row class="mb-15">
     <van-col :span="4">
       <van-image
         round
