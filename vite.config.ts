@@ -15,6 +15,11 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       ...createVitePlugins(mode),
     ],
 
+    preview: {
+      port: 62404, // 改为高位端口（如3000、8080）
+      strictPort: true, // 允许端口被占用时自动切换
+    },
+
     server: {
       host: true,
       port: 62403,
