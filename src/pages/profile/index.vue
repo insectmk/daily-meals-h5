@@ -44,6 +44,11 @@ function userInfoClickHandel() {
     <VanCellGroup :inset="true" class="!mt-16">
       <van-cell :title="$t('profile.demo')" icon="brush-o" is-link to="/demo" />
       <van-cell title="小助手" icon="service-o" is-link to="/chat" />
+      <van-cell title="我的消息" is-link to="/message">
+        <template #icon>
+          <van-icon class="van-badge__wrapper van-icon van-icon-service-o van-cell__left-icon" name="chat-o" badge="99+" />
+        </template>
+      </van-cell>
       <van-cell :title="$t('profile.settings')" icon="setting-o" is-link to="/settings" />
     </VanCellGroup>
     <!-- tab页 -->
