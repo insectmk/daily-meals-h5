@@ -29,9 +29,11 @@ const props = defineProps({
   },
 })
 
+const emits = defineEmits(['cardClick'])
+
 let pageNo = 0 // 当前页
 const pageSize = 10 // 每页行数
-const commonList = ref<UserComment[]>([]) // 菜谱菜单列表
+const commentList = ref<UserComment[]>([]) // 评论列表
 const loading = ref(false) // 加载
 const finished = ref(false) // 结束
 
@@ -56,7 +58,7 @@ function onLoad() {
     refreshing.value = false
     // 将菜谱添加到列表中
     res.data.list.forEach((menu) => {
-      commonList.value.push(menu)
+      commentList.value.push(menu)
     })
     // 关闭加载
     loading.value = false
@@ -73,12 +75,19 @@ function onLoad() {
 function onRefresh() {
   // 清空列表数据
   finished.value = false
-  commonList.value = []
+  commentList.value = []
   pageNo = 0 // 当前页
   // 重新加载数据
   onLoad()
   // 将 loading 设置为 true，表示处于加载状态
   loading.value = true
+}
+
+/**
+ * 卡片点击
+ */
+function cardClickHandler(common: UserComment) {
+  emits('cardClick', common)
 }
 
 // 导出方法
@@ -108,11 +117,11 @@ defineExpose<UserCommentCardListExposed>({
     >
       <van-row>
         <van-col
-          v-for="(common, index) in commonList"
+          v-for="(comment, index) in commentList"
           :key="index"
           span="24"
         >
-          <UserCommentCard :comment="common" />
+          <UserCommentCard :comment="comment" @card-click="cardClickHandler(comment)" />
         </van-col>
       </van-row>
     </van-list>
