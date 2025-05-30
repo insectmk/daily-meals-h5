@@ -26,3 +26,11 @@ export function page(pageReqVO: DailyPlanPageParam) {
 export function getDailyPlanInfo(param: GetDailyParam) {
   return request.get<DailyPlanInfo>('/meals/daily-plan/get', param)
 }
+
+/**
+ * 删除每日计划详细信息
+ * @param id
+ */
+export function deleteDailyPlanItem(id: number) {
+  return request.del<boolean>('/meals/daily-plan-item/delete', { id })
+}
