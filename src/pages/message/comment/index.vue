@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import router from '@/router'
 import { getCommentPage } from '@/api/user-comment'
+import { useMemberStore } from '@/stores'
 
 defineOptions({
   name: 'MessageComment',
 })
+
+const memberStore = useMemberStore()
 
 /**
  * 取消操作
@@ -24,8 +27,13 @@ function onCancel() {
     left-arrow placeholder fixed
     @click-left="onCancel"
   />
+  <!-- 内容作者为自己，并且未读的 -->
   <user-comment-card-list
     :list-api="getCommentPage"
+    :query-param="{
+      userRead: false,
+      contentUserId: memberStore.memberInfo.id,
+    }"
     min-height="80vh"
   />
 </template>
