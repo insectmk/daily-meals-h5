@@ -68,7 +68,7 @@ function onCancel() {
       <div class="overflow-hidden rounded-3xl">
         <mk-form-img
           v-model="postData.avatar"
-          :max-size="250 * 1024"
+          :max-size="1024 * 1024"
           label="头像"
         >
           <template #default>

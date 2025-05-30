@@ -92,6 +92,7 @@ function onConfirm() {
     <mk-form-img
       v-model="recipeMenuForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
+      :max-size="5 * 1024 * 1024"
       label="封面"
     />
     <mk-form-picker

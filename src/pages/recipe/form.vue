@@ -137,11 +137,13 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     <mk-form-img
       v-model="recipeForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
+      :max-size="5 * 1024 * 1024"
       label="封面"
     />
     <mk-form-img
       v-model="recipeForm.sliderPicUrls"
       multiple
+      :max-size="5 * 1024 * 1024"
       :max-count="2"
       label="轮播图"
     />

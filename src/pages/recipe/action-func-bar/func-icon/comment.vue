@@ -63,7 +63,7 @@ function confirmComment() {
         确认
       </van-button>
     </div>
-    <mk-form-img v-model="commentForm.picUrls" :max-count="9" label="图片" />
+    <mk-form-img v-model="commentForm.picUrls" :max-size="5 * 1024 * 1024" :max-count="9" label="图片" />
     <mk-form-text
       v-model="commentForm.commentContent"
       placeholder="请输入评论" :maxlength="1024" label="评论"
