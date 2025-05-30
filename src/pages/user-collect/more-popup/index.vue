@@ -84,7 +84,7 @@ function deleteById() {
     @close="emit('update:show', false)"
   >
     <van-divider
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
     >
       分享到
     </van-divider>
@@ -94,7 +94,7 @@ function deleteById() {
       />
     </van-grid>
     <van-divider
-      :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
     >
       快捷操作
     </van-divider>

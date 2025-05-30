@@ -94,7 +94,7 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
 
 <template>
   <van-nav-bar
-    :title="$t('recipe.add.title')"
+    :title="recipeId ? $t('recipe.edit.title') : $t('recipe.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
     left-arrow placeholder fixed
@@ -137,11 +137,13 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
     <mk-form-img
       v-model="recipeForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
+      :max-size="5 * 1024 * 1024"
       label="封面"
     />
     <mk-form-img
       v-model="recipeForm.sliderPicUrls"
       multiple
+      :max-size="5 * 1024 * 1024"
       :max-count="2"
       label="轮播图"
     />

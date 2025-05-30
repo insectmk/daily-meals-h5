@@ -63,8 +63,10 @@
     "password": "密码",
     "pleaseEnterEmail": "请输入邮箱",
     "pleaseEnterPassword": "请输入密码",
-    "sign-up": "还没有账号？点击注册",
-    "forgot-password": "忘记密码？"
+    "sign-up": "用户注册",
+    "sms-code-login": "验证码登录",
+    "password-login": "密码登录",
+    "forgot-password": "无法登录"
   },
   "forgot-password": {
     "email": "邮箱",
@@ -80,7 +82,7 @@
     "backToLogin": "返回登录",
     "getCode": "获取验证码",
     "gettingCode": "获取中",
-    "sendCodeSuccess": "已发送，验证码为",
+    "sendCodeSuccess": "验证码发送成功",
     "passwordResetSuccess": "密码重置成功"
   },
   "register": {
@@ -110,6 +112,22 @@
     "comfirmTitle": "确认退出？",
     "logoutSuccess": "退出登录成功！"
   },
+  "user-collect": {
+    "add": {
+      "title": "创建收藏夹"
+    },
+    "edit": {
+      "title": "编辑收藏夹"
+    }
+  },
+  "recipe-menu": {
+    "add": {
+      "title": "创建菜单"
+    },
+    "edit": {
+      "title": "编辑菜单"
+    }
+  },
   "recipe": {
     "menu": {
       "info": {
@@ -129,6 +147,9 @@
     },
     "add": {
       "title": "添加菜谱"
+    },
+    "edit": {
+      "title": "修改菜谱"
     }
   },
   "plan": {

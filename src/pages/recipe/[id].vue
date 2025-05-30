@@ -4,6 +4,7 @@ import { getRecipeInfo } from '@/api/recipe'
 import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 import MorePopup from './more-popup/index.vue'
+import RecipeComment from '@/pages/recipe/recipe-comment/index.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -60,6 +61,8 @@ function onBack() {
       </van-swipe-item>
     </van-swipe>
     <div class="recipe-step-container" v-html="recipe.recipeStep" />
+    <!--  评论  -->
+    <RecipeComment :recipe-id="recipe.id" />
     <!--  动作栏  -->
     <ActionFuncBar :recipe="recipe" />
     <!-- 更多操作弹窗 -->

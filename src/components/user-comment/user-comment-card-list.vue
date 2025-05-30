@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { RecipeMenu } from '@/api/recipe-menu/type'
-import RecipeMenuCard from '@/components/recipe-menu/recipe-menu-card.vue'
+import UserCommentCard from '@/components/user-comment/user-comment-card.vue'
 import type { CommonResult, PageParam, PageResult } from '@/api/type'
 import type { PropType } from 'vue'
-import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
+import type { UserComment } from '@/api/user-comment/type'
+import type { UserCommentCardListExposed } from '@/components/user-comment/user-comment-card-list.type'
 
 const props = defineProps({
-  // 获取菜谱的接口
-  menuListApi: {
-    type: Function as PropType<(pageParam: PageParam) => Promise<CommonResult<PageResult<RecipeMenu>>>>,
+  // 获取内容的接口
+  listApi: {
+    type: Function as PropType<(pageParam: PageParam) => Promise<CommonResult<PageResult<UserComment>>>>,
     required: true,
   },
   // 查询参数
@@ -31,7 +31,7 @@ const props = defineProps({
 
 let pageNo = 0 // 当前页
 const pageSize = 10 // 每页行数
-const menuList = ref<RecipeMenu[]>([]) // 菜谱菜单列表
+const commonList = ref<UserComment[]>([]) // 菜谱菜单列表
 const loading = ref(false) // 加载
 const finished = ref(false) // 结束
 
@@ -46,8 +46,8 @@ const refreshing = ref<boolean>(false) // 下拉刷新
  */
 function onLoad() {
   pageNo++ // 页面加1
-  // 获取菜单
-  props.menuListApi({
+  // 获取内容
+  props.listApi({
     pageNo,
     pageSize,
     ...props.queryParam,
@@ -56,7 +56,7 @@ function onLoad() {
     refreshing.value = false
     // 将菜谱添加到列表中
     res.data.list.forEach((menu) => {
-      menuList.value.push(menu)
+      commonList.value.push(menu)
     })
     // 关闭加载
     loading.value = false
@@ -73,7 +73,7 @@ function onLoad() {
 function onRefresh() {
   // 清空列表数据
   finished.value = false
-  menuList.value = []
+  commonList.value = []
   pageNo = 0 // 当前页
   // 重新加载数据
   onLoad()
@@ -82,12 +82,18 @@ function onRefresh() {
 }
 
 // 导出方法
-defineExpose<RecipeMenuCardListExposed>({
+defineExpose<UserCommentCardListExposed>({
   query: onRefresh,
 })
 </script>
 
 <template>
+  <van-row>
+    <van-col :span="24" class="relative mb-20">
+      <span class="text-[18px] font-600">全部评论</span>
+      <span class="absolute right-0 top-0 text-[16px]">全部.最新</span>
+    </van-col>
+  </van-row>
   <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
     <van-list
       v-model:loading="loading"
@@ -102,11 +108,11 @@ defineExpose<RecipeMenuCardListExposed>({
     >
       <van-row>
         <van-col
-          v-for="(menu, index) in menuList"
+          v-for="(common, index) in commonList"
           :key="index"
           span="24"
         >
-          <RecipeMenuCard :recipe-menu="menu" />
+          <UserCommentCard :comment="common" />
         </van-col>
       </van-row>
     </van-list>

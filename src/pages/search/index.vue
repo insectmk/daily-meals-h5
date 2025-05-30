@@ -3,6 +3,8 @@ import { useRouter } from 'vue-router'
 import { getRecipePage } from '@/api/recipe'
 import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 import { getRecipeMenuPage } from '@/api/recipe-menu'
+import type { RecipeCardListExposed } from '@/components/recipe/recipe-card-list.type'
+import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
 
 defineOptions({
   name: 'Search',
@@ -11,6 +13,9 @@ defineOptions({
 const router = useRouter()
 const tabActive = ref('recipe') // 当前活动tab
 const searchContent = ref('') // 查询的内容
+const recipeCardList = ref<RecipeCardListExposed>() // 菜谱按名称查询列表
+const recipeCardListByFood = ref<RecipeCardListExposed>() // 菜谱按食材查询列表
+const recipeMenuCardList = ref<RecipeMenuCardListExposed>() // 菜单按名称查询列表
 
 /**
  * 取消
@@ -21,30 +26,43 @@ function cancel() {
   else
     router.replace('/')
 }
+
+/**
+ * 搜素框回车处理
+ */
+function enterHandler() {
+  recipeCardList.value.query() // 查询菜谱
+  recipeCardListByFood.value.query() // 按照食材查询菜谱
+  recipeMenuCardList.value.query() // 查询菜单
+}
 </script>
 
 <template>
   <!-- 搜索框 -->
-  <van-cell-group inset>
-    <van-field
-      v-model="searchContent"
-      left-icon="search"
-      placeholder="想找什么，请输入"
-      :border="false"
-      :clearable="false"
-    >
-      <template #button>
-        <van-button
-          plain size="mini" type="primary" @click="cancel"
-        >
-          取消
-        </van-button>
-      </template>
-    </van-field>
-  </van-cell-group>
+  <van-sticky>
+    <van-cell-group inset>
+      <van-field
+        v-model="searchContent"
+        left-icon="search"
+        placeholder="想找什么，请输入"
+        :border="false"
+        :clearable="false"
+        @keydown.enter="enterHandler"
+      >
+        <template #button>
+          <van-button
+            plain size="mini" type="primary" @click="cancel"
+          >
+            取消
+          </van-button>
+        </template>
+      </van-field>
+    </van-cell-group>
+  </van-sticky>
+
   <van-tabs
     v-model:active="tabActive"
-    animated swipeable sticky
+    animated swipeable
     background="transparent"
   >
     <van-tab name="recipe">
@@ -52,6 +70,7 @@ function cancel() {
         菜谱
       </template>
       <RecipeCardList
+        ref="recipeCardList"
         :recipe-list-api="getRecipePage"
         :query-param="{
           name: searchContent,
@@ -65,6 +84,7 @@ function cancel() {
         食材
       </template>
       <RecipeCardList
+        ref="recipeCardListByFood"
         :recipe-list-api="getRecipePage"
         :query-param="{
           foodNames: searchContent.trim().split(/[\s,，;；|]+/).filter(Boolean),
@@ -78,6 +98,7 @@ function cancel() {
         菜单
       </template>
       <RecipeMenuCardList
+        ref="recipeMenuCardList"
         :menu-list-api="getRecipeMenuPage"
         :query-param="{
           title: searchContent,

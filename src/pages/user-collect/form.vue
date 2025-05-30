@@ -65,7 +65,7 @@ function onConfirm() {
 
 <template>
   <van-nav-bar
-    :title="$t('recipe.add.title')"
+    :title="userContentId ? $t('user-collect.edit.title') : $t('user-collect.add.title')"
     :left-text="$t('common.cancel')"
     :right-text="$t('common.done')"
     left-arrow placeholder fixed
@@ -81,6 +81,7 @@ function onConfirm() {
     <mk-form-img
       v-model="userCollectForm.picUrl"
       :rules="[{ required: true, message: '请上传封面' }]"
+      :max-size="5 * 1024 * 1024"
       label="封面"
     />
     <mk-form-text

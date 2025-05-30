@@ -9,6 +9,16 @@ const categoryTree = ref<TreeNode[]>([]) // 树形菜谱分类
 const activeCategory = ref<TreeNode>({}) // 当前活动的菜谱分类
 const router = useRouter()
 
+// 定义滚动容器引用（根据样式类名定位）
+const leftScrollRef = ref<HTMLElement>() // 左侧菜单滚动容器
+const rightScrollRef = ref<HTMLElement>() // 右侧内容滚动容器
+
+// 存储滚动位置
+const scrollPositions = ref({
+  left: 0,
+  right: 0,
+})
+
 // 获取树形分类菜单
 getRecipeCategoryList().then((res) => {
   // 菜谱分类
@@ -33,15 +43,37 @@ function sidebarClick(treeRoot: TreeNode) {
 function openRecipeListByCategory(treeSecond: TreeNode) {
   router.push(`/recipe/tab-pages/recipe-category/${treeSecond.id}`)
 }
+
+// 路由离开前记录位置
+onBeforeRouteLeave(() => {
+  if (leftScrollRef.value) {
+    scrollPositions.value.left = leftScrollRef.value.scrollTop
+  }
+  if (rightScrollRef.value) {
+    scrollPositions.value.right = rightScrollRef.value.scrollTop
+  }
+})
+
+// 组件激活时恢复位置
+onActivated(() => {
+  nextTick(() => {
+    if (leftScrollRef.value) {
+      leftScrollRef.value.scrollTop = scrollPositions.value.left
+    }
+    if (rightScrollRef.value) {
+      rightScrollRef.value.scrollTop = scrollPositions.value.right
+    }
+  })
+})
 </script>
 
 <template>
   <!-- 外层容器设置固定高度 -->
-  <div class="container">
+  <div class="out-container">
     <van-row class="flex-container">
       <!-- 左侧边栏区域（菜单根结点） -->
       <van-col :span="6" class="left-col">
-        <div class="scroll-wrapper">
+        <div ref="leftScrollRef" class="scroll-wrapper">
           <van-sidebar v-model="active">
             <van-sidebar-item v-for="treeRoot in categoryTree" :key="treeRoot.id" :title="treeRoot.name" @click="sidebarClick(treeRoot)" />
           </van-sidebar>
@@ -50,7 +82,7 @@ function openRecipeListByCategory(treeSecond: TreeNode) {
 
       <!-- 右侧内容区域 -->
       <van-col :span="18" class="right-col">
-        <div class="scroll-wrapper">
+        <div ref="rightScrollRef" class="scroll-wrapper">
           <van-grid column-num="3" :gutter="10">
             <van-grid-item
               v-for="treeSecond in activeCategory.children" :key="treeSecond.id"
@@ -76,7 +108,7 @@ function openRecipeListByCategory(treeSecond: TreeNode) {
 
 <style scoped>
 /* 关键样式 */
-.container {
+.out-container {
   height: calc(100vh - 130px); /* 占据高度 */
   overflow: hidden; /* 禁止外部滚动 */
 }

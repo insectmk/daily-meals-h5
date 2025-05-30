@@ -1,5 +1,6 @@
 import type {
   Member,
+  MemberUserResetPasswordReq,
   MemberUserUpdateMobileReq,
   MemberUserUpdatePasswordReq,
   MemberUserUpdateReq,
@@ -32,4 +33,11 @@ export function updateUserMobile(data: MemberUserUpdateMobileReq) {
  */
 export function updateUserPassword(data: MemberUserUpdatePasswordReq) {
   return request.put<boolean>('/member/user/update-password', data)
+}
+
+/**
+ * 重置密码，用户忘记密码时使用
+ */
+export function resetUserPassword(data: MemberUserResetPasswordReq) {
+  return request.put<boolean>('/member/user/reset-password', data)
 }

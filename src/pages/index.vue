@@ -39,14 +39,16 @@ onBeforeRouteLeave(() => {
 
 <template>
   <!-- 搜索框 -->
-  <van-cell-group inset>
-    <van-field
-      left-icon="search"
-      placeholder="搜索菜谱、菜单"
-      :border="false"
-      @click-input="router.push(`/search`)"
-    />
-  </van-cell-group>
+  <van-sticky>
+    <van-cell-group inset>
+      <van-field
+        left-icon="search"
+        placeholder="搜索菜谱、菜单"
+        :border="false"
+        @click-input="router.push(`/search`)"
+      />
+    </van-cell-group>
+  </van-sticky>
   <van-swipe :autoplay="3000" indicator-color="white">
     <van-swipe-item
       v-for="recipe in popularPublicRecipeList"
@@ -62,7 +64,7 @@ onBeforeRouteLeave(() => {
     </van-swipe-item>
   </van-swipe>
   <van-divider
-    :style="{ color: '#1989fa', borderColor: '#1989fa', padding: '0 16px' }"
+    :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
   >
     最新菜谱
   </van-divider>

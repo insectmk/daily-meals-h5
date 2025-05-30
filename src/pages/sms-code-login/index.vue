@@ -1,17 +1,26 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+
+import logo from '~/images/logo.svg'
+import logoDark from '~/images/logo-dark.svg'
 import vw from '@/utils/inline-px-to-vw'
-import { sendSmsCode } from '@/api/auth'
+import { useMemberStore } from '@/stores'
+import ResponseCode from '@/constants/response-code'
 import { SMS_SCENE_ENUM } from '@/api/auth/type'
 import type { SmsLoginReq } from '@/api/auth/type'
-import ResponseCode from '@/constants/response-code'
-import { useMemberStore } from '@/stores'
+import { sendSmsCode } from '@/api/auth'
+
+defineOptions({
+  name: 'SmsCodeLogin',
+})
 
 const { t } = useI18n()
 const router = useRouter()
 const loading = ref(false)
 const isGettingCode = ref(false) // 是否正在获取验证码
 const memberStore = useMemberStore()
+
+const dark = ref<boolean>(isDark.value)
 
 const postData = reactive<SmsLoginReq>({
   mobile: '', // 手机号
@@ -29,18 +38,23 @@ const rules = reactive({
 })
 
 /**
- * 注册用户
+ * 用户登录
  */
-async function register() {
+async function login() {
   try {
     loading.value = true
-    // 发送注册请求
+    // 发送登录请求
     const res = await memberStore.smsLogin(postData)
     if (res.code === ResponseCode.SUCCESS.code) {
-      // 注册成功
-      showNotify({ type: 'success', message: t('register.registerSuccess') })
-      // 跳转到个人中心页面
-      await router.push('/profile')
+      const { redirect, ...othersQuery } = router.currentRoute.value.query
+      await router.push({
+        // @ts-expect-error path的类型是动态生成的，没法判断
+        path: redirect || '/',
+        query: {
+          ...othersQuery,
+        },
+      })
+      showToast('登录成功！')
     }
   }
   finally {
@@ -75,11 +89,26 @@ async function getCode() {
 
   isGettingCode.value = false
 }
+/**
+ * 跳转到密码登录
+ */
+function toLoginHandler() {
+  router.push({
+    path: '/login',
+    query: {
+      ...router.currentRoute.value.query,
+    },
+  })
+}
 </script>
 
 <template>
   <div class="m-x-a w-7xl text-center">
-    <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="register">
+    <div class="mb-32 mt-20">
+      <van-image :src="dark ? logoDark : logo" class="h-120 w-120" alt="brand logo" />
+    </div>
+
+    <van-form :model="postData" :rules="rules" validate-trigger="onSubmit" @submit="login">
       <div class="overflow-hidden rounded-3xl">
         <van-field
           v-model.trim="postData.mobile"
@@ -111,22 +140,36 @@ async function getCode() {
           native-type="submit"
           round block
         >
-          {{ $t('register.confirm') }}
+          {{ $t('login.login') }}
         </van-button>
       </div>
     </van-form>
 
-    <GhostButton to="login" block :style="{ 'margin-top': vw(8) }">
-      {{ $t('register.backToLogin') }}
-    </GhostButton>
+    <van-row :style="{ 'margin-top': vw(18) }">
+      <van-col :span="8">
+        <GhostButton block to="register">
+          {{ $t('login.sign-up') }}
+        </GhostButton>
+      </van-col>
+      <van-col :span="8">
+        <GhostButton block @click="toLoginHandler">
+          {{ $t('login.password-login') }}
+        </GhostButton>
+      </van-col>
+      <van-col :span="8">
+        <GhostButton block to="forgot-password">
+          {{ $t('login.forgot-password') }}
+        </GhostButton>
+      </van-col>
+    </van-row>
   </div>
 </template>
 
 <route lang="json5">
 {
-  name: 'register',
+  name: 'SmsCodeLogin',
   meta: {
-    i18n: 'menus.register'
+    i18n: 'login.sms-code-login'
   },
 }
 </route>

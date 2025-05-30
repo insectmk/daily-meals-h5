@@ -6,6 +6,8 @@ import type { CommonResult } from '@/api/type'
 import ResponseCode from '@/constants/response-code'
 import { getRefreshToken, setRefreshToken, setToken } from '@/utils/auth'
 import qs from 'qs'
+import router from '@/router'
+import { parseUrl } from '@/utils/url-util'
 
 interface RetryRequest {
   resolve: (value: unknown) => void
@@ -93,7 +95,14 @@ async function responseHandler(response: AxiosResponse) {
       const refreshToken = getRefreshToken() // 获取刷新令牌
       // 没有刷新令牌，重新登录
       if (!refreshToken) {
-        location.replace('/login')
+        const urlInfo = parseUrl(window.location.href)
+        router.push({
+          name: 'login',
+          query: {
+            redirect: urlInfo.path,
+            ...urlInfo.params,
+          },
+        })
         return Promise.reject(new Error('No refresh token'))
       }
       // 有刷新令牌
