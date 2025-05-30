@@ -133,7 +133,11 @@ defineExpose<RecipeCardListExposed>({
         :key="index"
         span="24"
       >
-        <RecipeCard :recipe="recipe" />
+        <RecipeCard :recipe="recipe">
+          <template #swipe-right>
+            <slot name="card-swipe-right" :recipe="recipe" />
+          </template>
+        </RecipeCard>
       </van-col>
     </van-row>
   </van-list>
