@@ -169,6 +169,12 @@
     "title": "每日饭菜小助手"
   },
   "message": {
-    "title": "我的消息"
+    "title": "我的消息",
+    "comment": {
+      "title": "收到的评论"
+    },
+    "reply": {
+      "title": "回复我的"
+    }
   }
 }
