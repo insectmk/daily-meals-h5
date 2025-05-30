@@ -1,4 +1,4 @@
-import type { GetPopularPublicParam, GetRecipeParam, RecipeInfo } from '@/api/recipe/type'
+import type { GetPopularPublicParam, GetRecipeParam, RecipeComment, RecipeInfo } from '@/api/recipe/type'
 import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
@@ -73,4 +73,12 @@ export function createOrUpdateRecipe(param: RecipeInfo) {
  */
 export function deleteRecipe(id: number) {
   return request.del<boolean>('/meals/recipe/delete', { id })
+}
+
+/**
+ * 评论菜谱
+ * @param commentReq 评论内容
+ */
+export function createRecipeComment(commentReq: RecipeComment) {
+  return request.post<boolean>('/meals/recipe/common', commentReq)
 }

@@ -76,3 +76,19 @@ export interface RecipeFoodReq {
   amount: number
   memo: string
 }
+
+/**
+ * 菜谱评论信息
+ */
+export interface RecipeComment {
+  id?: number // 编码
+  userId?: number // 评论人编号
+  userNickname?: string // 评价人名称
+  userAvatar?: string // 评价人头像
+  recipeId?: number // 内容编号
+  commentContent?: string // 评论内容
+  picUrls?: string[] // 评论图片地址数组
+  replyUserId?: number // 回复的用户编号
+  replyUserNickname?: string // 回复的用户名称
+  replyContent?: string // 回复的内容
+}
