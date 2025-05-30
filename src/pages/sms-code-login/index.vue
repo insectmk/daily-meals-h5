@@ -9,7 +9,6 @@ import ResponseCode from '@/constants/response-code'
 import { SMS_SCENE_ENUM } from '@/api/auth/type'
 import type { SmsLoginReq } from '@/api/auth/type'
 import { sendSmsCode } from '@/api/auth'
-import { showSuccessToast } from 'vant'
 
 defineOptions({
   name: 'SmsCodeLogin',
@@ -47,10 +46,15 @@ async function login() {
     // 发送登录请求
     const res = await memberStore.smsLogin(postData)
     if (res.code === ResponseCode.SUCCESS.code) {
-      // 登录成功
-      showSuccessToast(`登录成功！`)
-      // 跳转到个人中心页面
-      await router.push('/profile')
+      const { redirect, ...othersQuery } = router.currentRoute.value.query
+      await router.push({
+        // @ts-expect-error path的类型是动态生成的，没法判断
+        path: redirect || '/',
+        query: {
+          ...othersQuery,
+        },
+      })
+      showToast('登录成功！')
     }
   }
   finally {
@@ -84,6 +88,17 @@ async function getCode() {
   }
 
   isGettingCode.value = false
+}
+/**
+ * 跳转到密码登录
+ */
+function toLoginHandler() {
+  router.push({
+    path: '/login',
+    query: {
+      ...router.currentRoute.value.query,
+    },
+  })
 }
 </script>
 
@@ -137,7 +152,7 @@ async function getCode() {
         </GhostButton>
       </van-col>
       <van-col :span="8">
-        <GhostButton block to="login">
+        <GhostButton block @click="toLoginHandler">
           {{ $t('login.password-login') }}
         </GhostButton>
       </van-col>

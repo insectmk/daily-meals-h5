@@ -48,13 +48,14 @@ async function login(values: LoginData) {
     const result = await memberStore.login({ ...postData, ...values })
     if (result.code === ResponseCode.SUCCESS.code) {
       const { redirect, ...othersQuery } = router.currentRoute.value.query
-      // todo 跳转到未登陆前的页面
       await router.push({
-        name: 'Home',
+        // @ts-expect-error path的类型是动态生成的，没法判断
+        path: redirect || '/',
         query: {
           ...othersQuery,
         },
       })
+      showToast('登录成功！')
     }
     else {
       // 提示消息
@@ -67,6 +68,18 @@ async function login(values: LoginData) {
   finally {
     loading.value = false
   }
+}
+
+/**
+ * 跳转到验证码登录
+ */
+function toSmsCodeLoginHandler() {
+  router.push({
+    path: '/sms-code-login',
+    query: {
+      ...router.currentRoute.value.query,
+    },
+  })
 }
 </script>
 
@@ -115,7 +128,7 @@ async function login(values: LoginData) {
         </GhostButton>
       </van-col>
       <van-col :span="8">
-        <GhostButton block to="sms-code-login">
+        <GhostButton block @click="toSmsCodeLoginHandler">
           {{ $t('login.sms-code-login') }}
         </GhostButton>
       </van-col>
