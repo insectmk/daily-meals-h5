@@ -48,7 +48,6 @@ apiCacheStore.getApiCache(APICacheKey.MEALS_RECIPE_CATEGORY).then((res) => {
         v-for="(category) in categoryList"
         :key="category.id"
         plain
-        class="mr-4"
         type="primary"
       >
         {{ category.name }}
