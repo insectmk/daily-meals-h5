@@ -19,7 +19,7 @@ const tabActive = ref('category') // 当前所在tab
       </template>
       <RecipeCardList
         :recipe-list-api="getRecipesPage"
-        min-height="55vh"
+        min-height="50vh"
       />
     </van-tab>
     <van-tab name="food">
