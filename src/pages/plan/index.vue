@@ -47,8 +47,10 @@ function loadPlan() {
   })
 }
 
-onMounted(() => {
+// 在 setup 中定义
+onActivated(() => {
   // 加载计划
+  pageNo = 0 // 重置页数
   loadPlan()
 })
 

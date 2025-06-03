@@ -34,7 +34,7 @@ function addToPlan() {
       showSuccessToast('成功加入到计划！')
       // 清除菜谱计划的缓存
       const routeCacheStore = useRouteCacheStore()
-      routeCacheStore.removeCache('PlanCache') // 菜谱计划
+      routeCacheStore.removeCache('Plan') // 菜谱计划
       routeCacheStore.removeCache('PlanInfo') // 计划详细信息
     }
   })

@@ -8,6 +8,7 @@ import { DICT_TYPE } from '@/constants/dict'
 import type { RecipeInfo } from '@/api/recipe/type'
 import ResponseCode from '@/constants/response-code'
 import { showSuccessToast } from 'vant'
+import useRouteCacheStore from '@/stores/modules/routeCache'
 
 const route = useRoute()
 const dictStore = useDictStore()
@@ -65,6 +66,9 @@ function planRecipeDeleteHandler(recipe: RecipeInfo) {
   deleteDailyPlanItem((recipe as RecipeInfo & { planItemId: number }).planItemId).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
       getPlanInfo() // 刷新计划信息
+      // 清除菜谱计划的缓存
+      const routeCacheStore = useRouteCacheStore()
+      routeCacheStore.removeCache('Plan') // 菜谱计划
       showSuccessToast(`删除[${recipe.name}]计划成功！`)
     }
   })
