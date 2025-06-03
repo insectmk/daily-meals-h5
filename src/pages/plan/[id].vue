@@ -10,6 +10,10 @@ import ResponseCode from '@/constants/response-code'
 import { showSuccessToast } from 'vant'
 import useRouteCacheStore from '@/stores/modules/routeCache'
 
+defineOptions({
+  name: 'PlanInfo',
+})
+
 const route = useRoute()
 const dictStore = useDictStore()
 // const { t } = useI18n() // 国际化
