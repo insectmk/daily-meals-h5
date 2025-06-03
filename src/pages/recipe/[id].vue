@@ -5,6 +5,8 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 import MorePopup from './more-popup/index.vue'
 import RecipeComment from '@/pages/recipe/recipe-comment/index.vue'
+import { showSuccessToast } from 'vant'
+import { formatDate } from '@vueuse/core'
 
 const route = useRoute()
 const router = useRouter()
@@ -60,6 +62,31 @@ function onBack() {
         />
       </van-swipe-item>
     </van-swipe>
+    <van-row v-if="recipe.userNickname" class="mt-15">
+      <van-col :span="5">
+        <van-image
+          round
+          width="3.5rem"
+          height="3.5rem"
+          fit="cover"
+          :src="recipe.userAvatar"
+        />
+      </van-col>
+      <van-col :span="19" class="relative">
+        <span>
+          <span class="text-[18px] font-500">{{ recipe.userNickname }}</span><br>
+          <span class="mt-[10px] flex text-[14px]">{{ formatDate(new Date(recipe.createTime), 'YYYY/MM/DD HH:mm') }}</span>
+        </span>
+        <span class="absolute right-0 top-[15px] text-[12px]">
+          <van-tag
+            plain
+            type="primary"
+            size="large"
+            @click.stop="() => showSuccessToast('开发中')"
+          >关注</van-tag>
+        </span>
+      </van-col>
+    </van-row>
     <div class="recipe-step-container" v-html="recipe.recipeStep" />
     <!--  评论  -->
     <RecipeComment :recipe-id="recipe.id" />

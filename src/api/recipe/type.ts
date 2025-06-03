@@ -40,6 +40,8 @@ export interface RecipeInfo {
   foods?: RecipeFoodInfo[]
   selfRecipe?: boolean // 是否为自己的菜谱
   favor?: boolean // 是否收藏
+  userNickname?: string // 用户名称
+  userAvatar?: string // 用户头像
 }
 
 /**
