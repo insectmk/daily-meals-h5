@@ -28,14 +28,14 @@ function clickHandler() {
         width="2.5rem"
         height="2.5rem"
         fit="cover"
-        src="https://insectmk.cn/static/img/head/insectmk.jpg"
+        :src="comment.userAvatar"
       />
     </van-col>
     <van-col :span="20" class="relative">
       <span>
         <strong class="mr-4">{{ comment.userNickname }}</strong>
         <van-tag v-show="comment.commentAuthor" plain type="primary">作者</van-tag><br>
-        <span>{{ formatDate(new Date(comment.createTime), 'YYYY-MM-DD HH:mm') }}</span>
+        <span>{{ formatDate(new Date(comment.createTime), 'YYYY/MM/DD HH:mm') }}</span>
       </span>
       <span class="absolute right-0 top-0 text-[12px]">
         <span class="mr-10" @click.stop="() => showSuccessToast('开发中')">点赞</span>
