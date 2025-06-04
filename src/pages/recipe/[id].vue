@@ -5,7 +5,7 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 import MorePopup from './more-popup/index.vue'
 import RecipeComment from '@/pages/recipe/recipe-comment/index.vue'
-import { showSuccessToast } from 'vant'
+import { showImagePreview, showSuccessToast } from 'vant'
 import { formatDate } from '@vueuse/core'
 
 const route = useRoute()
@@ -33,6 +33,40 @@ function onBack() {
   else
     router.replace('/')
 }
+
+/**
+ * 菜谱内容点击
+ */
+function handleContentClick(event: MouseEvent) {
+  const target = event.target as HTMLElement
+  const urls = extractImageUrls(recipe.value.recipeStep) // 提取所有图片的数组
+
+  // 判断点击的是否为图片
+  if (target.tagName === 'IMG') {
+    const imgSrc = (target as HTMLImageElement).src
+    showImagePreview({
+      images: urls,
+      startPosition: urls.indexOf(imgSrc),
+    })
+  }
+}
+
+function extractImageUrls(html: string): string[] {
+  // 改进正则：支持单引号和双引号，优化属性匹配
+  const imgRegex = /<img[^>]+src\s*=\s*['"]([^'">]+)['"][^>]*>/gi
+  const urls: string[] = []
+  let match: RegExpExecArray | null
+
+  // 优化循环：避免无限循环风险
+  // eslint-disable-next-line no-cond-assign
+  while ((match = imgRegex.exec(html)) !== null) {
+    // 确保捕获组有效且非空
+    if (match[1] && match[1].trim()) {
+      urls.push(match[1].trim())
+    }
+  }
+  return urls
+}
 </script>
 
 <template>
@@ -53,9 +87,15 @@ function onBack() {
   </div>
   <div v-else>
     <van-swipe :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="sliderPicUrl in recipe.sliderPicUrls" :key="sliderPicUrl">
+      <van-swipe-item
+        v-for="sliderPicUrl in recipe.sliderPicUrls"
+        :key="sliderPicUrl"
+        @click="() => showImagePreview({
+          images: recipe.sliderPicUrls,
+          startPosition: recipe.sliderPicUrls.indexOf(sliderPicUrl),
+        })"
+      >
         <van-image
-          height="200"
           width="100%"
           fit="fill"
           :src="sliderPicUrl"
@@ -87,7 +127,7 @@ function onBack() {
         </span>
       </van-col>
     </van-row>
-    <div class="recipe-step-container" v-html="recipe.recipeStep" />
+    <div class="recipe-step-container" @click="handleContentClick" v-html="recipe.recipeStep" />
     <!--  评论  -->
     <RecipeComment :recipe-id="recipe.id" />
     <!--  动作栏  -->
