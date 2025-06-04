@@ -5,7 +5,7 @@ import type { FormInstance } from 'vant'
 import { createOrUpdateRecipe, getRecipeInfo } from '@/api/recipe'
 import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
-import { getFood, getSimpleFoodList } from '@/api/food'
+import { getSimpleFoodList } from '@/api/food'
 import { useDictStore } from '@/stores'
 import APICacheKey from '@/stores/api-cache/api-cache-key'
 
@@ -80,15 +80,12 @@ function recipeFoodFormatter(food: RecipeFoodInfo) {
 
 /**
  * 食材ID更改处理
- * @param newFoodId 新食材ID
+ * @param _newFoodId 新食材ID
  * @param newFoodName 新食材名称
  * @param recipeFoodData 菜谱食材信息
  */
-function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
-  getFood({ id: Number(newFoodId) }).then((res) => {
-    recipeFoodData.foodName = newFoodName // 赋值食材名称
-    recipeFoodData.foodUnit = dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, res.data.foodUnit) // 赋值食材单位
-  })
+function foodIdChange(_newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
+  recipeFoodData.foodName = newFoodName // 赋值食材名称
 }
 </script>
 
@@ -151,10 +148,10 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       v-model="recipeForm.foods"
       :formatter="recipeFoodFormatter"
       :default-form-data="{
-        foodId: 0,
+        foodId: null,
         amount: 0.0,
         foodName: '未知',
-        foodUnit: 0,
+        foodUnit: null,
         memo: '',
       }"
       label="食材"
@@ -169,16 +166,17 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
           }"
           :dict-type="getSimpleFoodList"
           label="食材"
-          placeholder="点击选择食材" @change="({ selectedValues, selectedTexts }) => {
+          placeholder="点击选择食材" input-abel
+          @change="({ selectedValues, selectedTexts }) => {
             foodIdChange(selectedValues[0], selectedTexts[0], itemData)
           }"
         />
         <mk-form-picker
           v-model="itemData.foodUnit"
-          :readonly="true"
           :rules="[{ required: true, message: '食材单位' }]"
           :dict-type="DICT_TYPE.MEALS_FOOD_UNIT"
           label="单位"
+          input-abel
         />
         <mk-form-input
           v-model="itemData.amount"
