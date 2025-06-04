@@ -101,8 +101,8 @@ function tagCloseHandel(item: TreeNode) {
   <van-field
     autosize
     :label="label" label-align="left"
-    right-icon="arrow"
     show-word-limit
+    is-link
     @click="showPopup = true"
   >
     <template #input>
@@ -110,7 +110,7 @@ function tagCloseHandel(item: TreeNode) {
         <van-tag
           v-for="(item, index) in selectedViewList"
           :key="index"
-          class="mr-4"
+          class="mr-[4px]"
           type="primary"
           closeable plain
           @close="tagCloseHandel(item)"
