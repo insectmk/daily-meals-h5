@@ -77,16 +77,6 @@ function onConfirm() {
 function recipeFoodFormatter(food: RecipeFoodInfo) {
   return `${food.foodName}:${food.amount}${dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, String(food.foodUnit))}`
 }
-
-/**
- * 食材ID更改处理
- * @param _newFoodId 新食材ID
- * @param newFoodName 新食材名称
- * @param recipeFoodData 菜谱食材信息
- */
-function foodIdChange(_newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
-  recipeFoodData.foodName = newFoodName // 赋值食材名称
-}
 </script>
 
 <template>
@@ -148,34 +138,34 @@ function foodIdChange(_newFoodId: string, newFoodName: string, recipeFoodData: R
       v-model="recipeForm.foods"
       :formatter="recipeFoodFormatter"
       :default-form-data="{
-        foodId: null,
         amount: 0.0,
-        foodName: '未知',
-        foodUnit: null,
+        foodName: '',
+        foodUnit: '',
         memo: '',
       }"
       label="食材"
     >
       <template #default="{ itemData }">
         <mk-form-picker
-          v-model="itemData.foodId"
+          v-model="itemData.foodName"
           :rules="[{ required: true, message: '请选择食材' }]"
           :custom-field-name="{
             text: 'name',
-            value: 'id',
+            value: 'name',
           }"
           :dict-type="getSimpleFoodList"
           label="食材"
           placeholder="点击选择食材" input-abel
-          @change="({ selectedValues, selectedTexts }) => {
-            foodIdChange(selectedValues[0], selectedTexts[0], itemData)
-          }"
         />
         <mk-form-picker
           v-model="itemData.foodUnit"
           :rules="[{ required: true, message: '食材单位' }]"
           :dict-type="DICT_TYPE.MEALS_FOOD_UNIT"
           label="单位"
+          :custom-field-name="{
+            text: 'label',
+            value: 'label',
+          }"
           input-abel
         />
         <mk-form-input

@@ -50,7 +50,6 @@ export interface RecipeInfo {
 export interface RecipeFoodInfo {
   id: number
   recipeId: number
-  foodId: number
   amount: number
   foodName: string
   foodUnit: string
