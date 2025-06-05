@@ -127,7 +127,25 @@ function extractImageUrls(html: string): string[] {
         </span>
       </van-col>
     </van-row>
-    <div class="recipe-step-container" @click="handleContentClick" v-html="recipe.recipeStep" />
+    <van-divider
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
+    >
+      食材
+    </van-divider>
+    <van-row>
+      <van-col
+        v-for="food in recipe.foods"
+        :key="food.id" :span="12"
+      >
+        {{ `${food.foodName}:${food.amount}${food.foodUnit}` }}
+      </van-col>
+    </van-row>
+    <van-divider
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
+    >
+      步骤
+    </van-divider>
+    <div class="recipe-step-container mb-[20px]" @click="handleContentClick" v-html="recipe.recipeStep" />
     <!--  评论  -->
     <RecipeComment :recipe-id="recipe.id" />
     <!--  动作栏  -->
