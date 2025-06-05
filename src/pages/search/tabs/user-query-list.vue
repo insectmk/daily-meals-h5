@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
 import type { User } from '@/api/user/type'
-import { getUserListByNickname } from '@/api/user/index'
+import { getUserListByNickname } from '@/api/user'
 import ResponseCode from '@/constants/response-code'
 
 const props = defineProps({
