@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
 import type { User } from '@/api/user/type'
 import { getUserListByNickname } from '@/api/user'
 import ResponseCode from '@/constants/response-code'
+import type { UserQueryListExposed } from '@/pages/search/tabs/user-query-list.type'
+import { showSuccessToast } from 'vant'
 
 const props = defineProps({
   // 查询参数
@@ -33,13 +34,8 @@ function getUserList() {
   })
 }
 
-onMounted(async () => {
-  // 获取用户列表
-  getUserList()
-})
-
 // 导出方法
-defineExpose<RecipeMenuCardListExposed>({
+defineExpose<UserQueryListExposed>({
   query: getUserList,
 })
 </script>
@@ -60,7 +56,31 @@ defineExpose<RecipeMenuCardListExposed>({
           :key="index"
           span="24"
         >
-          {{ user.nickname }}
+          <van-row v-if="user.nickname" class="mt-15">
+            <van-col :span="5">
+              <van-image
+                round
+                width="3.5rem"
+                height="3.5rem"
+                fit="cover"
+                :src="user.avatar"
+              />
+            </van-col>
+            <van-col :span="19" class="relative">
+              <span>
+                <span class="text-[18px] font-500">{{ user.nickname }}</span><br>
+                <span class="mt-[10px] flex text-[14px]">{{ `粉丝数量：0` }}</span>
+              </span>
+              <span class="absolute right-0 top-[15px] text-[12px]">
+                <van-tag
+                  plain
+                  type="primary"
+                  size="large"
+                  @click.stop="() => showSuccessToast('开发中')"
+                >关注</van-tag>
+              </span>
+            </van-col>
+          </van-row>
         </van-col>
       </van-row>
     </van-list>
