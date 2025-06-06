@@ -42,6 +42,7 @@ export interface RecipeInfo {
   favor?: boolean // 是否收藏
   userNickname?: string // 用户名称
   userAvatar?: string // 用户头像
+  userFavor?: boolean // 是否关注菜谱作者
 }
 
 /**

@@ -5,8 +5,11 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 import MorePopup from './more-popup/index.vue'
 import RecipeComment from '@/pages/recipe/recipe-comment/index.vue'
-import { showImagePreview, showSuccessToast } from 'vant'
+import { showImagePreview } from 'vant'
 import { formatDate } from '@vueuse/core'
+import { addToDefaultCollect, cancelUserFavor } from '@/api/user-favor'
+import { ContentTypesEnum } from '@/api/user-collect/enums'
+import ResponseCode from '@/constants/response-code'
 
 const route = useRoute()
 const router = useRouter()
@@ -51,6 +54,10 @@ function handleContentClick(event: MouseEvent) {
   }
 }
 
+/**
+ * 解析图片url
+ * @param html
+ */
 function extractImageUrls(html: string): string[] {
   // 改进正则：支持单引号和双引号，优化属性匹配
   const imgRegex = /<img[^>]+src\s*=\s*['"]([^'">]+)['"][^>]*>/gi
@@ -66,6 +73,36 @@ function extractImageUrls(html: string): string[] {
     }
   }
   return urls
+}
+
+/**
+ * 关注用户处理
+ */
+function followUserHandler() {
+  if (recipe.value.userFavor) {
+    // 取消关注
+    cancelUserFavor({
+      contentId: recipe.value.userId, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        recipe.value.userFavor = false // 已取消关注
+        showToast('已取消关注')
+      }
+    })
+  }
+  else {
+    // 关注
+    addToDefaultCollect({
+      contentId: recipe.value.userId, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        recipe.value.userFavor = true // 已关注
+        showToast(`已关注`)
+      }
+    })
+  }
 }
 </script>
 
@@ -117,13 +154,13 @@ function extractImageUrls(html: string): string[] {
           <span class="text-[18px] font-500">{{ recipe.userNickname }}</span><br>
           <span class="mt-[10px] flex text-[14px]">{{ formatDate(new Date(recipe.createTime), 'YYYY/MM/DD HH:mm') }}</span>
         </span>
-        <span class="absolute right-0 top-[15px] text-[12px]">
+        <span v-if="!recipe.selfRecipe" class="absolute right-0 top-[15px] text-[12px]">
           <van-tag
             plain
             type="primary"
             size="large"
-            @click.stop="() => showSuccessToast('开发中')"
-          >关注</van-tag>
+            @click.stop="followUserHandler"
+          >{{ recipe.userFavor ? '已关注' : '关注' }}</van-tag>
         </span>
       </van-col>
     </van-row>
