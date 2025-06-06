@@ -3,7 +3,8 @@ import type { User } from '@/api/user/type'
 import { getUserListByNickname } from '@/api/user'
 import ResponseCode from '@/constants/response-code'
 import type { UserQueryListExposed } from '@/pages/search/tabs/user-query-list.type'
-import { showSuccessToast } from 'vant'
+import { addToDefaultCollect, cancelUserFavor } from '@/api/user-favor'
+import { ContentTypesEnum } from '@/api/user-collect/enums'
 
 const props = defineProps({
   // 查询参数
@@ -32,6 +33,36 @@ function getUserList() {
       userList.value = res.data
     }
   })
+}
+
+/**
+ * 关注用户处理
+ */
+function followUserHandler(user: User) {
+  if (user.favor) {
+    // 取消关注
+    cancelUserFavor({
+      contentId: user.id, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        user.favor = false // 已取消关注
+        showToast('已取消关注')
+      }
+    })
+  }
+  else {
+    // 关注
+    addToDefaultCollect({
+      contentId: user.id, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        user.favor = true // 已关注
+        showToast(`已关注`)
+      }
+    })
+  }
 }
 
 // 导出方法
@@ -76,8 +107,8 @@ defineExpose<UserQueryListExposed>({
                   plain
                   type="primary"
                   size="large"
-                  @click.stop="() => showSuccessToast('开发中')"
-                >关注</van-tag>
+                  @click.stop="followUserHandler(user)"
+                >{{ user.favor ? '已关注' : '关注' }}</van-tag>
               </span>
             </van-col>
           </van-row>

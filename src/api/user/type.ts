@@ -11,6 +11,7 @@ export interface User {
   nickname?: string // 昵称
   point?: number
   sex?: number // 性别
+  favor?: boolean // 是否关注
 }
 
 /**
