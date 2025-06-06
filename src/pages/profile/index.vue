@@ -59,11 +59,11 @@ function userInfoClickHandel() {
         </template>
       </van-cell>
       <van-row v-if="isLogin" class="p-[10px] text-center">
-        <van-col :span="8" @click="() => showToast('开发中')">
+        <van-col :span="8" @click="() => router.push({ name: 'User', query: { tab: 'follows' } })">
           <span>{{ userInteractData.follows }}</span><br>
           <span>关注</span>
         </van-col>
-        <van-col :span="8" @click="() => showToast('开发中')">
+        <van-col :span="8" @click="() => router.push({ name: 'User', query: { tab: 'fans' } })">
           <span>{{ userInteractData.fans }}</span><br>
           <span>粉丝</span>
         </van-col>

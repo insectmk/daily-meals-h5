@@ -65,6 +65,7 @@ declare module 'vue-router/auto-routes' {
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
     'SmsCodeLogin': RouteRecordInfo<'SmsCodeLogin', '/sms-code-login', Record<never, never>, Record<never, never>>,
     'unocss': RouteRecordInfo<'unocss', '/unocss', Record<never, never>, Record<never, never>>,
+    'User': RouteRecordInfo<'User', '/user', Record<never, never>, Record<never, never>>,
     'UserCollectInfo': RouteRecordInfo<'UserCollectInfo', '/user-collect/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     'UserCollectForm': RouteRecordInfo<'UserCollectForm', '/user-collect/form', Record<never, never>, Record<never, never>>,
     '/user-collect/more-popup/': RouteRecordInfo<'/user-collect/more-popup/', '/user-collect/more-popup', Record<never, never>, Record<never, never>>,

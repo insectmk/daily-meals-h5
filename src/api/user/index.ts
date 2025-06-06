@@ -3,10 +3,24 @@ import type { User, UserInteractData } from '@/api/user/type'
 import type { PageParam, PageResult } from '@/api/type'
 
 /**
- * 根据字典类型查询字典数据信息
+ * 分页查询用户
  */
 export function getUsersPage(pageParam: PageParam) {
   return request.get<PageResult<User>>('/meals/user/page', pageParam)
+}
+
+/**
+ * 分页查询关注用户
+ */
+export function getFollowUsersPage(pageParam: PageParam) {
+  return request.get<PageResult<User>>('/meals/user/page-follows', pageParam)
+}
+
+/**
+ * 分页查询粉丝用户
+ */
+export function getFanUsersPage(pageParam: PageParam) {
+  return request.get<PageResult<User>>('/meals/user/page-fans', pageParam)
 }
 
 /**
