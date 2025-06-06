@@ -12,3 +12,13 @@ export interface User {
   point?: number
   sex?: number // 性别
 }
+
+/**
+ * 用户互动数据
+ */
+export interface UserInteractData {
+  follows: number // 关注数
+  fans: number // 粉丝数
+  likes: number // 获赞
+  collects: number // 收藏量
+}
