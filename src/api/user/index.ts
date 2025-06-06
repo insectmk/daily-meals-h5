@@ -1,11 +1,12 @@
 import request from '@/utils/request'
 import type { User, UserInteractData } from '@/api/user/type'
+import type { PageParam, PageResult } from '@/api/type'
 
 /**
  * 根据字典类型查询字典数据信息
  */
-export function getUserListByNickname(nickname: string) {
-  return request.get<User[]>('/meals/user/users-by-nickname', { nickname })
+export function getUsersPage(pageParam: PageParam) {
+  return request.get<PageResult<User>>('/meals/user/page', pageParam)
 }
 
 /**

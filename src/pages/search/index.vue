@@ -5,8 +5,9 @@ import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 import { getRecipeMenuPage } from '@/api/recipe-menu'
 import type { RecipeCardListExposed } from '@/components/recipe/recipe-card-list.type'
 import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
-import UserQueryList from '@/pages/search/tabs/user-query-list.vue'
-import type { UserQueryListExposed } from '@/pages/search/tabs/user-query-list.type'
+import UserCardList from '@/components/user/user-card-list.vue'
+import type { UserQueryListExposed } from '@/components/user/user-card-list.type'
+import { getUsersPage } from '@/api/user'
 
 defineOptions({
   name: 'Search',
@@ -18,7 +19,7 @@ const searchContent = ref('') // 查询的内容
 const recipeCardList = ref<RecipeCardListExposed>() // 菜谱按名称查询列表
 const recipeCardListByFood = ref<RecipeCardListExposed>() // 菜谱按食材查询列表
 const recipeMenuCardList = ref<RecipeMenuCardListExposed>() // 菜单按名称查询列表
-const userQueryListCardListRef = ref<UserQueryListExposed>() // 菜单按名称查询列表
+const userCardListRef = ref<UserQueryListExposed>() // 菜单按名称查询列表
 
 /**
  * 取消
@@ -45,7 +46,7 @@ function enterHandler() {
       recipeMenuCardList.value.query() // 查询菜单
       break
     case 'user': // 用户
-      userQueryListCardListRef.value.query() // 查询用户
+      userCardListRef.value.query() // 查询用户
       break
   }
 }
@@ -125,10 +126,14 @@ function enterHandler() {
       <template #title>
         用户
       </template>
-      <UserQueryList
-        ref="userQueryListCardListRef"
-        :nickname="searchContent"
+      <UserCardList
+        ref="userCardListRef"
+        :list-api="getUsersPage"
+        :query-param="{
+          nickname: searchContent,
+        }"
         min-height="80vh"
+        :is-auto-query="false"
       />
     </van-tab>
   </van-tabs>

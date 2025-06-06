@@ -62,7 +62,6 @@ declare module 'vue-router/auto-routes' {
     'register': RouteRecordInfo<'register', '/register', Record<never, never>, Record<never, never>>,
     'ScrollCache': RouteRecordInfo<'ScrollCache', '/scroll-cache', Record<never, never>, Record<never, never>>,
     'Search': RouteRecordInfo<'Search', '/search', Record<never, never>, Record<never, never>>,
-    '/search/tabs/user-query-list': RouteRecordInfo<'/search/tabs/user-query-list', '/search/tabs/user-query-list', Record<never, never>, Record<never, never>>,
     'settings': RouteRecordInfo<'settings', '/settings', Record<never, never>, Record<never, never>>,
     'SmsCodeLogin': RouteRecordInfo<'SmsCodeLogin', '/sms-code-login', Record<never, never>, Record<never, never>>,
     'unocss': RouteRecordInfo<'unocss', '/unocss', Record<never, never>, Record<never, never>>,
