@@ -3,6 +3,10 @@ import router from '@/router'
 import { useMemberStore } from '@/stores'
 import defaultAvatar from '@/assets/images/default-avatar.svg'
 import SelfContentTab from '@/pages/profile/self-content-tab/index.vue'
+import { showToast } from 'vant'
+import type { UserInteractData } from '@/api/user/type'
+import { getUserInteractData } from '@/api/user'
+import ResponseCode from '@/constants/response-code'
 
 defineOptions({
   name: 'Profile',
@@ -11,6 +15,21 @@ defineOptions({
 const memberStore = useMemberStore()
 const memberInfo = computed(() => memberStore.memberInfo) // 会员信息
 const isLogin = computed(() => !!memberInfo.value.id) // 是否登录
+const userInteractData = ref<UserInteractData>({
+  follows: 0,
+  fans: 0,
+  likes: 0,
+  collects: 0,
+}) // 用户互动数据
+
+// 获取用户互动数据
+if (isLogin.value) {
+  getUserInteractData(memberStore.memberInfo.id).then((res) => {
+    if (res.code === ResponseCode.SUCCESS.code) {
+      userInteractData.value = res.data
+    }
+  })
+}
 
 /**
  * 用户信息点击处理
@@ -39,6 +58,20 @@ function userInfoClickHandel() {
           <span v-else>{{ $t('profile.login') }}</span>
         </template>
       </van-cell>
+      <van-row v-if="isLogin" class="p-[10px] text-center">
+        <van-col :span="8" @click="() => showToast('开发中')">
+          <span>{{ userInteractData.follows }}</span><br>
+          <span>关注</span>
+        </van-col>
+        <van-col :span="8" @click="() => showToast('开发中')">
+          <span>{{ userInteractData.fans }}</span><br>
+          <span>粉丝</span>
+        </van-col>
+        <van-col :span="8" @click="() => showToast('开发中')">
+          <span>{{ userInteractData.likes + userInteractData.collects }}</span><br>
+          <span>获赞与收藏</span>
+        </van-col>
+      </van-row>
     </VanCellGroup>
 
     <VanCellGroup :inset="true" class="!mt-16">
