@@ -131,7 +131,7 @@ function recipeFoodFormatter(food: RecipeFoodInfo) {
       v-model="recipeForm.sliderPicUrls"
       multiple
       :max-size="5 * 1024 * 1024"
-      :max-count="2"
+      :max-count="10"
       label="轮播图"
     />
     <mk-form-items
