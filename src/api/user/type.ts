@@ -22,4 +22,5 @@ export interface UserInteractData {
   fans: number // 粉丝数
   likes: number // 获赞
   collects: number // 收藏量
+  recipes: number // 发布菜谱数
 }
