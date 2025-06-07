@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import RecipeCategory from '@/pages/recipe/tab-pages/recipe-category/index.vue'
 import FoodCategory from '@/pages/recipe/tab-pages/food-category/index.vue'
+import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
+import { getFavorUsersRecipePage } from '@/api/recipe'
 
 defineOptions({
   name: 'Recipe',
 })
 
-const recipeTabActive = ref('category') // 当前所在tab
+const recipeTabActive = ref('userFavor') // 当前所在tab
 
 // 用于记录滚动状态
 const scrollTop = ref(0)
@@ -29,6 +31,14 @@ onBeforeRouteLeave(() => {
     animated swipeable sticky
     background="transparent"
   >
+    <van-tab name="userFavor">
+      <template #title>
+        关注
+      </template>
+      <RecipeCardList
+        :recipe-list-api="getFavorUsersRecipePage"
+      />
+    </van-tab>
     <van-tab name="category">
       <template #title>
         分类

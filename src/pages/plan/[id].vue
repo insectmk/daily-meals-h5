@@ -2,9 +2,17 @@
 import { useRoute } from 'vue-router'
 import { useDictStore } from '@/stores'
 import type { DailyPlanInfo, DailyPlanItemInfo } from '@/api/dailyplan/type'
-import { getDailyPlanInfo } from '@/api/dailyplan'
+import { deleteDailyPlanItem, getDailyPlanInfo } from '@/api/dailyplan'
 import type { DictInfo } from '@/api/system/type'
 import { DICT_TYPE } from '@/constants/dict'
+import type { RecipeInfo } from '@/api/recipe/type'
+import ResponseCode from '@/constants/response-code'
+import { showSuccessToast } from 'vant'
+import useRouteCacheStore from '@/stores/modules/routeCache'
+
+defineOptions({
+  name: 'PlanInfo',
+})
 
 const route = useRoute()
 const dictStore = useDictStore()
@@ -27,10 +35,13 @@ dictStore.getDictByType(DICT_TYPE.MEALS_STATIC_MEAL_TYPES).then((res) => {
 /**
  * 获取计划信息
  */
-getDailyPlanInfo({ id }).then((res) => {
-  dailyPlan.value = res.data
-  loading.value = false // 加载完毕
-})
+function getPlanInfo() {
+  loading.value = true
+  getDailyPlanInfo({ id }).then((res) => {
+    dailyPlan.value = res.data
+    loading.value = false // 加载完毕
+  })
+}
 
 /**
  * 菜谱列表
@@ -41,9 +52,35 @@ const recipeList = computed(() => {
   mealTypes.value.forEach((mealType) => {
     mealTypeRecipeList[mealType.value] = planItemList
       .filter(item => Number(item.mealType) === Number(mealType.value)) // 该餐次类型
-      .map((item: DailyPlanItemInfo) => item.recipeInfo) // 组装菜谱
+      .map((item: DailyPlanItemInfo) => {
+        return {
+          ...item.recipeInfo,
+          planItemId: item.id,
+        }
+      }) // 组装菜谱
   })
   return mealTypeRecipeList
+})
+
+/**
+ * 删除计划菜谱
+ * @param recipe 删除的菜谱
+ */
+function planRecipeDeleteHandler(recipe: RecipeInfo) {
+  deleteDailyPlanItem((recipe as RecipeInfo & { planItemId: number }).planItemId).then((res) => {
+    if (res.code === ResponseCode.SUCCESS.code) {
+      getPlanInfo() // 刷新计划信息
+      // 清除菜谱计划的缓存
+      const routeCacheStore = useRouteCacheStore()
+      routeCacheStore.removeCache('Plan') // 菜谱计划
+      showSuccessToast(`删除[${recipe.name}]计划成功！`)
+    }
+  })
+}
+
+onMounted(() => {
+  // 获取计划信息
+  getPlanInfo()
 })
 </script>
 
@@ -56,21 +93,27 @@ const recipeList = computed(() => {
   <div v-else>
     <van-tabs
       v-model:active="tabActive"
-      animated swipeable sticky
+      animated sticky
       background="transparent"
     >
       <van-tab v-for="mealType in mealTypes" :key="mealType.value" :name="mealType.value">
         <template #title>
           {{ mealType.label }}
         </template>
-        <RecipeCardList :recipe-list-api="recipeList[mealType.value]" min-height="85vh" />
+        <RecipeCardList :recipe-list-api="recipeList[mealType.value]" min-height="85vh">
+          <template #card-swipe-right="{ recipe }">
+            <van-button square text="删除" type="danger" class="delete-button" @click="planRecipeDeleteHandler(recipe)" />
+          </template>
+        </RecipeCardList>
       </van-tab>
     </van-tabs>
   </div>
 </template>
 
 <style scoped>
-
+.delete-button {
+  height: 100%;
+}
 </style>
 
 <route lang="json5">

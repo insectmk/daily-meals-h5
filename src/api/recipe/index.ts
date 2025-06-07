@@ -1,6 +1,14 @@
-import type { GetPopularPublicParam, GetRecipeParam, RecipeInfo } from '@/api/recipe/type'
+import type { GetPopularPublicParam, GetRecipeParam, RecipeComment, RecipeInfo } from '@/api/recipe/type'
 import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
+
+/**
+ * 获取用户关注作者的的菜谱分页
+ * @param pageReqVO
+ */
+export function getFavorUsersRecipePage(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeInfo>>('/meals/recipe/page-favor-users', pageReqVO)
+}
 
 /**
  * 分页查询可见的菜谱信息
@@ -73,4 +81,12 @@ export function createOrUpdateRecipe(param: RecipeInfo) {
  */
 export function deleteRecipe(id: number) {
   return request.del<boolean>('/meals/recipe/delete', { id })
+}
+
+/**
+ * 评论菜谱
+ * @param commentReq 评论内容
+ */
+export function createRecipeComment(commentReq: RecipeComment) {
+  return request.post<boolean>('/meals/recipe/common', commentReq)
 }

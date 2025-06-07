@@ -5,6 +5,9 @@ import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
 import { getRecipeMenuPage } from '@/api/recipe-menu'
 import type { RecipeCardListExposed } from '@/components/recipe/recipe-card-list.type'
 import type { RecipeMenuCardListExposed } from '@/components/recipe-menu/recipe-menu-card-list.type'
+import UserCardList from '@/components/user/user-card-list.vue'
+import type { UserQueryListExposed } from '@/components/user/user-card-list.type'
+import { getUsersPage } from '@/api/user'
 
 defineOptions({
   name: 'Search',
@@ -16,6 +19,7 @@ const searchContent = ref('') // 查询的内容
 const recipeCardList = ref<RecipeCardListExposed>() // 菜谱按名称查询列表
 const recipeCardListByFood = ref<RecipeCardListExposed>() // 菜谱按食材查询列表
 const recipeMenuCardList = ref<RecipeMenuCardListExposed>() // 菜单按名称查询列表
+const userCardListRef = ref<UserQueryListExposed>() // 菜单按名称查询列表
 
 /**
  * 取消
@@ -31,9 +35,20 @@ function cancel() {
  * 搜素框回车处理
  */
 function enterHandler() {
-  recipeCardList.value.query() // 查询菜谱
-  recipeCardListByFood.value.query() // 按照食材查询菜谱
-  recipeMenuCardList.value.query() // 查询菜单
+  switch (tabActive.value) {
+    case 'recipe': // 菜谱
+      recipeCardList.value.query() // 查询菜谱
+      break
+    case 'food': // 食材
+      recipeCardListByFood.value.query() // 按照食材查询菜谱
+      break
+    case 'menu': // 菜单
+      recipeMenuCardList.value.query() // 查询菜单
+      break
+    case 'user': // 用户
+      userCardListRef.value.query() // 查询用户
+      break
+  }
 }
 </script>
 
@@ -102,6 +117,20 @@ function enterHandler() {
         :menu-list-api="getRecipeMenuPage"
         :query-param="{
           title: searchContent,
+        }"
+        min-height="80vh"
+        :is-auto-query="false"
+      />
+    </van-tab>
+    <van-tab name="user">
+      <template #title>
+        用户
+      </template>
+      <UserCardList
+        ref="userCardListRef"
+        :list-api="getUsersPage"
+        :query-param="{
+          nickname: searchContent,
         }"
         min-height="80vh"
         :is-auto-query="false"

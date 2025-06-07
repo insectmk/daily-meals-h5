@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { FieldRule, UploaderFileListItem } from 'vant'
+import { bytesToSize } from '@/utils/file-util'
 import { uploadFile } from '@/api/infra'
 import ResponseCode from '@/constants/response-code'
-import { bytesToSize } from '@/utils/file-util'
 
 // 属性
 const props = defineProps({
@@ -67,32 +67,41 @@ function formatModelValue(value: string | string[]): UploaderFileListItem[] {
 
 /**
  * 上传图片后
- * @param file
+ * @param uploadedFiles 上传的文件
  */
-function afterRead(file: UploaderFileListItem) {
-  uploadFile({
-    file: file.file,
-  }).then((res) => {
-    if (res.code === ResponseCode.SUCCESS.code) {
-      showNotify({ type: 'success', message: `图片上传成功！`, duration: 1500 })
-      // 更新url到对象中
-      file.url = res.data
-      // 将URL更新到绑定的内容上
-      if (props.multiple) {
-        // 多选模式处理
-        const currentValue = Array.isArray(props.modelValue)
-          ? [...props.modelValue]
-          : props.modelValue
-            ? [props.modelValue]
-            : []
-        // 触发双向绑定，将上传的文件名绑定到字段中
-        emit('update:modelValue', [...currentValue, res.data])
+function afterRead(uploadedFiles: UploaderFileListItem | UploaderFileListItem[]) {
+  const files = []
+  if (uploadedFiles instanceof Array) {
+    files.push(...uploadedFiles)
+  }
+  else {
+    files.push(uploadedFiles)
+  }
+  files.forEach((file: UploaderFileListItem) => {
+    uploadFile({
+      file: file.file,
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        showNotify({ type: 'success', message: `图片上传成功！`, duration: 1500 })
+        // 更新url到对象中
+        file.url = res.data
+        // 将URL更新到绑定的内容上
+        if (props.multiple) {
+          // 多选模式处理
+          const currentValue = Array.isArray(props.modelValue)
+            ? [...props.modelValue]
+            : props.modelValue
+              ? [props.modelValue]
+              : []
+          // 触发双向绑定，将上传的文件名绑定到字段中
+          emit('update:modelValue', [...currentValue, res.data])
+        }
+        else {
+          // 单选，直接赋值单个URL即可
+          emit('update:modelValue', res.data) // 触发双向绑定，将上传的文件名绑定到字段中
+        }
       }
-      else {
-        // 单选，直接赋值单个URL即可
-        emit('update:modelValue', res.data) // 触发双向绑定，将上传的文件名绑定到字段中
-      }
-    }
+    })
   })
 }
 

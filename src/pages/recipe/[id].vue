@@ -5,6 +5,11 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import ActionFuncBar from '@/pages/recipe/action-func-bar/index.vue'
 import MorePopup from './more-popup/index.vue'
 import RecipeComment from '@/pages/recipe/recipe-comment/index.vue'
+import { showImagePreview } from 'vant'
+import { formatDate } from '@vueuse/core'
+import { addToDefaultCollect, cancelUserFavor } from '@/api/user-favor'
+import { ContentTypesEnum } from '@/api/user-collect/enums'
+import ResponseCode from '@/constants/response-code'
 
 const route = useRoute()
 const router = useRouter()
@@ -31,6 +36,74 @@ function onBack() {
   else
     router.replace('/')
 }
+
+/**
+ * 菜谱内容点击
+ */
+function handleContentClick(event: MouseEvent) {
+  const target = event.target as HTMLElement
+  const urls = extractImageUrls(recipe.value.recipeStep) // 提取所有图片的数组
+
+  // 判断点击的是否为图片
+  if (target.tagName === 'IMG') {
+    const imgSrc = (target as HTMLImageElement).src
+    showImagePreview({
+      images: urls,
+      startPosition: urls.indexOf(imgSrc),
+    })
+  }
+}
+
+/**
+ * 解析图片url
+ * @param html
+ */
+function extractImageUrls(html: string): string[] {
+  // 改进正则：支持单引号和双引号，优化属性匹配
+  const imgRegex = /<img[^>]+src\s*=\s*['"]([^'">]+)['"][^>]*>/gi
+  const urls: string[] = []
+  let match: RegExpExecArray | null
+
+  // 优化循环：避免无限循环风险
+  // eslint-disable-next-line no-cond-assign
+  while ((match = imgRegex.exec(html)) !== null) {
+    // 确保捕获组有效且非空
+    if (match[1] && match[1].trim()) {
+      urls.push(match[1].trim())
+    }
+  }
+  return urls
+}
+
+/**
+ * 关注用户处理
+ */
+function followUserHandler() {
+  if (recipe.value.userFavor) {
+    // 取消关注
+    cancelUserFavor({
+      contentId: recipe.value.userId, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        recipe.value.userFavor = false // 已取消关注
+        showToast('已取消关注')
+      }
+    })
+  }
+  else {
+    // 关注
+    addToDefaultCollect({
+      contentId: recipe.value.userId, // 内容编号
+      contentType: ContentTypesEnum.USER, // 内容类型
+    }).then((res) => {
+      if (res.code === ResponseCode.SUCCESS.code) {
+        recipe.value.userFavor = true // 已关注
+        showToast(`已关注`)
+      }
+    })
+  }
+}
 </script>
 
 <template>
@@ -51,16 +124,65 @@ function onBack() {
   </div>
   <div v-else>
     <van-swipe :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="sliderPicUrl in recipe.sliderPicUrls" :key="sliderPicUrl">
+      <van-swipe-item
+        v-for="sliderPicUrl in recipe.sliderPicUrls"
+        :key="sliderPicUrl"
+        @click="() => showImagePreview({
+          images: recipe.sliderPicUrls,
+          startPosition: recipe.sliderPicUrls.indexOf(sliderPicUrl),
+        })"
+      >
         <van-image
-          height="200"
           width="100%"
           fit="fill"
           :src="sliderPicUrl"
         />
       </van-swipe-item>
     </van-swipe>
-    <div class="recipe-step-container" v-html="recipe.recipeStep" />
+    <van-row v-if="recipe.userNickname" class="mt-15">
+      <van-col :span="5">
+        <van-image
+          round
+          width="3.5rem"
+          height="3.5rem"
+          fit="cover"
+          :src="recipe.userAvatar"
+        />
+      </van-col>
+      <van-col :span="19" class="relative">
+        <span>
+          <span class="text-[18px] font-500">{{ recipe.userNickname }}</span><br>
+          <span class="mt-[10px] flex text-[14px]">{{ formatDate(new Date(recipe.createTime), 'YYYY/MM/DD HH:mm') }}</span>
+        </span>
+        <span v-if="!recipe.selfRecipe" class="absolute right-0 top-[15px] text-[12px]">
+          <van-tag
+            plain
+            type="primary"
+            size="large"
+            @click.stop="followUserHandler"
+          >{{ recipe.userFavor ? '已关注' : '关注' }}</van-tag>
+        </span>
+      </van-col>
+    </van-row>
+    <van-divider
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
+    >
+      食材
+    </van-divider>
+    <van-row>
+      <van-col
+        v-for="food in recipe.foods"
+        :key="food.id" :span="12"
+      >
+        {{ `${food.foodName}:${food.amount}${food.foodUnit}` }}
+      </van-col>
+    </van-row>
+    <van-divider
+      :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
+    >
+      步骤
+    </van-divider>
+    <div class="recipe-step-container mb-[20px]" @click="handleContentClick" v-html="recipe.recipeStep" />
     <!--  评论  -->
     <RecipeComment :recipe-id="recipe.id" />
     <!--  动作栏  -->

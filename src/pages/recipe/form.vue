@@ -5,7 +5,7 @@ import type { FormInstance } from 'vant'
 import { createOrUpdateRecipe, getRecipeInfo } from '@/api/recipe'
 import ResponseCode from '@/constants/response-code'
 import { DICT_TYPE } from '@/constants/dict'
-import { getFood, getSimpleFoodList } from '@/api/food'
+import { getSimpleFoodList } from '@/api/food'
 import { useDictStore } from '@/stores'
 import APICacheKey from '@/stores/api-cache/api-cache-key'
 
@@ -77,19 +77,6 @@ function onConfirm() {
 function recipeFoodFormatter(food: RecipeFoodInfo) {
   return `${food.foodName}:${food.amount}${dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, String(food.foodUnit))}`
 }
-
-/**
- * 食材ID更改处理
- * @param newFoodId 新食材ID
- * @param newFoodName 新食材名称
- * @param recipeFoodData 菜谱食材信息
- */
-function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: RecipeFoodInfo) {
-  getFood({ id: Number(newFoodId) }).then((res) => {
-    recipeFoodData.foodName = newFoodName // 赋值食材名称
-    recipeFoodData.foodUnit = dictStore.getDictLabelByValue(DICT_TYPE.MEALS_FOOD_UNIT, res.data.foodUnit) // 赋值食材单位
-  })
-}
 </script>
 
 <template>
@@ -144,41 +131,42 @@ function foodIdChange(newFoodId: string, newFoodName: string, recipeFoodData: Re
       v-model="recipeForm.sliderPicUrls"
       multiple
       :max-size="5 * 1024 * 1024"
-      :max-count="2"
+      :max-count="10"
       label="轮播图"
     />
     <mk-form-items
       v-model="recipeForm.foods"
       :formatter="recipeFoodFormatter"
       :default-form-data="{
-        foodId: 0,
         amount: 0.0,
-        foodName: '未知',
-        foodUnit: 0,
+        foodName: '',
+        foodUnit: '',
         memo: '',
       }"
       label="食材"
     >
       <template #default="{ itemData }">
         <mk-form-picker
-          v-model="itemData.foodId"
+          v-model="itemData.foodName"
           :rules="[{ required: true, message: '请选择食材' }]"
           :custom-field-name="{
             text: 'name',
-            value: 'id',
+            value: 'name',
           }"
           :dict-type="getSimpleFoodList"
           label="食材"
-          placeholder="点击选择食材" @change="({ selectedValues, selectedTexts }) => {
-            foodIdChange(selectedValues[0], selectedTexts[0], itemData)
-          }"
+          placeholder="点击选择食材" input-abel
         />
         <mk-form-picker
           v-model="itemData.foodUnit"
-          :readonly="true"
           :rules="[{ required: true, message: '食材单位' }]"
           :dict-type="DICT_TYPE.MEALS_FOOD_UNIT"
           label="单位"
+          :custom-field-name="{
+            text: 'label',
+            value: 'label',
+          }"
+          input-abel
         />
         <mk-form-input
           v-model="itemData.amount"

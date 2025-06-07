@@ -47,6 +47,12 @@ const props = defineProps({
     required: false,
     default: false,
   },
+  // 是否可手动录入
+  inputAbel: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 // 事件
@@ -99,6 +105,11 @@ function initSelected() {
   // 如果绑定值为空之类的，默认选中第一个
   if (!props.modelValue) {
     emit('update:modelValue', columns.value[0][props.customFieldName.value])
+    handlePickerChange({
+      singleValue: columns.value[0][props.customFieldName.value],
+      columnIndex: 0,
+      selectedValues: [columns.value[0][props.customFieldName.value]],
+    })
   }
 }
 
@@ -156,18 +167,52 @@ function handlePickerChange({
     selectedTexts,
   })
 }
+
+/**
+ * field 单元格点击事件
+ * @param event
+ */
+function cellClickHandler(event: MouseEvent) {
+  const target = event.target as HTMLElement
+  if (props.inputAbel) {
+    // 可录入，判断点击
+    if (target.tagName === 'I') {
+      showPicker.value = true
+    }
+  }
+  else {
+    // 不可录入，直接打开
+    showPicker.value = true
+  }
+}
+
+/**
+ * 录入内容更新
+ * @param value
+ */
+function inputUpdateHandler(value: string) {
+  emit('update:modelValue', value)
+  // 透传所有参数给父组件
+  emit('change', {
+    singleValue: value,
+    columnIndex: 0,
+    selectedValues: [value],
+    selectedTexts: [value],
+  })
+}
 </script>
 
 <template>
   <van-field
-    v-model="result"
-    is-link
-    readonly
+    :model-value="result"
     name="picker"
     :label="label"
+    :readonly="!inputAbel"
     :placeholder="placeholder"
     :rules="rules"
-    @click="showPicker = true"
+    is-link
+    @update:model-value="inputUpdateHandler"
+    @click="cellClickHandler"
   />
   <van-popup v-model:show="showPicker" destroy-on-close position="bottom">
     <van-picker

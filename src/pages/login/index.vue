@@ -5,8 +5,9 @@ import logo from '~/images/logo.svg'
 import logoDark from '~/images/logo-dark.svg'
 import vw from '@/utils/inline-px-to-vw'
 import { useMemberStore } from '@/stores'
-import type { LoginData } from '@/api/user'
 import ResponseCode from '@/constants/response-code'
+import useRouteCacheStore from '@/stores/modules/routeCache'
+import type { LoginData } from '@/api/auth/type'
 
 const { t } = useI18n()
 const router = useRouter()
@@ -47,6 +48,7 @@ async function login(values: LoginData) {
     loading.value = true
     const result = await memberStore.login({ ...postData, ...values })
     if (result.code === ResponseCode.SUCCESS.code) {
+      useRouteCacheStore().removeAllCache() // 清除所有缓存
       const { redirect, ...othersQuery } = router.currentRoute.value.query
       await router.push({
         // @ts-expect-error path的类型是动态生成的，没法判断

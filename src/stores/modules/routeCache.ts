@@ -25,10 +25,18 @@ const useRouteCacheStore = defineStore('route-cache', () => {
     routeCaches.value = routeCaches.value.filter(r => r !== componentName)
   }
 
+  /**
+   * 清除所有缓存
+   */
+  const removeAllCache = () => {
+    routeCaches.value = []
+  }
+
   return {
     routeCaches,
     addRoute,
     removeCache,
+    removeAllCache,
   }
 })
 

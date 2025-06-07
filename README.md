@@ -126,7 +126,9 @@
 
 ## 使用
 
-该项目使用[使用easy-temps模板创建仓库](https://github.com/easy-temps/vue3-vant-mobile/generate)，需要 Node 版本 18+
+该项目使用[easy-temps/vue3-vant-mobile](https://github.com/easy-temps/vue3-vant-mobile)作为基础框架，需要 Node 版本 18+
+
+你可以[点击这里使用easy-temps/vue3-vant-mobile模板创建仓库](https://github.com/easy-temps/vue3-vant-mobile/generate)
 
 ### 开发
 

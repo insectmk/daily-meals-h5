@@ -70,7 +70,7 @@ function handelItemDelete(item: any) {
         <van-tag
           v-for="(item, index) in modelValue"
           :key="index"
-          class="mr-4"
+          class="mr-[4px]"
           type="primary"
           closeable plain
           @close="handelItemDelete(item)"

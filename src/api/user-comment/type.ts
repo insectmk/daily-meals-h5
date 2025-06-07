@@ -10,8 +10,10 @@ export interface UserComment {
   userAvatar?: string // 评价人头像
   contentId?: number // 内容编号
   contentType?: number // 内容类型
+  contentUserId?: number // 内容作者
   commentContent?: string // 评论内容
   commentAuthor?: boolean // 是否内容作者
+  userRead?: boolean // 是否已读
   picUrls?: string[] // 评论图片地址数组
   replyUserId?: number // 回复的用户编号
   replyUserNickname?: string // 回复的用户名称
