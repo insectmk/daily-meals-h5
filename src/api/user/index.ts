@@ -29,3 +29,10 @@ export function getFanUsersPage(pageParam: PageParam) {
 export function getUserInteractData(userId: number) {
   return request.get<UserInteractData>('/meals/user/user-interact-data', { userId })
 }
+
+/**
+ * 获取用户信息
+ */
+export function getUserInfo(id: number) {
+  return request.get<User>('/meals/user/get', { id })
+}

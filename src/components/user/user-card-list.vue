@@ -5,6 +5,7 @@ import { addToDefaultCollect, cancelUserFavor } from '@/api/user-favor'
 import { ContentTypesEnum } from '@/api/user-collect/enums'
 import type { CommonResult, PageParam, PageResult } from '@/api/type'
 import type { UserQueryListExposed } from '@/components/user/user-card-list.type'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   // 获取菜谱的接口
@@ -29,6 +30,8 @@ const props = defineProps({
     default: true,
   },
 })
+
+const router = useRouter()
 
 let pageNo = 0 // 当前页
 const pageSize = 10 // 每页行数
@@ -145,6 +148,7 @@ defineExpose<UserQueryListExposed>({
                 height="3.5rem"
                 fit="cover"
                 :src="user.avatar"
+                @click="router.push(`/user/${user.id}`)"
               />
             </van-col>
             <van-col :span="19" class="relative">
@@ -158,7 +162,10 @@ defineExpose<UserQueryListExposed>({
                   type="primary"
                   size="large"
                   @click.stop="followUserHandler(user)"
-                >{{ user.favor ? '已关注' : '关注' }}</van-tag>
+                >
+                  <span v-if="user.favor"><van-icon name="success" />已关注</span>
+                  <span v-else><van-icon name="plus" />关注</span>
+                </van-tag>
               </span>
             </van-col>
           </van-row>

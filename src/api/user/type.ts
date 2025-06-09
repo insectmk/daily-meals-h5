@@ -12,6 +12,7 @@ export interface User {
   point?: number
   sex?: number // 性别
   favor?: boolean // 是否关注
+  createTime?: number // 创建时间
 }
 
 /**
