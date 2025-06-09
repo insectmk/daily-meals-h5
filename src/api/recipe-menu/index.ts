@@ -11,6 +11,14 @@ export function getRecipeMenuPage(pageReqVO: PageParam) {
 }
 
 /**
+ * 分页查询用户公开的菜谱菜单信息
+ * @param pageReqVO
+ */
+export function getRecipeMenuPageByUser(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeMenu>>('/meals/recipe-menu/page-by-user', pageReqVO)
+}
+
+/**
  * 分页查询自己的的菜谱菜单信息
  * @param pageReqVO
  */

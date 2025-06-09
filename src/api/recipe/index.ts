@@ -3,6 +3,14 @@ import request from '@/utils/request'
 import type { PageParam, PageResult } from '@/api/type'
 
 /**
+ * 分页查询用户公开的菜谱信息
+ * @param pageReqVO
+ */
+export function getRecipePageByUser(pageReqVO: PageParam) {
+  return request.get<PageResult<RecipeInfo>>('/meals/recipe/page-by-user', pageReqVO)
+}
+
+/**
  * 获取用户关注作者的的菜谱分页
  * @param pageReqVO
  */

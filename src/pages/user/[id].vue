@@ -137,7 +137,7 @@ function followUserHandler(user: User) {
       </van-col>
     </van-row>
     <!-- tab页 -->
-    <UserContentTab />
+    <UserContentTab :user-id="id" />
   </div>
 </template>
 

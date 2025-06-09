@@ -20,6 +20,14 @@ export function getSelfUserCollectPage(pageReqVO: PageParam) {
 }
 
 /**
+ * 分页查询用户公开的收藏夹信息
+ * @param pageReqVO
+ */
+export function getUserCollectPageByUser(pageReqVO: PageParam) {
+  return request.get<PageResult<UserCollect>>('/meals/user-collect/page-by-user', pageReqVO)
+}
+
+/**
  * 查询用户收藏夹信息
  * @param id 收藏夹ID
  */
