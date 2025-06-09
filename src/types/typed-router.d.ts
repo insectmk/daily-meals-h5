@@ -40,7 +40,6 @@ declare module 'vue-router/auto-routes' {
     '/profile/self-content-tab/': RouteRecordInfo<'/profile/self-content-tab/', '/profile/self-content-tab', Record<never, never>, Record<never, never>>,
     '/profile/self-content-tab/recipe-menu-tab': RouteRecordInfo<'/profile/self-content-tab/recipe-menu-tab', '/profile/self-content-tab/recipe-menu-tab', Record<never, never>, Record<never, never>>,
     '/profile/self-content-tab/user-collect-tab/': RouteRecordInfo<'/profile/self-content-tab/user-collect-tab/', '/profile/self-content-tab/user-collect-tab', Record<never, never>, Record<never, never>>,
-    '/recipe/': RouteRecordInfo<'/recipe/', '/recipe', Record<never, never>, Record<never, never>>,
     'RecipeInfo': RouteRecordInfo<'RecipeInfo', '/recipe/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/recipe/action-func-bar/': RouteRecordInfo<'/recipe/action-func-bar/', '/recipe/action-func-bar', Record<never, never>, Record<never, never>>,
     '/recipe/action-func-bar/func-icon/add-to-menu': RouteRecordInfo<'/recipe/action-func-bar/func-icon/add-to-menu', '/recipe/action-func-bar/func-icon/add-to-menu', Record<never, never>, Record<never, never>>,
