@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.7.0",
   "packageManager": "pnpm@10.5.2",
-  "description": "An mobile web apps template based on the Vue 3 ecosystem",
+  "description": "每日饭菜-H5：做饭人专属的备忘录！",
   "license": "MIT",
   "scripts": {
     "dev": "cross-env MOCK_SERVER_PORT=8086 vite",
