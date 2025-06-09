@@ -1,15 +1,31 @@
 <script setup lang="ts">
+import { showToast } from 'vant'
+import { useRouter } from 'vue-router'
+
 defineOptions({
   name: 'Message',
 })
+
+const router = useRouter()
 </script>
 
 <template>
-  <van-cell-group inset>
-    <van-cell title="通知" is-link />
-    <van-cell title="收到的评论" is-link to="/message/comment" />
-    <van-cell title="回复我的" is-link to="/message/reply" />
-  </van-cell-group>
+  <van-row class="pt-[10px] text-center">
+    <van-col :span="8" @click="() => showToast('开发中')">
+      <span class="text-[20px]">{{ 0 }}</span><br>
+      <span class="text-[13px]">赞和收藏</span>
+    </van-col>
+    <van-col :span="8" @click="router.push('/message/comment')">
+      <span class="text-[20px]">{{ 0 }}</span><br>
+      <span class="text-[13px]">收到的评论</span>
+    </van-col>
+    <van-col :span="8" @click="router.push('/message/reply')">
+      <span class="text-[20px]">{{ 0 }}</span><br>
+      <span class="text-[13px]">回复我的</span>
+    </van-col>
+    <!-- 消息列表 -->
+    <h1>这里是消息列表</h1>
+  </van-row>
 </template>
 
 <style scoped>
