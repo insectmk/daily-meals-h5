@@ -15,18 +15,18 @@ const router = useRouter()
 
 <template>
   <van-tabbar v-if="show" v-model="active" route placeholder>
-    <!-- 首页 -->
+    <!-- 首页-菜谱 -->
     <van-tabbar-item replace to="/">
-      {{ t('layouts.home') }}
-      <template #icon>
-        <div class="i-carbon:home" />
-      </template>
-    </van-tabbar-item>
-    <!-- 菜谱 -->
-    <van-tabbar-item replace to="/recipe">
       {{ t('layouts.recipe') }}
       <template #icon>
         <div class="i-carbon:fruit-bowl" />
+      </template>
+    </van-tabbar-item>
+    <!-- 日程 -->
+    <van-tabbar-item replace to="/plan">
+      {{ t('layouts.plan') }}
+      <template #icon>
+        <div class="i-carbon:calendar-heat-map" />
       </template>
     </van-tabbar-item>
     <!-- 添加内容 -->
@@ -35,11 +35,11 @@ const router = useRouter()
         <div class="i-carbon:add-alt" />
       </template>
     </van-tabbar-item>
-    <!-- 日程 -->
-    <van-tabbar-item replace to="/plan">
-      {{ t('layouts.plan') }}
+    <!-- 消息 -->
+    <van-tabbar-item replace to="/message">
+      {{ t('layouts.message') }}
       <template #icon>
-        <div class="i-carbon:calendar-heat-map" />
+        <div class="i-carbon:forum" />
       </template>
     </van-tabbar-item>
     <!-- 我的 -->

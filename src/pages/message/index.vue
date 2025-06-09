@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'Message',
+})
 </script>
 
 <template>
@@ -15,7 +18,7 @@
 
 <route lang="json5">
 {
-  name: 'message',
+  name: 'Message',
   meta: {
     title: '我的消息',
     i18n: 'message.title'

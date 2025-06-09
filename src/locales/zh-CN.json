@@ -37,7 +37,8 @@
     "home": "首页",
     "recipe": "菜谱",
     "plan": "日程",
-    "profile": "我的"
+    "profile": "我的",
+    "message": "消息"
   },
   "profile": {
     "login": "登录",

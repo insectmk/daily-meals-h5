@@ -1,26 +1,15 @@
 <script setup lang="ts">
-import { getPopularPublicRecipes, getRecipePage } from '@/api/recipe'
-import type { RecipeInfo } from '@/api/recipe/type'
-import { useRouter } from 'vue-router'
+import RecipeCategory from '@/pages/recipe/tab-pages/recipe-category/index.vue'
+import FoodCategory from '@/pages/recipe/tab-pages/food-category/index.vue'
 import RecipeCardList from '@/components/recipe/recipe-card-list.vue'
+import { getFavorUsersRecipePage } from '@/api/recipe'
+import RecipeNewest from '@/pages/recipe/tab-pages/newest/index.vue'
 
 defineOptions({
   name: 'Home',
 })
 
-const router = useRouter()
-
-const popularPublicRecipeList = ref<RecipeInfo[]>() // 公共菜谱排行列表
-
-/**
- * 获取公共菜谱排名
- */
-getPopularPublicRecipes({
-  rankLen: 5,
-  mealType: [0, 1, 2],
-}).then((res) => {
-  popularPublicRecipeList.value = res.data
-})
+const recipeTabActive = ref('newest') // 当前所在tab
 
 // 用于记录滚动状态
 const scrollTop = ref(0)
@@ -38,49 +27,46 @@ onBeforeRouteLeave(() => {
 </script>
 
 <template>
-  <!-- 搜索框 -->
-  <van-sticky>
-    <van-cell-group inset>
-      <van-field
-        left-icon="search"
-        placeholder="搜索菜谱、菜单"
-        :border="false"
-        @click-input="router.push(`/search`)"
-      />
-    </van-cell-group>
-  </van-sticky>
-  <van-swipe :autoplay="3000" indicator-color="white">
-    <van-swipe-item
-      v-for="recipe in popularPublicRecipeList"
-      :key="recipe.id"
-      @click="router.push(`/recipe/${recipe.id}`)"
-    >
-      <van-image
-        height="200"
-        width="100%"
-        fit="fill"
-        :src="recipe.picUrl"
-      />
-    </van-swipe-item>
-  </van-swipe>
-  <van-divider
-    :style="{ color: 'var(--primary-color)', borderColor: 'var(--primary-color)', padding: '0 16px' }"
+  <van-tabs
+    v-model:active="recipeTabActive"
+    animated swipeable sticky
+    background="transparent"
   >
-    最新菜谱
-  </van-divider>
-  <RecipeCardList
-    :recipe-list-api="getRecipePage"
-    min-height="50vh"
-  />
+    <van-tab name="userFavor">
+      <template #title>
+        关注
+      </template>
+      <RecipeCardList
+        :recipe-list-api="getFavorUsersRecipePage"
+      />
+    </van-tab>
+    <van-tab name="newest">
+      <template #title>
+        最新
+      </template>
+      <RecipeNewest />
+    </van-tab>
+    <van-tab name="category">
+      <template #title>
+        分类
+      </template>
+      <RecipeCategory />
+    </van-tab>
+    <van-tab name="food">
+      <template #title>
+        食材
+      </template>
+      <FoodCategory />
+    </van-tab>
+  </van-tabs>
 </template>
 
 <route lang="json5">
 {
-  name: 'Home',
-  meta: {
-    title: '主页',
-    i18n: 'menus.home',
-    keepAlive: true,
-  },
+name: 'Home',
+meta: {
+  i18n: 'layouts.recipe',
+  keepAlive: true
+},
 }
 </route>
