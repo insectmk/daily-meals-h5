@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:  # 添加权限声明
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
