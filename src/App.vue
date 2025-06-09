@@ -2,11 +2,11 @@
 import useRouteCache from '@/stores/modules/routeCache'
 
 useHead({
-  title: 'Vue3 Vant Mobile',
+  title: '每日饭菜',
   meta: [
     {
       name: 'description',
-      content: 'An mobile web apps template based on the Vue 3 ecosystem',
+      content: '每日饭菜-H5：做饭人专属的备忘录！',
     },
     {
       name: 'theme-color',
