@@ -26,7 +26,7 @@ let isRefreshToken = false
 export const REQUEST_TOKEN_KEY = 'Authorization'
 
 // 创建 axios 实例
-const baseURL = import.meta.env.VITE_APP_API_BASE_URL
+const baseURL = import.meta.env.VITE_BASE_URL + import.meta.env.VITE_GLOB_API_URL
 const request = axios.create({
   // API 请求的默认前缀
   baseURL,
