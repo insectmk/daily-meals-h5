@@ -51,7 +51,7 @@ function userInfoClickHandel() {
     <VanCellGroup :inset="true">
       <van-cell center :is-link="!isLogin" @click="userInfoClickHandel">
         <template #title>
-          <van-image :src="memberInfo.avatar || defaultAvatar" round class="h-56 w-56" />
+          <van-image :src="memberInfo.avatar || defaultAvatar" fit="cover" round class="h-56 w-56" />
         </template>
 
         <template #value>
