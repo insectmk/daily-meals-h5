@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useMemberStore } from '@/stores'
 import type { Member } from '@/api/member/type'
+import type { ChatMessageInfo } from '@/api/user-chat/type'
 
 defineProps({
   message: { // 消息

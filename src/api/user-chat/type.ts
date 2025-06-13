@@ -10,15 +10,15 @@ export interface ChatMessageSendReq {
  * 用户聊天消息
  */
 export interface ChatMessageInfo {
-  id: number // 编号
-  conversationId: number // 会话编号
-  senderUserId: number // 发送人编号
-  senderUserAvatar: string // 发送人头像
-  receiverUserId: number // 接收人编号
-  contentType: number // 消息类型
-  content: string // 消息
-  readStatus: boolean // 是否已读
-  createTime: number // 创建时间
+  id?: number // 编号
+  conversationId?: number // 会话编号
+  senderUserId?: number // 发送人编号
+  senderUserAvatar?: string // 发送人头像
+  receiverUserId?: number // 接收人编号
+  contentType?: number // 消息类型
+  content?: string // 消息
+  readStatus?: boolean // 是否已读
+  createTime?: number // 创建时间
 }
 
 /**

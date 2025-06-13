@@ -19,7 +19,7 @@ const messageListRef = ref(null) // 当前组件div
 
 /** 监听接收到的数据 */
 const messageList = ref<ChatMessageInfo[]>([]) // 消息列表
-const messageReverseList: ChatMessageInfo[] = computed(() => [...messageList.value].reverse()) // 排序后的消息列表
+const messageReverseList = computed(() => [...messageList.value].reverse()) // 排序后的消息列表
 
 /** 获取历史消息 */
 function getHistoryMessageList(callBack?: () => void) {
@@ -87,7 +87,7 @@ defineExpose<MessageListExposed>({
       <van-list>
         <MessageListItem
           v-for="message in messageReverseList"
-          :key="message.time" :message="message"
+          :key="message.createTime" :message="message"
         />
       </van-list>
     </van-pull-refresh>

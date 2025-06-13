@@ -1,3 +1,5 @@
+import type { ChatMessageInfo } from '@/api/user-chat/type'
+
 /**
  * 导出的内容
  */
