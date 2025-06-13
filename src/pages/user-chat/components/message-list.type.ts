@@ -3,4 +3,5 @@
  */
 export interface MessageListExposed {
   addMessage: (message: ChatMessageInfo) => void // 增加消息
+  scrollToBottom: () => void // 滚动到消息底部
 }
