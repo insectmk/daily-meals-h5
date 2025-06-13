@@ -7,13 +7,16 @@ import { useWebSocketServer } from '@/utils/websocket'
 import type { ChatMessageInfo } from '@/api/user-chat/type'
 import MessageList from '@/pages/user-chat/components/message-list.vue'
 import type { MessageListExposed } from '@/pages/user-chat/components/message-list.type'
+import { useMemberStore } from '@/stores'
+import type { Member } from '@/api/member/type'
 
 defineOptions({
   name: 'UserChat',
 })
 
 const route = useRoute()
-const id = Number((route.params as { id: number }).id) // 路由参数：用户ID
+const memberInfo: Member = useMemberStore().memberInfo // 登录用户信息
+const receiverUserId = Number((route.params as { id: number }).id) // 路由参数：接收用户ID
 const messageListRef = ref<MessageListExposed>(null) // 消息列表dom
 
 /** 发起 WebSocket 连接 */
@@ -58,11 +61,20 @@ function handlerSend() {
   }
   // 发送消息
   sendUserChatMessage({
-    receiverUserId: id,
+    receiverUserId,
     contentType: UserChatMessageContentTypeEnum.TEXT,
     content: sendText.value,
   }).then((res) => {
     if (res.code === ResponseCode.SUCCESS.code) {
+      messageListRef.value.addMessage({
+        senderUserId: memberInfo.id, // 发送人编号
+        senderUserAvatar: memberInfo.avatar, // 发送人头像
+        receiverUserId, // 接收人编号
+        contentType: UserChatMessageContentTypeEnum.TEXT, // 消息类型
+        content: sendText.value, // 消息
+        readStatus: false, // 是否已读
+        createTime: new Date().getTime(), // 创建时间
+      })// 追加消息记录
       sendText.value = '' // 清空消息
       showToast('发送成功！')
     }
@@ -73,7 +85,7 @@ function handlerSend() {
 <template>
   <div style="width: 100%;">
     <!--  消息列表  -->
-    <MessageList ref="messageListRef" :receiver-user-id="id" />
+    <MessageList ref="messageListRef" :receiver-user-id="receiverUserId" />
     <van-cell-group inset>
       <van-row>
         <van-col :span="19">

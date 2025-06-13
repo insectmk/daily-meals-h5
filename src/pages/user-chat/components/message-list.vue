@@ -51,7 +51,7 @@ getHistoryMessageList()
  * 追加消息记录
  */
 function addMessage(message: ChatMessageInfo) {
-  messageList.value.push(message)
+  messageList.value.unshift(message)
 }
 
 // 导出方法
@@ -62,33 +62,31 @@ defineExpose<MessageListExposed>({
 
 <template>
   <!-- 消息记录 -->
-  <van-pull-refresh v-model="loading" @refresh="getHistoryMessageList">
-    <van-list
-      :style="{
-        minHeight: '80vh',
-      }"
-    >
-      <div
-        v-for="msg in messageReverseList"
-        :key="msg.time"
-        class="rounded-lg p-3 shadow-sm"
-      >
-        <div class="mb-1 flex items-center justify-between">
-          <div class="flex items-center">
-            <span class="ml-2 text-gray-500">
-              用户 ID: {{ msg.senderUserId }}
-            </span>
+  <div style="height: 80vh; overflow-y: auto;">
+    <van-pull-refresh v-model="loading" @refresh="getHistoryMessageList">
+      <van-list>
+        <div
+          v-for="msg in messageReverseList"
+          :key="msg.time"
+          class="rounded-lg p-3 shadow-sm"
+        >
+          <div class="mb-1 flex items-center justify-between">
+            <div class="flex items-center">
+              <span class="ml-2 text-gray-500">
+                用户 ID: {{ msg.senderUserId }}
+              </span>
+            </div>
+            <span>{{
+              formatDate(new Date(msg.createTime), 'YYYY-MM-DD HH:mm:ss')
+            }}</span>
           </div>
-          <span>{{
-            formatDate(new Date(msg.createTime), 'YYYY-MM-DD HH:mm:ss')
-          }}</span>
+          <div class="mt-2 break-words text-gray-800">
+            {{ msg.content }}
+          </div>
         </div>
-        <div class="mt-2 break-words text-gray-800">
-          {{ msg.content }}
-        </div>
-      </div>
-    </van-list>
-  </van-pull-refresh>
+      </van-list>
+    </van-pull-refresh>
+  </div>
 </template>
 
 <style scoped>
