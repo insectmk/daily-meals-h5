@@ -4,6 +4,7 @@ import type { MessageListExposed } from '@/pages/user-chat/components/message-li
 import { getUserChatMessageList } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 import type { ChatMessageInfo } from '@/api/user-chat/type'
+import MessageListItem from '@/pages/user-chat/components/message-list-item.vue'
 
 const props = defineProps({
   receiverUserId: { // 接收方ID
@@ -65,25 +66,10 @@ defineExpose<MessageListExposed>({
   <div style="height: 80vh; overflow-y: auto;">
     <van-pull-refresh v-model="loading" @refresh="getHistoryMessageList">
       <van-list>
-        <div
-          v-for="msg in messageReverseList"
-          :key="msg.time"
-          class="rounded-lg p-3 shadow-sm"
-        >
-          <div class="mb-1 flex items-center justify-between">
-            <div class="flex items-center">
-              <span class="ml-2 text-gray-500">
-                用户 ID: {{ msg.senderUserId }}
-              </span>
-            </div>
-            <span>{{
-              formatDate(new Date(msg.createTime), 'YYYY-MM-DD HH:mm:ss')
-            }}</span>
-          </div>
-          <div class="mt-2 break-words text-gray-800">
-            {{ msg.content }}
-          </div>
-        </div>
+        <MessageListItem
+          v-for="message in messageReverseList"
+          :key="message.time" :message="message"
+        />
       </van-list>
     </van-pull-refresh>
   </div>

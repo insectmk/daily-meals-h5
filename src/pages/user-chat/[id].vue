@@ -76,7 +76,6 @@ function handlerSend() {
         createTime: new Date().getTime(), // 创建时间
       })// 追加消息记录
       sendText.value = '' // 清空消息
-      showToast('发送成功！')
     }
   })
 }
