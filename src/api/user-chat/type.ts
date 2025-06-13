@@ -25,7 +25,7 @@ export interface ChatMessageInfo {
  * 用户聊天消息分页请求
  */
 export interface UserChatMessagePageParam {
-  conversationId: number // 会话编号
+  conversationId?: number // 会话编号
   createTime: number // 发送时间，小于该发送时间
   receiverUserId: number// 接收方用户编码
   limit: number// 每次查询条数，最大值为 100

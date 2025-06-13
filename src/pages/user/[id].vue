@@ -120,7 +120,7 @@ function followUserHandler(user: User) {
             type="primary"
             size="large"
             class="mr-[10px]"
-            @click.stop="showToast('开发中')"
+            @click.stop="router.push(`/user-chat/${user.id}`)"
           >
             <van-icon name="guide-o" />私信
           </van-tag>
