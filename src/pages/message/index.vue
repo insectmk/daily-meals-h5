@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { showToast } from 'vant'
 import { useRouter } from 'vue-router'
+import ConversationList from '@/pages/message/conversation-list/index.vue'
 
 defineOptions({
   name: 'Message',
@@ -24,7 +25,9 @@ const router = useRouter()
       <span class="text-[13px]">回复我的</span>
     </van-col>
     <!-- 消息列表 -->
-    <h1>这里是消息列表</h1>
+    <van-col :span="24" class="mt-[20px]">
+      <ConversationList />
+    </van-col>
   </van-row>
 </template>
 
