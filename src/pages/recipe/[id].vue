@@ -123,7 +123,7 @@ function followUserHandler() {
     </van-loading>
   </div>
   <div v-else>
-    <van-swipe :autoplay="3000" indicator-color="white">
+    <van-swipe :autoplay="0" indicator-color="white">
       <van-swipe-item
         v-for="sliderPicUrl in recipe.sliderPicUrls"
         :key="sliderPicUrl"
