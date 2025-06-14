@@ -1,5 +1,10 @@
 import request from '@/utils/request'
-import type { ChatMessageInfo, ChatMessageSendReq, UserChatMessagePageParam } from '@/api/user-chat/type'
+import type {
+  ChatMessageInfo,
+  ChatMessageSendReq,
+  UserChatConversationInfo,
+  UserChatMessagePageParam,
+} from '@/api/user-chat/type'
 
 /**
  * 发送消息
@@ -15,4 +20,13 @@ export function sendUserChatMessage(param: ChatMessageSendReq) {
  */
 export function getUserChatMessageList(pageParam: UserChatMessagePageParam) {
   return request.get<ChatMessageInfo[]>('/meals/user-chat-message/list', pageParam)
+}
+
+// *********会话***********
+
+/**
+ * 获得用户会话列表
+ */
+export function getConversationList() {
+  return request.get<UserChatConversationInfo[]>('/meals/user-chat-conversation/list')
 }

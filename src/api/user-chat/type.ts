@@ -30,3 +30,19 @@ export interface UserChatMessagePageParam {
   receiverUserId: number// 接收方用户编码
   limit: number// 每次查询条数，最大值为 100
 }
+
+/** 用户聊天会话 */
+export interface UserChatConversationInfo {
+  id: number // 编号
+  userId: number // 会话所属用户
+  chatUserId: number // 会话聊天对象用户
+  chatUserAvatar: string // 会话聊天对象用户头像
+  chatUserNickname: string // 会话聊天对象用户昵称
+  lastMessageTime: number // 最后聊天时间
+  lastMessageContent: string // 最后聊天内容
+  lastMessageContentType: number // 最后发送的消息类型
+  adminPinned: boolean // 管理端置顶
+  userDeleted: boolean // 用户是否可见
+  unreadMessageCount: number // 未读消息数
+  createTime: number // 创建时间
+}
