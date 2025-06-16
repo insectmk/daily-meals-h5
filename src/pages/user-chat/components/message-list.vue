@@ -83,7 +83,11 @@ defineExpose<MessageListExposed>({
 <template>
   <!-- 消息记录 -->
   <div ref="messageListRef" style="height: 80vh; overflow-y: auto;">
-    <van-pull-refresh v-model="loading" @refresh="getHistoryMessageList">
+    <van-pull-refresh
+      v-model="loading"
+      style="height: 80vh; overflow-y: auto;"
+      @refresh="getHistoryMessageList"
+    >
       <van-list>
         <MessageListItem
           v-for="message in messageReverseList"
