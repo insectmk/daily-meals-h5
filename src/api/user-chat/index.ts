@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import type {
   ChatMessageInfo,
   ChatMessageSendReq,
+  ChatUnreadMessageCnt,
   UserChatConversationInfo,
   UserChatMessagePageParam,
 } from '@/api/user-chat/type'
@@ -20,6 +21,13 @@ export function sendUserChatMessage(param: ChatMessageSendReq) {
  */
 export function getUserChatMessageList(pageParam: UserChatMessagePageParam) {
   return request.get<ChatMessageInfo[]>('/meals/user-chat-message/list', pageParam)
+}
+
+/**
+ * 获得用户未读消息数信息
+ */
+export function getUserChatUnreadMessageCountList() {
+  return request.get<ChatUnreadMessageCnt[]>('/meals/user-chat-message/unread-count-list')
 }
 
 // *********会话***********

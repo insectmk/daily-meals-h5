@@ -46,3 +46,8 @@ export interface UserChatConversationInfo {
   unreadMessageCount: number // 未读消息数
   createTime: number // 创建时间
 }
+/** 用户未读聊天消息 */
+export interface ChatUnreadMessageCnt {
+  conversationId: number // 会话编号
+  unreadCount: number // 未读消息数
+}
