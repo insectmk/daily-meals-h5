@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import { createHead } from '@unhead/vue'
 import App from '@/App.vue'
 import router from '@/router'
-import pinia from '@/stores'
+import pinia, { useMessageStore } from '@/stores'
 import 'virtual:uno.css'
 import '@/styles/app.less'
 import '@/styles/var.less'
@@ -21,6 +21,8 @@ import 'vant/es/toast/style'
 import 'vant/es/dialog/style'
 import 'vant/es/notify/style'
 import 'vant/es/image-preview/style'
+import { getUserChatUnreadMessageCountList } from '@/api/user-chat'
+import ResponseCode from '@/constants/response-code'
 
 const app = createApp(App)
 const head = createHead()
@@ -29,5 +31,14 @@ app.use(head)
 app.use(router)
 app.use(pinia)
 app.use(i18n)
+
+/** 初始化 Store 数据 */
+const messageStore = useMessageStore() // 消息数据
+// 设置聊天消息数据
+getUserChatUnreadMessageCountList().then((res) => {
+  if (res.code === ResponseCode.SUCCESS.code) {
+    messageStore.setChatUnreadMsgInfo(res.data)
+  }
+})
 
 app.mount('#app')

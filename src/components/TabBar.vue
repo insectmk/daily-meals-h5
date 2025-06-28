@@ -2,10 +2,12 @@
 import { routeWhiteList } from '@/config/routes'
 import { useRouter } from 'vue-router'
 import { showToast } from 'vant'
+import { useMessageStore } from '@/stores'
 
 const { t } = useI18n()
 const active = ref(0)
 const route = useRoute()
+const messageStore = useMessageStore()
 
 const show = computed(() => route.name && routeWhiteList.includes(route.name))
 const overlayShow = ref(false) // 控制遮罩层的显示
@@ -39,7 +41,12 @@ const router = useRouter()
     <van-tabbar-item replace to="/message">
       {{ t('layouts.message') }}
       <template #icon>
-        <div class="i-carbon:forum" />
+        <van-badge
+          :content="messageStore.getChatUnreadMsgCount()"
+          :show-zero="false"
+        >
+          <div class="i-carbon:forum" />
+        </van-badge>
       </template>
     </van-tabbar-item>
     <!-- 我的 -->
