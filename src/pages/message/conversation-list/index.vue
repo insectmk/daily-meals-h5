@@ -4,6 +4,7 @@ import ResponseCode from '@/constants/response-code'
 import type { UserChatConversationInfo } from '@/api/user-chat/type'
 import { useRouter } from 'vue-router'
 import { formatDate } from '@vueuse/core'
+import { useMessageStore } from '@/stores'
 
 defineOptions({
   name: 'ConversationList',
@@ -12,6 +13,8 @@ defineOptions({
 const router = useRouter()
 const refreshing = ref<boolean>(false) // 列表刷新状态
 const conversationList = ref<UserChatConversationInfo[]>([]) // 对话列表
+
+const messageStore = useMessageStore()
 
 // 获取用户对话列表
 function getUserConversationList() {
@@ -33,16 +36,21 @@ onMounted(() => {
   <van-pull-refresh v-model="refreshing" style="height: 80vh; overflow-y: auto;" @refresh="getUserConversationList">
     <van-list>
       <van-swipe-cell v-for="conversation in conversationList" :key="conversation.id">
-        <van-row class="p-[5px]" @click="router.push(`/user-chat/${conversation.chatUserId}`)">
+        <van-row class="mt-[5px] p-[5px]" @click="router.push(`/user-chat/${conversation.chatUserId}`)">
           <van-col :span="4">
-            <van-image
-              class="ml-[5px]"
-              width="3.5rem"
-              height="3.5rem"
-              fit="cover"
-              round
-              :src="conversation.chatUserAvatar"
-            />
+            <van-badge
+              :content="messageStore.getChatUnreadMsgCountById(conversation.id)"
+              :show-zero="false"
+            >
+              <van-image
+                class="ml-[5px]"
+                width="3.5rem"
+                height="3.5rem"
+                fit="cover"
+                round
+                :src="conversation.chatUserAvatar"
+              />
+            </van-badge>
           </van-col>
           <van-col :span="20" class="pl-[15px]">
             <!-- 顶部：名称 + 时间 -->
