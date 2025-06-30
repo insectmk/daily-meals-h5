@@ -23,6 +23,7 @@ import 'vant/es/notify/style'
 import 'vant/es/image-preview/style'
 import { getUserChatUnreadMessageCountList } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
+import { getMsgInteractData } from '@/api/statistics'
 
 const app = createApp(App)
 const head = createHead()
@@ -38,6 +39,12 @@ const messageStore = useMessageStore() // 消息数据
 getUserChatUnreadMessageCountList().then((res) => {
   if (res.code === ResponseCode.SUCCESS.code) {
     messageStore.setChatUnreadMsgInfo(res.data)
+  }
+})
+// 设置消息统计数据
+getMsgInteractData().then((res) => {
+  if (res.code === ResponseCode.SUCCESS.code) {
+    messageStore.setMsgInteractDataInfo(res.data)
   }
 })
 
