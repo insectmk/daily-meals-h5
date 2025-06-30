@@ -5,6 +5,7 @@ import { getUserChatMessageList } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 import type { ChatMessageInfo } from '@/api/user-chat/type'
 import MessageListItem from '@/pages/user-chat/components/message-list-item.vue'
+import { useMemberStore } from '@/stores'
 
 const props = defineProps({
   receiverUserId: { // 接收方ID
@@ -13,6 +14,7 @@ const props = defineProps({
   },
 })
 
+const memberStore = useMemberStore()
 const loading = ref<boolean>(false) // 加载
 const finished = ref<boolean>(false) // 结束（获取完所有的消息）
 const messageListRef = ref(null) // 当前组件div
@@ -61,6 +63,18 @@ function addMessage(message: ChatMessageInfo) {
   messageList.value.unshift(message) // 添加到数组最前面
   scrollToBottom() // 滚动到底部
 }
+/**
+ * 发送的消息已被读
+ */
+function hasBeRead() {
+  // 更新数组内容
+  messageList.value.forEach((message) => {
+    // 将登陆人发送的消息设置为已读
+    if (message.senderUserId === memberStore.memberInfo.id) {
+      message.readStatus = true
+    }
+  })
+}
 
 /**
  * 滚动到底部方法
@@ -77,21 +91,24 @@ function scrollToBottom() {
 defineExpose<MessageListExposed>({
   addMessage,
   scrollToBottom,
+  hasBeRead,
 })
 </script>
 
 <template>
   <!-- 消息记录 -->
-  <div ref="messageListRef" style="height: 80vh; overflow-y: auto;">
+  <!-- 滚动容器 -->
+  <div ref="messageListRef" class="chat-scroll-container">
     <van-pull-refresh
       v-model="loading"
-      style="height: 80vh; overflow-y: auto;"
       @refresh="getHistoryMessageList"
     >
       <van-list>
         <MessageListItem
-          v-for="message in messageReverseList"
-          :key="message.createTime" :message="message"
+          v-for="(message, index) in messageReverseList"
+          :key="message.createTime"
+          :show-read-stat="index === messageReverseList.length - 1"
+          :message="message"
         />
       </van-list>
     </van-pull-refresh>
@@ -99,5 +116,8 @@ defineExpose<MessageListExposed>({
 </template>
 
 <style scoped>
-
+.chat-scroll-container {
+  height: 80vh;
+  overflow-y: auto;
+}
 </style>

@@ -8,6 +8,12 @@ defineProps({
     type: Object as PropType<ChatMessageInfo>,
     required: true,
   },
+  // 是否展示已读状态
+  showReadStat: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 })
 
 const memberInfo: Member = useMemberStore().memberInfo
@@ -15,13 +21,20 @@ const memberInfo: Member = useMemberStore().memberInfo
 
 <template>
   <!-- 自己的消息 -->
-  <div v-if="message.senderUserId === memberInfo.id" class="mb-[10px] flex items-end justify-end">
+  <div v-if="message.senderUserId === memberInfo.id" class="mb-[10px] flex items-start justify-end">
     <!-- 气泡 -->
-    <div
-      class="max-w-3/4 rounded-lg rounded-br-none bg-blue-500 px-3 py-2 pb-[10px] pl-[10px] pr-[10px] pt-[10px] text-white shadow"
-    >
-      {{ message.content }}
+    <div class="max-w-3/4">
+      <div
+        class="rounded-lg rounded-br-none bg-blue-500 px-3 py-2 pb-[10px] pl-[10px] pr-[10px] pt-[10px] text-white shadow"
+      >
+        {{ message.content }}
+      </div>
+      <!--  已读状态  -->
+      <div v-if="showReadStat" class="flex items-end justify-end text-[14px]">
+        {{ message.readStatus ? '已读' : '未读' }}
+      </div>
     </div>
+
     <!-- 头像 -->
     <van-image
       class="ml-[5px]"
@@ -34,7 +47,7 @@ const memberInfo: Member = useMemberStore().memberInfo
   </div>
 
   <!-- 别人的消息 -->
-  <div v-else class="mb-[10px] flex items-end justify-start">
+  <div v-else class="mb-[10px] flex items-start justify-start">
     <!-- 头像 -->
     <van-image
       class="mr-[5px]"

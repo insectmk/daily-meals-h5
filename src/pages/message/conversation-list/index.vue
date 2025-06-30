@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getConversationList } from '@/api/user-chat'
+import { conversationRead, getConversationList } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 import type { UserChatConversationInfo } from '@/api/user-chat/type'
 import { useRouter } from 'vue-router'
@@ -27,6 +27,19 @@ function getUserConversationList() {
   })
 }
 
+/**
+ * 会话点击处理
+ * @param conversation
+ */
+function conversationClickHandler(conversation: UserChatConversationInfo) {
+  // 跳转到对应会话
+  router.push(`/user-chat/${conversation.chatUserId}`)
+  // 已读会话内容
+  conversationRead(conversation.id)
+  // 刷新store未读信息
+  messageStore.setChatConversationReadById(conversation.id)
+}
+
 onMounted(() => {
   getUserConversationList() // 获取用户对话列表
 })
@@ -36,7 +49,7 @@ onMounted(() => {
   <van-pull-refresh v-model="refreshing" style="height: 80vh; overflow-y: auto;" @refresh="getUserConversationList">
     <van-list>
       <van-swipe-cell v-for="conversation in conversationList" :key="conversation.id">
-        <van-row class="mt-[5px] p-[5px]" @click="router.push(`/user-chat/${conversation.chatUserId}`)">
+        <van-row class="mt-[5px] p-[5px]" @click="conversationClickHandler(conversation)">
           <van-col :span="4">
             <van-badge
               :content="messageStore.getChatUnreadMsgCountById(conversation.id)"

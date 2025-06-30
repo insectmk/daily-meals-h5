@@ -30,6 +30,20 @@ export function getUserChatUnreadMessageCountList() {
   return request.get<ChatUnreadMessageCnt[]>('/meals/user-chat-message/unread-count-list')
 }
 
+/**
+ * 已读会话消息
+ */
+export function conversationRead(conversationId: number) {
+  return request.put<boolean>('/meals/user-chat-message/conversation-read', { conversationId })
+}
+
+/**
+ * 根据接收方ID已读会话消息
+ */
+export function conversationReadByReceiver(receiverUserId: number) {
+  return request.put<boolean>('/meals/user-chat-message/conversation-read-by-receiver', { receiverUserId })
+}
+
 // *********会话***********
 
 /**

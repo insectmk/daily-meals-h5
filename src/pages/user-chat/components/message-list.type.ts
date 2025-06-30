@@ -6,4 +6,5 @@ import type { ChatMessageInfo } from '@/api/user-chat/type'
 export interface MessageListExposed {
   addMessage: (message: ChatMessageInfo) => void // 增加消息
   scrollToBottom: () => void // 滚动到消息底部
+  hasBeRead: () => void // 发送的消息已被读
 }

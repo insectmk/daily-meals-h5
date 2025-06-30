@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { sendUserChatMessage } from '@/api/user-chat'
+import { conversationReadByReceiver, sendUserChatMessage } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 import { UserChatMessageContentTypeEnum } from '@/api/user-chat/enums'
 import { useWebSocketServer } from '@/utils/websocket'
@@ -42,6 +42,15 @@ watchEffect(() => {
     // 2.2 消息类型：user_chat_message_type
     if (type === 'user_chat_message_type') {
       messageListRef.value.addMessage(content)// 追加消息记录
+      // 已读会话内容
+      conversationReadByReceiver(receiverUserId).then(() => {
+        messageListRef.value.scrollToBottom() // 滚动到最后
+      })
+      return
+    }
+    // 2.2 消息类型：user_chat_message_read_status_change
+    if (type === 'user_chat_message_read_status_change') { // 消息已读
+      messageListRef.value.hasBeRead() // 设置已读
       return
     }
     showToast(`未处理消息：${data.value}`)
