@@ -26,6 +26,7 @@ const memberInfo: Member = useMemberStore().memberInfo
     <div class="max-w-3/4">
       <div
         class="rounded-lg rounded-br-none bg-blue-500 px-3 py-2 pb-[10px] pl-[10px] pr-[10px] pt-[10px] text-white shadow"
+        style="white-space: pre-wrap;"
       >
         {{ message.content }}
       </div>
