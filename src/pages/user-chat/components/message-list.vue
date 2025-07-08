@@ -103,7 +103,7 @@ defineExpose<MessageListExposed>({
       v-model="loading"
       @refresh="getHistoryMessageList"
     >
-      <van-list>
+      <van-list style="min-height: 80vh;">
         <MessageListItem
           v-for="(message, index) in messageReverseList"
           :key="message.createTime"
