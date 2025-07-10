@@ -56,3 +56,8 @@ export interface ChatConversationUpdatePinnedReq {
   id: number // 会话编号
   pinned: boolean // 是否置顶
 }
+/** 标记未读/已读状态 */
+export interface ChatConversationMarkReadStatusReq {
+  id: number // 会话编号
+  readStatus: boolean // 阅读状态
+}

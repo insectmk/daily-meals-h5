@@ -3,7 +3,7 @@ import { formatDate } from '@vueuse/core'
 import { useMessageStore } from '@/stores'
 import type { UserChatConversationInfo } from '@/api/user-chat/type'
 import { useRouter } from 'vue-router'
-import { conversationRead, updateConversationPinned } from '@/api/user-chat'
+import { conversationRead, markUnread, updateConversationPinned } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 
 defineOptions({
@@ -50,6 +50,23 @@ function pinnedHandler(conversation: UserChatConversationInfo) {
     }
   })
 }
+/**
+ * 会话未读处理
+ * @param conversation 会话信息
+ */
+function markUnreadHandler(conversation: UserChatConversationInfo) {
+  const curReadStatus = messageStore.getChatUnreadMsgCountById(conversation.id) === 0 // 当前已读状态
+  // 标记会话未读
+  markUnread({
+    id: conversation.id,
+    readStatus: !curReadStatus,
+  }).then((res) => {
+    if (res.code === ResponseCode.SUCCESS.code) {
+      // 刷新当前页面
+      window.location.href = router.currentRoute.value.fullPath
+    }
+  })
+}
 </script>
 
 <template>
@@ -84,8 +101,15 @@ function pinnedHandler(conversation: UserChatConversationInfo) {
       </van-col>
     </van-row>
     <template #right>
-      <van-button square :text="conversation.pinned ? '取消置顶' : '置顶'" type="primary" style="height: 100%;" @click="pinnedHandler(conversation)" />
-      <van-button square text="标为未读" type="warning" style="height: 100%;" />
+      <van-button
+        square :text="conversation.pinned ? '取消置顶' : '置顶'"
+        type="primary" style="height: 100%;" @click="pinnedHandler(conversation)"
+      />
+      <van-button
+        square :text="messageStore.getChatUnreadMsgCountById(conversation.id) === 0 ? '标为未读' : '标为已读'"
+        type="warning" style="height: 100%;"
+        @click="markUnreadHandler(conversation)"
+      />
       <van-button square text="删除" type="danger" style="height: 100%;" />
     </template>
   </van-swipe-cell>

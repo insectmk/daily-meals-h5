@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import type {
+  ChatConversationMarkReadStatusReq,
   ChatConversationUpdatePinnedReq,
   ChatMessageInfo,
   ChatMessageSendReq,
@@ -59,4 +60,11 @@ export function getConversationList() {
  */
 export function updateConversationPinned(param: ChatConversationUpdatePinnedReq) {
   return request.put<boolean>('/meals/user-chat-conversation/update-conversation-pinned', param)
+}
+
+/**
+ * 标记会话未读/已读
+ */
+export function markUnread(param: ChatConversationMarkReadStatusReq) {
+  return request.put<boolean>('/meals/user-chat-conversation/mark-read-status', param)
 }
