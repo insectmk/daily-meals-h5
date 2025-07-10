@@ -77,8 +77,8 @@ function afterRead(uploadedFiles: UploaderFileListItem | UploaderFileListItem[])
   else {
     files.push(uploadedFiles)
   }
-  files.forEach((file: UploaderFileListItem) => {
-    uploadFile({
+  files.forEach(async (file: UploaderFileListItem) => {
+    await uploadFile({
       file: file.file,
     }).then((res) => {
       if (res.code === ResponseCode.SUCCESS.code) {
