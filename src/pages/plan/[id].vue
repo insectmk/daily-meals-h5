@@ -9,6 +9,8 @@ import type { RecipeInfo } from '@/api/recipe/type'
 import ResponseCode from '@/constants/response-code'
 import { showSuccessToast } from 'vant'
 import useRouteCacheStore from '@/stores/modules/routeCache'
+import { useLocalCacheStore } from '@/stores/local-cache'
+import LocalCacheKey from '@/stores/local-cache/local-cache-key'
 
 defineOptions({
   name: 'PlanInfo',
@@ -16,6 +18,7 @@ defineOptions({
 
 const route = useRoute()
 const dictStore = useDictStore()
+const localCacheStore = useLocalCacheStore() // 本地缓存
 // const { t } = useI18n() // 国际化
 
 const id = Number((route.params as { id: number }).id) // 路由参数：计划ID
@@ -24,12 +27,17 @@ const loading = ref<boolean>(true) // 加载中
 const tabActive = ref<string>('') // 当前所在tab
 const mealTypes = ref<DictInfo[]>([]) // 餐次类型
 
+watch(tabActive, (newVal, _oldVal) => {
+  // 监听tab改变，写入到localstorage中
+  localCacheStore.setCache(LocalCacheKey.MEALS_PLAN_DETAIL_TAB, newVal)
+})
+
 /**
  * 获取餐次类型
  */
 dictStore.getDictByType(DICT_TYPE.MEALS_STATIC_MEAL_TYPES).then((res) => {
   mealTypes.value = res
-  tabActive.value = mealTypes.value[0].value // 当前所在tab
+  tabActive.value = localCacheStore.getCache(LocalCacheKey.MEALS_PLAN_DETAIL_TAB) || mealTypes.value[0].value // 当前所在tab
 })
 
 /**
