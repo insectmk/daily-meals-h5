@@ -3,7 +3,7 @@ import { formatDate } from '@vueuse/core'
 import { useMessageStore } from '@/stores'
 import type { UserChatConversationInfo } from '@/api/user-chat/type'
 import { useRouter } from 'vue-router'
-import { conversationRead, markUnread, updateConversationPinned } from '@/api/user-chat'
+import { conversationRead, deleteConversation, markUnread, updateConversationPinned } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 
 defineOptions({
@@ -67,6 +67,19 @@ function markUnreadHandler(conversation: UserChatConversationInfo) {
     }
   })
 }
+/**
+ * 会话删除处理
+ * @param conversation 会话信息
+ */
+function deleteHandler(conversation: UserChatConversationInfo) {
+  // 标记会话未读
+  deleteConversation(conversation.id).then((res) => {
+    if (res.code === ResponseCode.SUCCESS.code) {
+      // 刷新当前页面
+      window.location.href = router.currentRoute.value.fullPath
+    }
+  })
+}
 </script>
 
 <template>
@@ -110,7 +123,10 @@ function markUnreadHandler(conversation: UserChatConversationInfo) {
         type="warning" style="height: 100%;"
         @click="markUnreadHandler(conversation)"
       />
-      <van-button square text="删除" type="danger" style="height: 100%;" />
+      <van-button
+        square text="删除" type="danger" style="height: 100%;"
+        @click="deleteHandler(conversation)"
+      />
     </template>
   </van-swipe-cell>
 </template>

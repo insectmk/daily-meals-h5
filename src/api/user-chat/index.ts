@@ -68,3 +68,13 @@ export function updateConversationPinned(param: ChatConversationUpdatePinnedReq)
 export function markUnread(param: ChatConversationMarkReadStatusReq) {
   return request.put<boolean>('/meals/user-chat-conversation/mark-read-status', param)
 }
+
+/**
+ * 删除会话
+ * @param id 会话ID
+ */
+export function deleteConversation(id: number) {
+  return request.del<boolean>('/meals/user-chat-conversation/delete', {
+    id,
+  })
+}
