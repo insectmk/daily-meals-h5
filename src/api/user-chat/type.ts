@@ -41,7 +41,7 @@ export interface UserChatConversationInfo {
   lastMessageTime: number // 最后聊天时间
   lastMessageContent: string // 最后聊天内容
   lastMessageContentType: number // 最后发送的消息类型
-  adminPinned: boolean // 管理端置顶
+  pinned: boolean // 置顶
   userDeleted: boolean // 用户是否可见
   unreadMessageCount: number // 未读消息数
   createTime: number // 创建时间
@@ -50,4 +50,9 @@ export interface UserChatConversationInfo {
 export interface ChatUnreadMessageCnt {
   conversationId: number // 会话编号
   unreadCount: number // 未读消息数
+}
+/** 用户聊天会话置顶 */
+export interface ChatConversationUpdatePinnedReq {
+  id: number // 会话编号
+  pinned: boolean // 是否置顶
 }

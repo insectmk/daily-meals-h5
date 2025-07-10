@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import type {
+  ChatConversationUpdatePinnedReq,
   ChatMessageInfo,
   ChatMessageSendReq,
   ChatUnreadMessageCnt,
@@ -51,4 +52,11 @@ export function conversationReadByReceiver(receiverUserId: number) {
  */
 export function getConversationList() {
   return request.get<UserChatConversationInfo[]>('/meals/user-chat-conversation/list')
+}
+
+/**
+ * 置顶/取消置顶会话
+ */
+export function updateConversationPinned(param: ChatConversationUpdatePinnedReq) {
+  return request.put<boolean>('/meals/user-chat-conversation/update-conversation-pinned', param)
 }
