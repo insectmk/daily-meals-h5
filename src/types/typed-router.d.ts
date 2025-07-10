@@ -30,6 +30,7 @@ declare module 'vue-router/auto-routes' {
     'Message': RouteRecordInfo<'Message', '/message', Record<never, never>, Record<never, never>>,
     'MessageComment': RouteRecordInfo<'MessageComment', '/message/comment', Record<never, never>, Record<never, never>>,
     '/message/conversation-list/': RouteRecordInfo<'/message/conversation-list/', '/message/conversation-list', Record<never, never>, Record<never, never>>,
+    '/message/converstation-card/': RouteRecordInfo<'/message/converstation-card/', '/message/converstation-card', Record<never, never>, Record<never, never>>,
     'MessageReply': RouteRecordInfo<'MessageReply', '/message/reply', Record<never, never>, Record<never, never>>,
     'mock': RouteRecordInfo<'mock', '/mock', Record<never, never>, Record<never, never>>,
     'Plan': RouteRecordInfo<'Plan', '/plan', Record<never, never>, Record<never, never>>,

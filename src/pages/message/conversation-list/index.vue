@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import { conversationRead, getConversationList } from '@/api/user-chat'
+import { getConversationList } from '@/api/user-chat'
 import ResponseCode from '@/constants/response-code'
 import type { UserChatConversationInfo } from '@/api/user-chat/type'
-import { useRouter } from 'vue-router'
-import { formatDate } from '@vueuse/core'
-import { useMessageStore } from '@/stores'
+import ConversationCard from '@/pages/message/converstation-card/index.vue'
 
 defineOptions({
   name: 'ConversationList',
 })
 
-const router = useRouter()
 const refreshing = ref<boolean>(false) // 列表刷新状态
 const conversationList = ref<UserChatConversationInfo[]>([]) // 对话列表
+// 置顶的会话
+const conversationPinnedList = computed(() => {
+  return conversationList.value.filter(conversation => conversation.pinned)
+})
+// 未置顶的会话
+const conversationUnPinnedList = computed(() => {
+  return conversationList.value.filter(conversation => !conversation.pinned)
+})
 
-const messageStore = useMessageStore()
-
-// 获取用户对话列表
+/** 获取用户对话列表 */
 function getUserConversationList() {
   refreshing.value = true // 加载
   getConversationList().then((res) => {
@@ -28,18 +31,21 @@ function getUserConversationList() {
 }
 
 /**
- * 会话点击处理
- * @param conversation
+ * 使用对象ID而不是索引来定位对象
+ * @param conversationId
+ * @param pinned
  */
-function conversationClickHandler(conversation: UserChatConversationInfo) {
-  // 跳转到对应会话
-  router.push(`/user-chat/${conversation.chatUserId}`)
-  // 已读会话内容
-  conversationRead(conversation.id)
-  // 刷新store未读信息
-  messageStore.setChatConversationReadById(conversation.id)
+function updateConversation(conversationId: number, pinned: boolean) {
+  const index = conversationList.value.findIndex(c => c.id === conversationId)
+  if (index !== -1) {
+    // 使用响应式对象的方法确保更新被检测到
+    conversationList.value = [
+      ...conversationList.value.slice(0, index),
+      { ...conversationList.value[index], pinned },
+      ...conversationList.value.slice(index + 1),
+    ]
+  }
 }
-
 onMounted(() => {
   getUserConversationList() // 获取用户对话列表
 })
@@ -48,42 +54,22 @@ onMounted(() => {
 <template>
   <van-pull-refresh v-model="refreshing" style="height: 80vh; overflow-y: auto;" @refresh="getUserConversationList">
     <van-list>
-      <van-swipe-cell v-for="conversation in conversationList" :key="conversation.id">
-        <van-row class="mt-[5px] p-[5px]" @click="conversationClickHandler(conversation)">
-          <van-col :span="4">
-            <van-badge
-              :content="messageStore.getChatUnreadMsgCountById(conversation.id)"
-              :show-zero="false"
-            >
-              <van-image
-                class="ml-[5px]"
-                width="3.5rem"
-                height="3.5rem"
-                fit="cover"
-                round
-                :src="conversation.chatUserAvatar"
-              />
-            </van-badge>
-          </van-col>
-          <van-col :span="20" class="pl-[15px]">
-            <!-- 顶部：名称 + 时间 -->
-            <div class="mb-[5px] flex items-center justify-between">
-              <span class="text-[18px] font-medium">{{ conversation.chatUserNickname }}</span>
-              <span class="text-[16px] text-gray-500">{{ formatDate(new Date(conversation.lastMessageTime), 'YYYY-MM-DD') }}</span>
-            </div>
-
-            <!-- 底部：最新消息 -->
-            <div class="truncate text-left text-[16px] text-gray-700">
-              {{ conversation.lastMessageContent }}
-            </div>
-          </van-col>
-        </van-row>
-        <template #right>
-          <van-button square text="置顶" type="primary" style="height: 100%;" />
-          <van-button square text="标为未读" type="warning" style="height: 100%;" />
-          <van-button square text="删除" type="danger" style="height: 100%;" />
-        </template>
-      </van-swipe-cell>
+      <!-- 置顶的会话 -->
+      <div class="bg-[#ebebeb]">
+        <ConversationCard
+          v-for="(conversation, index) in conversationPinnedList"
+          :key="conversation.id"
+          :conversation="conversationPinnedList[index]"
+          @update-pinned="(id, pinned) => updateConversation(id, pinned)"
+        />
+      </div>
+      <!-- 未置顶的会话 -->
+      <ConversationCard
+        v-for="(conversation, index) in conversationUnPinnedList"
+        :key="conversation.id"
+        :conversation="conversationUnPinnedList[index]"
+        @update-pinned="(id, pinned) => updateConversation(id, pinned)"
+      />
     </van-list>
   </van-pull-refresh>
 </template>
